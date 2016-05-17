@@ -2,15 +2,6 @@
 Aplicação móvel Android que demonstra a utilização da bilbioteca [API Strans THE](https://github.com/tOOlmaker-equalsp/apiStransTHE) para as operações básicas de: listar linhas e suas paradas, e listar paradas e suas linhas.
 Para a execução deste projeto é necessário obter um usuário, senha e chave da [API Inthegra](https://inthegra.strans.teresina.pi.gov.br).
 
-# Comentários
-- Ainda não há feedback para o carregamento do cache, ao iniciar a aplicação aguarde para a utilização da mesma;
-- Algumas modificações tiveram que ser realizados no projeto API Strans THE e ainda não foram enviadas para o projeto;
-
-# Próximso commits:
-- [X] Adicionar loader para impedir o uso da aplicação enquanto o cache é carregado;
-- [X] Criar um APK e disponibilizá-lo para download
-- [X] Adicionar imagens da aplicação
-
 # Screenshots
  ![Carregando Cache](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/01Loading.png)
  ![Tela Inicial](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/02Main.png)
