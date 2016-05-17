@@ -11,6 +11,15 @@ Para a execução deste projeto é necessário obter um usuário, senha e chave 
 - [X] Criar um APK e disponibilizá-lo para download
 - [X] Adicionar imagens da aplicação
 
-
+# Screenshots
+ ![Carregando Cache](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/01Loading.png)
+ ![Tela Inicial](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/02Main.png)
+ ![Listagem de Paradas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/03ListParadas.png)
+ ![Detalhe de Parada](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/04DetailParada.png)
+ ![Listagem de Linhas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/05ListLinhas.png)
+ ![Detalhe de Linha](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/06DetailLinha.png)
+ 
+# Download do APK
+![APK](ExemploInthegraAPI.apk)
 # Licensa de uso
 Essa biblioteca é distribuída sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
