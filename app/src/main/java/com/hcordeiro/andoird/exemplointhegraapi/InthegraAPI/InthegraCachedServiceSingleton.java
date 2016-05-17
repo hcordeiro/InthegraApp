@@ -18,8 +18,7 @@ public class InthegraCachedServiceSingleton {
 
     public static void initInstance(Context context) {
         if (cachedService == null) {
-//            InthegraService service = new InthegraService("key", "email", "senha");
-            InthegraService service = new InthegraService("ef5f05bdedd34cada40187761d5daaa7", "erickpassos@gmail.com", "circ51sp");
+            InthegraService service = new InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
             AndroidFileHandler fileHandler = new AndroidFileHandler();
             cachedService = new CachedInthegraService(service, fileHandler, 7, TimeUnit.DAYS);
 
