@@ -29,9 +29,10 @@ import java.util.Map;
 public class AndroidFileHandler implements CachedServiceFileHander {
 
     @Override
-    public boolean loadCacheFromFile(Map<Linha, List<Parada>> cacheLinhaParadas, Map<Parada, List<Linha>> cacheParadaLinhas) throws IOException {
+    public String loadCacheFile() throws IOException {
         File sdcard = Environment.getExternalStorageDirectory();
         File file = new File(sdcard,"cachedInthegraService.json");
+        String fileContent = "";
 
         if (file.exists()) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -43,105 +44,18 @@ public class AndroidFileHandler implements CachedServiceFileHander {
             }
             br.close();
 
-            String fileContent = stringBuilder.toString();
-
-            Gson gson = new GsonBuilder().create();
-            JsonObject cacheJson = gson.fromJson(fileContent, JsonObject.class);
-            long expire = cacheJson.get("expireAt").getAsLong();
-
-            if (System.currentTimeMillis() > expire) {
-                return false;
-            } else {
-                cacheLinhaParadas.clear();
-                cacheParadaLinhas.clear();
-
-                JsonArray linhasParadas = cacheJson.getAsJsonArray("linhasParadas");
-                for (int i = 0; i < linhasParadas.size(); ++i) {
-                    JsonObject jsonObject = linhasParadas.get(i).getAsJsonObject();
-                    Linha linha = gson.fromJson(jsonObject.get("linha").getAsString(), Linha.class);
-                    JsonArray paradasJsonArray = jsonObject.getAsJsonArray("paradas");
-
-                    List<Parada> paradasDaLinha = new ArrayList<>();
-                    for (int j = 0; j < paradasJsonArray.size(); j++) {
-                        JsonElement paradaObejct = paradasJsonArray.get(j);
-                        Parada parada = gson.fromJson(paradaObejct.getAsString(), Parada.class);
-                        paradasDaLinha.add(parada);
-                    }
-
-                    cacheLinhaParadas.put(linha, paradasDaLinha);
-                }
-
-                JsonArray paradasLinhas = cacheJson.getAsJsonArray("paradasLinhas");
-                for (int i = 0; i < paradasLinhas.size(); ++i) {
-                    JsonObject jsonObject = paradasLinhas.get(i).getAsJsonObject();
-
-                    Parada parada = gson.fromJson(jsonObject.get("parada").getAsString(), Parada.class);
-                    JsonArray linhasJsonArray = jsonObject.getAsJsonArray("linhas");
-
-                    List<Linha> linhasDaParada = new ArrayList<>();
-                    for (int j = 0; j < linhasJsonArray.size(); j++) {
-                        JsonElement paradaObejct = linhasJsonArray.get(j);
-                        Linha linha = gson.fromJson(paradaObejct.getAsString(), Linha.class);
-                        linhasDaParada.add(linha);
-                    }
-                    cacheParadaLinhas.put(parada, linhasDaParada);
-                }
-                return true;
-            }
-        } else {
-            return false;
+            fileContent = stringBuilder.toString();
         }
+        return fileContent;
     }
 
     @Override
-    public void saveCacheToFile(Long expireAt, Map<Linha, List<Parada>> cacheLinhaParadas, Map<Parada, List<Linha>> cacheParadaLinhas) throws IOException {
-        Gson gson = new GsonBuilder().create();
-        JsonObject cachedJsonObject = new JsonObject();
-
-        cachedJsonObject.addProperty("expireAt", gson.toJson(expireAt));
-
-        JsonArray linhasParadasJsonArray = new JsonArray();
-        for (Linha linha : cacheLinhaParadas.keySet()) {
-            JsonObject linhaParadaJsonObject = new JsonObject();
-            String linhaJson = gson.toJson(linha);
-
-            List<Parada> paradas = cacheLinhaParadas.get(linha);
-            JsonArray paradasJsonArray = new JsonArray();
-            for (Parada parada : paradas) {
-                String paradaJson = gson.toJson(parada);
-                paradasJsonArray.add(paradaJson);
-            }
-            linhaParadaJsonObject.addProperty("linha", linhaJson);
-            linhaParadaJsonObject.add("paradas", paradasJsonArray);
-
-            linhasParadasJsonArray.add(linhaParadaJsonObject);
-        }
-        cachedJsonObject.add("linhasParadas", linhasParadasJsonArray);
-
-        JsonArray paradasLinhasJsonArray = new JsonArray();
-        for (Parada parada : cacheParadaLinhas.keySet()) {
-            JsonObject paradaLinhasJsonObject = new JsonObject();
-            String paradaJson = gson.toJson(parada);
-
-            List<Linha> linhas = cacheParadaLinhas.get(parada);
-            JsonArray linhasJsonArray = new JsonArray();
-            for (Linha linha : linhas) {
-                String linhaJson = gson.toJson(linha);
-                linhasJsonArray.add(linhaJson);
-            }
-            paradaLinhasJsonObject.addProperty("parada", paradaJson);
-            paradaLinhasJsonObject.add("linhas", linhasJsonArray);
-
-            paradasLinhasJsonArray.add(paradaLinhasJsonObject);
-        }
-        cachedJsonObject.add("paradasLinhas", paradasLinhasJsonArray);
-
-        String cacheJson = gson.toJson(cachedJsonObject);
+    public void saveCacheFile(String content) throws IOException {
         File sdcard = Environment.getExternalStorageDirectory();
         File file = new File(sdcard,"cachedInthegraService.json");
 
         FileWriter writer = new FileWriter(file);
-        writer.write(cacheJson);
+        writer.write(content);
         writer.flush();
         writer.close();
     }
