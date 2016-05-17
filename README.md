@@ -20,6 +20,7 @@ Para a execução deste projeto é necessário obter um usuário, senha e chave 
  ![Detalhe de Linha](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/06DetailLinha.png)
  
 # Download do APK
-![APK](ExemploInthegraAPI.apk)
+[APK](https://drive.google.com/file/d/0Bz_yrXrPv1-MTGR6b1hId25ia2s/view?usp=sharing)
+
 # Licensa de uso
 Essa biblioteca é distribuída sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
