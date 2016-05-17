@@ -7,9 +7,10 @@ Para a execução deste projeto é necessário obter um usuário, senha e chave 
 - Algumas modificações tiveram que ser realizados no projeto API Strans THE e ainda não foram enviadas para o projeto;
 
 # Próximso commits:
-- [ ] Adicionar loader para impedir o uso da aplicação enquanto o cache é carregado;
-- [ ] Criar um APK e disponibilizá-lo para download
-- [ ] Adicionar screenshots
+- [X] Adicionar loader para impedir o uso da aplicação enquanto o cache é carregado;
+- [X] Criar um APK e disponibilizá-lo para download
+- [X] Adicionar imagens da aplicação
+
 
 # Licensa de uso
 Essa biblioteca é distribuída sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
