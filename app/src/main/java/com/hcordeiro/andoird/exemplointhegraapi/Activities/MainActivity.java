@@ -1,6 +1,7 @@
 package com.hcordeiro.andoird.exemplointhegraapi.Activities;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,8 @@ import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraCachedServic
 import com.hcordeiro.andoird.exemplointhegraapi.R;
 import com.hcordeiro.andoird.exemplointhegraapi.Util.Util;
 
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,9 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Util.verifyStoragePermissions(this);
-        InthegraCachedServiceSingleton.initInstance();
+        InthegraCachedServiceSingleton.initInstance(MainActivity.this);
     }
-
     public void displayMenuParadasActivity(View view) {
         Intent intent = new Intent(this, DisplayMenuParadasActivity.class);
         startActivity(intent);
