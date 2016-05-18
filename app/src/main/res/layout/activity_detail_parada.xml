@@ -57,22 +57,34 @@
         android:id="@+id/enderecoParadaTxt"
         android:layout_below="@+id/codigoParadaTxt"
         android:layout_toRightOf="@+id/enderecoParadaLbl"
-        android:layout_toEndOf="@+id/enderecoParadaLbl" />
+        android:layout_alignRight="@+id/codigoParadaTxt"
+        android:layout_alignEnd="@+id/codigoParadaTxt" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Lista de Linhas"
+        android:text="Linhas"
         android:id="@+id/linhasLbl"
         android:layout_below="@+id/enderecoParadaTxt"
         android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/linhasListView"
-        android:layout_below="@+id/linhasLbl"
+        android:choiceMode="singleChoice"
         android:layout_centerHorizontal="true"
-        android:choiceMode="singleChoice" />
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/linhasLbl" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver no Mapa"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="displayMapActivity"/>
+
 </RelativeLayout>

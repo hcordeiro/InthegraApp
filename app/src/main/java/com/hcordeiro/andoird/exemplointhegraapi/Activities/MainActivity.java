@@ -1,7 +1,6 @@
 package com.hcordeiro.andoird.exemplointhegraapi.Activities;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +8,6 @@ import android.view.View;
 import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraCachedServiceSingleton;
 import com.hcordeiro.andoird.exemplointhegraapi.R;
 import com.hcordeiro.andoird.exemplointhegraapi.Util.Util;
-
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayMenuLinhasActivity(View view) {
         Intent intent = new Intent(this, DisplayMenuLinhasActivity.class);
+        startActivity(intent);
+    }
+
+    public void displayMenuVeiculosActivity(View view) {
+        Intent intent = new Intent(this, DisplayMenuVeiculosActivity.class);
         startActivity(intent);
     }
 

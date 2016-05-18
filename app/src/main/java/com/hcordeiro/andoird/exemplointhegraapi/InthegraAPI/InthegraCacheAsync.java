@@ -16,11 +16,11 @@ import java.io.IOException;
 /**
  * Created by hugo on 17/05/16.
  */
-public class InthegraAsync extends AsyncTask<Void, Void, Void> implements DialogInterface.OnCancelListener {
+public class InthegraCacheAsync extends AsyncTask<Void, Void, Void> implements DialogInterface.OnCancelListener {
     private ProgressDialog dialog;
     private Context mContext;
 
-    public InthegraAsync (Context context){
+    public InthegraCacheAsync(Context context){
         mContext = context;
     }
 

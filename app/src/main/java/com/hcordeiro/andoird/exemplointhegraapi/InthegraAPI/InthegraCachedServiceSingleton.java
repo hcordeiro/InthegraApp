@@ -3,11 +3,15 @@ package com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI;
 import android.content.Context;
 
 import com.equalsp.stransthe.CachedInthegraService;
-import com.equalsp.stransthe.InthegraAPI;
 import com.equalsp.stransthe.InthegraService;
-import com.hcordeiro.andoird.exemplointhegraapi.Util.Util;
+import com.equalsp.stransthe.Linha;
+import com.equalsp.stransthe.Parada;
 
-import java.util.concurrent.ExecutionException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,13 +26,12 @@ public class InthegraCachedServiceSingleton {
             AndroidFileHandler fileHandler = new AndroidFileHandler();
             cachedService = new CachedInthegraService(service, fileHandler, 7, TimeUnit.DAYS);
 
-            new InthegraAsync(context).execute();
+            new InthegraCacheAsync(context).execute();
         }
     }
 
     public static CachedInthegraService getInstance() {
         return cachedService;
     }
-
 
 }

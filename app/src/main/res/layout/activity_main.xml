@@ -35,5 +35,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="displayMenuLinhasActivity"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu Veículos"
+        android:id="@+id/menuVeiculosBtn"
+        android:layout_below="@+id/menuLinhasBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="displayMenuVeiculosActivity" />
+
 
 </RelativeLayout>
