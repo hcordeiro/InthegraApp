@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,8 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
         }
         TextView qtdParadasTxt = (TextView) findViewById(R.id.qtdParadasTxt);
         qtdParadasTxt.setText(String.valueOf(paradas.size()));
+
+        veiculos = new ArrayList<>();
         updateVeiculos(false);
 
         UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, 30000);
@@ -82,13 +85,12 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
     Runnable UI_UPDTAE_RUNNABLE = new Runnable() {
         @Override
         public void run() {
-            updateVeiculos(true);//Method that will get employee location and draw it on map
+            updateVeiculos(true);
             UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, 30000);
         }
     };
 
     private void updateVeiculos(boolean atualizaMarcadores) {
-        veiculos = new ArrayList<>();
         asyncTask =  new InthegraVeiculosAsync(DetailVeiculosActivity.this);
         asyncTask.delegate = this;
         asyncTask.execute(linha);
@@ -102,14 +104,18 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
         Toast.makeText(DetailVeiculosActivity.this, "Atualizando marcadores...", Toast.LENGTH_SHORT).show();
         List<MarkerOptions> markers = new ArrayList<>();
         for (Parada p : paradas) {
-            MarkerOptions m = new MarkerOptions().position(new LatLng(p.getLat(), p.getLong())).title(p.getCodigoParada());
+            MarkerOptions m = new MarkerOptions()
+                    .position(new LatLng(p.getLat(), p.getLong()))
+                    .title(p.getCodigoParada());
             map.addMarker(m);
             markers.add(m);
         }
 
         for (Veiculo v : veiculos) {
-            MarkerOptions m = new MarkerOptions().position(new LatLng(v.getLat(), v.getLong())).title(v.getHora())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+            MarkerOptions m = new MarkerOptions()
+                    .position(new LatLng(v.getLat(), v.getLong()))
+                    .title(v.getHora())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
             map.addMarker(m);
             markers.add(m);
         }
@@ -118,9 +124,16 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
         for (MarkerOptions marker : markers) {
             builder.include(marker.getPosition());
         }
+
         LatLngBounds bounds = builder.build();
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 800, 800, 1);
         map.animateCamera(cameraUpdate);
+    }
+
+    @Override
+    public void onDestroy() {
+        UI_HANDLER.removeCallbacks(UI_UPDTAE_RUNNABLE);
+        super.onDestroy();
     }
 }
