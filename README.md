@@ -1,8 +1,8 @@
-# ExemploInthegraAPI
-Aplicação móvel Android que demonstra a utilização da bilbioteca [API Strans THE](https://github.com/tOOlmaker-equalsp/apiStransTHE) para as operações básicas de: 
+# Aplicação móvel de exemplo da API Inthegra
+Aplicação móvel Android que demonstra a utilização da bilbioteca [API Strans THE](https://github.com/tOOlmaker-equalsp/apiStransTHE) para recuperar dados sobre a frota de ônibus de transporte público da cidade de Teresina/PI. As funcionalidades da aplicação são:
 1. Listar linhas e suas paradas;
 2. Listar paradas, suas linhas e a localização da parada em um mapa;
-3. Listar os veículos de uma determinada linha, e sua localização em um mapa ao vivo (atualizações de 30s, baseadas na API da prefeitura de Teresina, disponível em: [API Inthegra](https://inthegra.strans.teresina.pi.gov.br)).
+3. Listar os veículos de uma determinada linha, e sua localização em um mapa ao vivo (atualizações de minuto em minuto, baseadas na API fornecida pela prefeitura de Teresina, disponível em: [API Inthegra](https://inthegra.strans.teresina.pi.gov.br)).
 
 # Observação
 O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache após 1 semana.
@@ -19,7 +19,7 @@ O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache a
  ![Detalhe de Veículos](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/09DetailVeiculo.png)
  
 # Download do APK
-[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MM1ZNUFBWX3hzNVU)
+[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MRTE5aW9KaGJRTTQ)
 
 # Licensa de uso
 Essa biblioteca é distribuída sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
