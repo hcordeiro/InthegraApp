@@ -44,5 +44,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="displayMenuVeiculosActivity" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gerar Rota"
+        android:id="@+id/menuRotaBtn"
+        android:layout_below="@+id/menuVeiculosBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="displayMenuRotasActivity" />
+
 
 </RelativeLayout>

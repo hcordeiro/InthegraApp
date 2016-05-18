@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
-import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Veiculo;
 

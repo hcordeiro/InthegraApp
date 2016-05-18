@@ -33,4 +33,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void displayMenuRotasActivity(View view) {
+        Intent intent = new Intent(this, DisplayMenuRotasActivity.class);
+        startActivity(intent);
+    }
+
 }

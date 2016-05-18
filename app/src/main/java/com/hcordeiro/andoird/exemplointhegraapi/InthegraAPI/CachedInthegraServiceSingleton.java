@@ -7,12 +7,17 @@ import com.equalsp.stransthe.InthegraService;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
 import com.equalsp.stransthe.Veiculo;
+import com.equalsp.stransthe.rotas.PontoDeInteresse;
+import com.equalsp.stransthe.rotas.Rota;
+import com.equalsp.stransthe.rotas.RotaService;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,15 +25,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class CachedInthegraServiceSingleton {
     private static CachedInthegraService cachedService;
-
+    private static RotaService rotaService;
     public static void initInstance(Context context) {
         if (cachedService == null) {
             InthegraService service = new InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
             AndroidFileHandler fileHandler = new AndroidFileHandler();
             cachedService = new CachedInthegraService(service, fileHandler, 7, TimeUnit.DAYS);
+            rotaService = new RotaService(cachedService);
 
             new InthegraCacheAsync(context).execute();
         }
+
     }
 
     public static CachedInthegraService getInstance() {
@@ -99,5 +106,20 @@ public class CachedInthegraServiceSingleton {
             });
         }
         return veiculos;
+    }
+
+    public static Set<Rota> getRotas(LatLng origem, LatLng destino, double distanciaMaxima) throws IOException {
+        assert origem != null;
+        double origemLat = origem.latitude;
+        double origemLng = origem.longitude;
+
+        assert destino != null;
+        double destinoLat = destino.latitude;
+        double destinoLng = destino.longitude;
+
+        PontoDeInteresse p1 = new PontoDeInteresse(origemLat, destinoLng);
+        PontoDeInteresse p2 = new PontoDeInteresse(destinoLat, destinoLng);
+
+        return rotaService.getRotas(p1, p2, distanciaMaxima);
     }
 }

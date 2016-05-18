@@ -2,14 +2,12 @@ package com.hcordeiro.andoird.exemplointhegraapi.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
 import com.equalsp.stransthe.Veiculo;
