@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.Linha;
-import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraCachedServiceSingleton;
+import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.CachedInthegraServiceSingleton;
 import com.hcordeiro.andoird.exemplointhegraapi.R;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class DisplayMenuVeiculosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_menu_veiculos);
 
-        CachedInthegraService service = InthegraCachedServiceSingleton.getInstance();
+        CachedInthegraService service = CachedInthegraServiceSingleton.getInstance();
         List<Linha> linhas = new ArrayList<Linha>();
         try {
             linhas = service.getLinhas();

@@ -13,25 +13,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Menu Linhas"
+        android:text="Selecione uma Linha"
         android:id="@+id/menuLinhasTxt"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Listar Linhas"
-        android:id="@+id/listarLinhasBtn"
-        android:layout_below="@+id/menuLinhasTxt"
-        android:layout_centerHorizontal="true"
-        android:onClick="listarLinhas"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/linhasListView"
-        android:layout_below="@+id/listarLinhasBtn"
         android:layout_centerHorizontal="true"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:layout_below="@+id/menuLinhasTxt" />
 </RelativeLayout>

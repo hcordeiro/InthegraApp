@@ -1,5 +1,7 @@
 package com.hcordeiro.andoird.exemplointhegraapi.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +14,7 @@ import android.widget.TextView;
 import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
-import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraCachedServiceSingleton;
+import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.CachedInthegraServiceSingleton;
 import com.hcordeiro.andoird.exemplointhegraapi.R;
 
 import java.io.IOException;
@@ -49,18 +51,29 @@ public class DetailLinhaActivity extends AppCompatActivity {
             isCircularTxt.setText("Não");
         }
 
-        CachedInthegraService service = InthegraCachedServiceSingleton.getInstance();
         List<Parada> paradas = new ArrayList<Parada>();
         try {
-            paradas = service.getParadas(linha);
+            paradas = CachedInthegraServiceSingleton.getParadas(linha);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DetailLinhaActivity.this);
+            alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas da Linha informada");
+            alertBuilder.setCancelable(false);
+            alertBuilder.setNeutralButton("Certo",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            Intent intent = new Intent(DetailLinhaActivity.this, DisplayMenuLinhasActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+            AlertDialog alert = alertBuilder.create();
+            alert.show();
         }
 
-        final ListView listView = (ListView) findViewById(R.id.paradasListView);
         ArrayAdapter<Parada> adapter = new ArrayAdapter<Parada>(this, android.R.layout.simple_list_item_1, paradas);
-        listView.setAdapter(adapter);
 
+        final ListView listView = (ListView) findViewById(R.id.paradasListView);
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

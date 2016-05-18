@@ -1,15 +1,11 @@
 package com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.equalsp.stransthe.CachedInthegraService;
-import com.hcordeiro.andoird.exemplointhegraapi.Activities.MainActivity;
 
 import java.io.IOException;
 
@@ -34,7 +30,7 @@ public class InthegraCacheAsync extends AsyncTask<Void, Void, Void> implements D
 
     @Override
     protected Void doInBackground(Void... params) {
-        CachedInthegraService cachedService = InthegraCachedServiceSingleton.getInstance();
+        CachedInthegraService cachedService = CachedInthegraServiceSingleton.getInstance();
 
         try {
             cachedService.initialize();

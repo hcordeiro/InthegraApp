@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Escolha um Menu"
+        android:text="O que você deseja?"
         android:id="@+id/mainTituloTxt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp" />
@@ -20,7 +20,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Menu Paradas"
+        android:text="Ver Paradas"
         android:id="@+id/menuParadasBtn"
         android:layout_above="@+id/menuLinhasBtn"
         android:layout_centerHorizontal="true"
@@ -29,7 +29,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Menu Linhas"
+        android:text="Ver Linhas"
         android:id="@+id/menuLinhasBtn"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -38,7 +38,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Menu Veículos"
+        android:text="Ver Veículos"
         android:id="@+id/menuVeiculosBtn"
         android:layout_below="@+id/menuLinhasBtn"
         android:layout_centerHorizontal="true"

@@ -4,14 +4,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Veiculo;
-import com.hcordeiro.andoird.exemplointhegraapi.Activities.DetailVeiculosActivity;
-import com.hcordeiro.andoird.exemplointhegraapi.Activities.DisplayMenuVeiculosActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
     protected void onPreExecute() {
         super.onPreExecute();
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
-        alertBuilder.setMessage("Não foi possível recuperar os veículos da linha informada.");
+        alertBuilder.setMessage("Não foi possível recuperar os veículos da Linha informada");
         alertBuilder.setCancelable(false);
         alertBuilder.setNeutralButton("Certo",
                 new DialogInterface.OnClickListener() {
@@ -53,11 +50,9 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
     @Override
     protected List<Veiculo> doInBackground(Linha... params) {
         Linha linha = params[0];
-        CachedInthegraService cachedService = InthegraCachedServiceSingleton.getInstance();
-
         List<Veiculo> veiculos = new ArrayList<>();
         try {
-            veiculos = cachedService.getVeiculos(linha);
+            veiculos = CachedInthegraServiceSingleton.getVeiculos(linha);
         } catch (IOException e) {
             wasUnsuccessful = true;
         } finally {
