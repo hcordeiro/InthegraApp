@@ -1,5 +1,5 @@
-# Aplicação móvel de exemplo da API Inthegra
-Aplicação móvel Android que demonstra a utilização da bilbioteca [API Strans THE](https://github.com/tOOlmaker-equalsp/apiStransTHE) para recuperar dados sobre a frota de ônibus de transporte público da cidade de Teresina/PI. As funcionalidades da aplicação são:
+# Inthegra App
+Aplicação móvel Android utilizando a  da bilbioteca [API Strans THE](https://github.com/tOOlmaker-equalsp/apiStransTHE) para recuperar dados sobre a frota de ônibus de transporte público da cidade de Teresina/PI. As funcionalidades da aplicação são:
 1. Listar linhas e suas paradas;
 2. Listar paradas, suas linhas e a localização da parada em um mapa;
 3. Listar os veículos de uma determinada linha, e sua localização em um mapa ao vivo (atualizações de minuto em minuto, baseadas na API fornecida pela prefeitura de Teresina, disponível em: [API Inthegra](https://inthegra.strans.teresina.pi.gov.br)).
