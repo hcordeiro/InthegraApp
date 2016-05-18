@@ -1,6 +1,8 @@
 # ExemploInthegraAPI
-Aplicação móvel Android que demonstra a utilização da bilbioteca [API Strans THE](https://github.com/tOOlmaker-equalsp/apiStransTHE) para as operações básicas de: listar linhas e suas paradas, e listar paradas e suas linhas.
-Para a execução deste projeto é necessário obter um usuário, senha e chave da [API Inthegra](https://inthegra.strans.teresina.pi.gov.br).
+Aplicação móvel Android que demonstra a utilização da bilbioteca [API Strans THE](https://github.com/tOOlmaker-equalsp/apiStransTHE) para as operações básicas de: 
+1. Listar linhas e suas paradas;
+2. Listar paradas, suas linhas e a localização da parada em um mapa;
+3. Listar os veículos de uma determinada linha, e sua localização em um mapa ao vivo (atualizações de 30s, baseadas na API da prefeitura de Teresina, disponível em: [API Inthegra](https://inthegra.strans.teresina.pi.gov.br)).
 
 # Observação
 O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache após 1 semana.
