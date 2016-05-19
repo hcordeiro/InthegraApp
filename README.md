@@ -25,7 +25,7 @@ O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache a
  ![Selecionar Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/13SelecionarRota1.png)
  ![Selecionar Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/14SelecionarRota2.png)
  ![Detalhe Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/15DetalheRota1.png)
- ![Detalhe Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/16DetalheRota1.png)
+ ![Detalhe Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/16DetalheRota2.png)
 # Download do APK
 [Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MRk9xcUUzT01tM0k)
 
