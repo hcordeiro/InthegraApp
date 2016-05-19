@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.CachedInthegraServiceSingleton;
+import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraVeiculosAsync;
 import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraVeiculosAsyncResponse;
 import com.hcordeiro.andoird.exemplointhegraapi.R;
@@ -53,7 +53,7 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
 
         paradas = new ArrayList<>();
         try {
-            paradas = CachedInthegraServiceSingleton.getParadas(linha);
+            paradas = InthegraServiceSingleton.getParadas(linha);
         } catch (IOException e) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DetailVeiculosActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas da Linha informada");

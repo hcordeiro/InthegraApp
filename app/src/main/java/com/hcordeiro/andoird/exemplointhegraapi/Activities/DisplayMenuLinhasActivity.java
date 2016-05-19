@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.equalsp.stransthe.Linha;
-import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.CachedInthegraServiceSingleton;
+import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.andoird.exemplointhegraapi.R;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class DisplayMenuLinhasActivity extends AppCompatActivity {
 
         List<Linha> linhas = new ArrayList<>();
         try {
-            linhas = CachedInthegraServiceSingleton.getLinhas();
+            linhas = InthegraServiceSingleton.getLinhas();
         } catch (IOException e) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayMenuLinhasActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Linhas");

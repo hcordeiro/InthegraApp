@@ -51,7 +51,7 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
         Linha linha = params[0];
         List<Veiculo> veiculos = new ArrayList<>();
         try {
-            veiculos = CachedInthegraServiceSingleton.getVeiculos(linha);
+            veiculos = InthegraServiceSingleton.getVeiculos(linha);
         } catch (IOException e) {
             wasUnsuccessful = true;
         } finally {

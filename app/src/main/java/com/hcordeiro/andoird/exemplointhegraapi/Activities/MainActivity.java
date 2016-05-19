@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.CachedInthegraServiceSingleton;
+import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.andoird.exemplointhegraapi.R;
 import com.hcordeiro.andoird.exemplointhegraapi.Util.Util;
 
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Util.verifyStoragePermissions(this);
-        CachedInthegraServiceSingleton.initInstance(MainActivity.this);
+        InthegraServiceSingleton.initInstance(MainActivity.this);
     }
     public void displayMenuParadasActivity(View view) {
         Intent intent = new Intent(this, DisplayMenuParadasActivity.class);

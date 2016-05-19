@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by hugo on 17/05/16.
  */
-public class CachedInthegraServiceSingleton {
+public class InthegraServiceSingleton {
     private static CachedInthegraService cachedService;
     private static RotaService rotaService;
     public static void initInstance(Context context) {

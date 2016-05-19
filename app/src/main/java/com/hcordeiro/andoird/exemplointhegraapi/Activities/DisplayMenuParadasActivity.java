@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.equalsp.stransthe.Parada;
-import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.CachedInthegraServiceSingleton;
+import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.andoird.exemplointhegraapi.R;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class DisplayMenuParadasActivity extends AppCompatActivity {
 
         List<Parada> paradas = new ArrayList<>();
         try {
-            paradas = CachedInthegraServiceSingleton.getParadas();
+            paradas = InthegraServiceSingleton.getParadas();
         } catch (IOException e) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayMenuParadasActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas");

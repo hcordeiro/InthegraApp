@@ -30,7 +30,7 @@ public class InthegraCacheAsync extends AsyncTask<Void, Void, Void> implements D
 
     @Override
     protected Void doInBackground(Void... params) {
-        CachedInthegraService cachedService = CachedInthegraServiceSingleton.getInstance();
+        CachedInthegraService cachedService = InthegraServiceSingleton.getInstance();
 
         try {
             cachedService.initialize();

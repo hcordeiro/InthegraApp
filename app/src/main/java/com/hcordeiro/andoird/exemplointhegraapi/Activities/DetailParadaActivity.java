@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
-import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.CachedInthegraServiceSingleton;
+import com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.andoird.exemplointhegraapi.R;
 
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class DetailParadaActivity extends AppCompatActivity {
 
         List<Linha> linhas = new ArrayList<Linha>();
         try {
-            linhas = CachedInthegraServiceSingleton.getLinhas(parada);
+            linhas = InthegraServiceSingleton.getLinhas(parada);
         } catch (IOException e) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DetailParadaActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Linhas da Parada informada");

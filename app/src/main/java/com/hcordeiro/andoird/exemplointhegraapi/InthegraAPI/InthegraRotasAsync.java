@@ -43,7 +43,7 @@ public class InthegraRotasAsync extends AsyncTask<Object, Void, Set<Rota>> imple
 
         Set<Rota> rotas = new TreeSet<>();
         try {
-            rotas = CachedInthegraServiceSingleton.getRotas(p1, p2, d);
+            rotas = InthegraServiceSingleton.getRotas(p1, p2, d);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
