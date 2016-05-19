@@ -3,7 +3,8 @@ Aplicação móvel Android utilizando a  da bilbioteca [API Strans THE](https://
 
 1. Listar linhas e suas paradas;
 2. Listar paradas, suas linhas e a localização da parada em um mapa;
-3. Listar os veículos de uma determinada linha, e sua localização em um mapa ao vivo (atualizações de minuto em minuto, baseadas na API fornecida pela prefeitura de Teresina, disponível em: [API Inthegra](https://inthegra.strans.teresina.pi.gov.br)).
+3. Listar os veículos de uma determinada linha, e sua localização em um mapa ao vivo (atualizações de minuto em minuto, baseadas na API fornecida pela prefeitura de Teresina, disponível em: [API Inthegra](https://inthegra.strans.teresina.pi.gov.br));
+4. Listar rotas possíveis dados uma origem e um destino (ainda em desenvolvimento...);
 
 # Observação
 O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache após 1 semana.
@@ -22,7 +23,7 @@ O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache a
  ![Gerar Rotas 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/11GerarRotas2.png)
  ![Selecionar Destino](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/12SelecionarDestion.png)
  ![Selecionar Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/13SelecionarRota1.png)
- ![Selecionar Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/13SelecionarRota2.png)
+ ![Selecionar Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/14SelecionarRota2.png)
  
 # Download do APK
 [Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MRk9xcUUzT01tM0k)
