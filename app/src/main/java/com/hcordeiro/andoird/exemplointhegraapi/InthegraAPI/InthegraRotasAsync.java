@@ -6,15 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
-import com.equalsp.stransthe.CachedInthegraService;
-import com.equalsp.stransthe.Linha;
-import com.equalsp.stransthe.Veiculo;
-import com.equalsp.stransthe.rotas.PontoDeInteresse;
 import com.equalsp.stransthe.rotas.Rota;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 

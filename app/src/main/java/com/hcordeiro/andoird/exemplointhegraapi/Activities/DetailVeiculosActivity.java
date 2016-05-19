@@ -2,9 +2,9 @@ package com.hcordeiro.andoird.exemplointhegraapi.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,13 +42,12 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_veiculos);
 
-        veiculos = new ArrayList<>();
-        updateVeiculos(false);
-
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         linha = (Linha) getIntent().getSerializableExtra("Linha");
+        veiculos = new ArrayList<>();
+
         TextView denominacaoLinhaTxt = (TextView) findViewById(R.id.denominacaoLinhaTxt);
         denominacaoLinhaTxt.setText(linha.getDenomicao());
 
@@ -72,14 +71,13 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
         qtdParadasTxt.setText(String.valueOf(paradas.size()));
 
 
-
         UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, 30000);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        atualizaMarcadores();
+        updateVeiculos(true);
     }
 
     @Override

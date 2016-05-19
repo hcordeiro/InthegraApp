@@ -1,9 +1,7 @@
 package com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI;
 
-import com.equalsp.stransthe.Veiculo;
 import com.equalsp.stransthe.rotas.Rota;
 
-import java.util.List;
 import java.util.Set;
 
 /**

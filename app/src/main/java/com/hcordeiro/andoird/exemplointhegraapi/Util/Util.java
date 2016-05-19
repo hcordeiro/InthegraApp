@@ -4,9 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -15,13 +13,13 @@ import com.google.android.gms.maps.model.LatLng;
 public class Util {
     public static final LatLng TERESINA = new LatLng(-5.070353, -42.803180);
     public static final int ZOOM = 15;
-    public static final double DISTANCIA_MAXIMA_A_PE = 500;
+    public static final double DISTANCIA_MAXIMA_A_PE = 250;
     /**
      * Checks if the app has permission to write to device storage
      *
      * If the app does not has permission then the user will be prompted to grant permissions
      *
-     * @param activity
+     * @param activity asdasd
      */
     public static void verifyStoragePermissions(Activity activity) {
         int REQUEST_EXTERNAL_STORAGE = 1;
@@ -40,20 +38,4 @@ public class Util {
 
     }
 
-    /**
-     * Checks if the app has permission to write to device storage
-     *
-     * If the app does not has permission then the user will be prompted to grant permissions
-     *
-     * @param activity
-     */
-    public static void verifyLocationPermissions(Activity activity) {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            int REQUEST_ACCESS_FINE_LOCATION = 1;
-            String[] PERMISSIONS_LOCATION = {
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            };
-            ActivityCompat.requestPermissions(activity, PERMISSIONS_LOCATION, REQUEST_ACCESS_FINE_LOCATION);
-        }
-    }
 }

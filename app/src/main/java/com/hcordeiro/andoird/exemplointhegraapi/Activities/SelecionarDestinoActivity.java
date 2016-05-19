@@ -3,10 +3,9 @@ package com.hcordeiro.andoird.exemplointhegraapi.Activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +23,6 @@ import com.hcordeiro.andoird.exemplointhegraapi.Util.Util;
 public class SelecionarDestinoActivity extends FragmentActivity implements OnMapReadyCallback {
     private final String TAG = "SelecionarDestino";
 
-
     private GoogleMap map;
     private LatLng destino;
     private Button confirmaBtn;
@@ -33,7 +31,7 @@ public class SelecionarDestinoActivity extends FragmentActivity implements OnMap
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selecionar_origem);
+        setContentView(R.layout.activity_selecionar_destino);
 
         Bundle bundle = getIntent().getParcelableExtra("Bundle");
         destino = bundle.getParcelable("Destino");

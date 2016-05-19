@@ -1,27 +1,14 @@
 package com.hcordeiro.andoird.exemplointhegraapi.InthegraAPI;
 
-import android.content.Context;
 import android.os.Environment;
 
 import com.equalsp.stransthe.CachedServiceFileHander;
-import com.equalsp.stransthe.Linha;
-import com.equalsp.stransthe.Parada;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by hugo on 17/05/16.

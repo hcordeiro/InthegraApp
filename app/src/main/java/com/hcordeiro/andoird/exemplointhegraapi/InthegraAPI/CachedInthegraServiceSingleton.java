@@ -117,7 +117,7 @@ public class CachedInthegraServiceSingleton {
         double destinoLat = destino.latitude;
         double destinoLng = destino.longitude;
 
-        PontoDeInteresse p1 = new PontoDeInteresse(origemLat, destinoLng);
+        PontoDeInteresse p1 = new PontoDeInteresse(origemLat, origemLng);
         PontoDeInteresse p2 = new PontoDeInteresse(destinoLat, destinoLng);
 
         return rotaService.getRotas(p1, p2, distanciaMaxima);

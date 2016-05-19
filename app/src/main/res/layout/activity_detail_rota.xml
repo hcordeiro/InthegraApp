@@ -9,4 +9,81 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hcordeiro.andoird.exemplointhegraapi.Activities.DetailRotaActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Detalhes da Rota"
+        android:id="@+id/detalhesRotaLbl"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Quantidade de Trechos: "
+        android:id="@+id/qtdTrechosLbl"
+        android:layout_below="@+id/detalhesRotaLbl"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="XX"
+        android:id="@+id/qtdTrechosTxt"
+        android:layout_below="@+id/detalhesRotaLbl"
+        android:layout_toRightOf="@+id/qtdTrechosLbl"
+        android:layout_toEndOf="@+id/qtdTrechosLbl" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Distância Total: "
+        android:id="@+id/distanciaTotalLbl"
+        android:layout_below="@+id/qtdTrechosLbl"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="XX"
+        android:id="@+id/distanciaTotalTxt"
+        android:layout_below="@+id/qtdTrechosTxt"
+        android:layout_toRightOf="@+id/distanciaTotalLbl"
+        android:layout_toEndOf="@+id/distanciaTotalLbl" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Tempo Estimado: "
+        android:id="@+id/tempoEstimadoLbl"
+        android:layout_below="@+id/distanciaTotalLbl"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="XX"
+        android:id="@+id/tempoEstimadoTxt"
+        android:layout_below="@+id/distanciaTotalTxt"
+        android:layout_toRightOf="@+id/tempoEstimadoLbl"
+        android:layout_toEndOf="@+id/tempoEstimadoLbl" />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tempoEstimadoTxt" />
+
+
 </RelativeLayout>
