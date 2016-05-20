@@ -21,13 +21,12 @@ O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache a
  ![Detalhe de Veículos](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/09DetailVeiculo.png)
  ![Gerar Rotas 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/10GerarRotas1.png)
  ![Gerar Rotas 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/11GerarRotas2.png)
- ![Selecionar Destino](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/12SelecionarDestion.png)
+ ![Selecionar Destino](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/12SelecionarDestino.png)
  ![Selecionar Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/13SelecionarRota1.png)
- ![Selecionar Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/14SelecionarRota2.png)
- ![Detalhe Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/15DetalheRota1.png)
- ![Detalhe Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/16DetalheRota2.png)
+ ![Detalhe Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/14DetalheRota1.png)
+ ![Detalhe Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/15DetalheRota2.png)
 # Download do APK
-[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MdjNJM1V2a3Y5aUk)
+[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MeGV3WWF3elhtS1E)
 
 # Licensa de uso
 Essa biblioteca é distribuída sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
