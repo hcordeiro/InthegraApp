@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/menu_rotas_btn"
-        android:id="@+id/menuRotaBtn"
+        android:id="@+id/menuRotasBtn"
         android:layout_below="@+id/menuVeiculosBtn"
         android:layout_centerHorizontal="true"
         android:onClick="displayMenuRotasActivity" />

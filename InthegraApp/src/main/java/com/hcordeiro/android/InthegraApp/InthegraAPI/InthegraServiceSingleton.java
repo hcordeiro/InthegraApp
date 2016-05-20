@@ -26,16 +26,15 @@ import java.util.concurrent.TimeUnit;
 public class InthegraServiceSingleton {
     private static CachedInthegraService cachedService;
     private static RotaService rotaService;
-    public static void initInstance(Context context) {
+    private static boolean wasInitialized;
+
+    public static void initInstance() {
         if (cachedService == null) {
             InthegraService service = new InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
             AndroidFileHandler fileHandler = new AndroidFileHandler();
             cachedService = new CachedInthegraService(service, fileHandler, 7, TimeUnit.DAYS);
             rotaService = new RotaService(cachedService);
-
-            new InthegraCacheAsync(context).execute();
         }
-
     }
 
     public static CachedInthegraService getInstance() {

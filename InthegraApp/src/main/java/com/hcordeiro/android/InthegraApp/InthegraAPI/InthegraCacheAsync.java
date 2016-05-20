@@ -14,10 +14,13 @@ import java.io.IOException;
 /**
  * Created by hugo on 17/05/16.
  */
-public class InthegraCacheAsync extends AsyncTask<Void, Void, Void> implements DialogInterface.OnCancelListener {
+public class InthegraCacheAsync extends AsyncTask<Void, Void, Boolean> implements DialogInterface.OnCancelListener {
+    private Context mContext;
+    public InthegraCacheAsyncResponse delegate = null;
+
     private ProgressDialog progressDialog;
     private AlertDialog alertDialog404;
-    private Context mContext;
+
     private boolean returned404;
 
     public InthegraCacheAsync(Context context){
@@ -34,12 +37,14 @@ public class InthegraCacheAsync extends AsyncTask<Void, Void, Void> implements D
     }
 
     @Override
-    protected Void doInBackground(Void... params) {
+    protected Boolean doInBackground(Void... params) {
         CachedInthegraService cachedService = InthegraServiceSingleton.getInstance();
+        boolean wasSuccesfful = true;
 
         try {
             cachedService.initialize();
         } catch (IOException e) {
+            wasSuccesfful = false;
             if (e.getMessage().equals(Util.ERRO_API_404)) {
                 returned404 = true;
             } else {
@@ -48,7 +53,8 @@ public class InthegraCacheAsync extends AsyncTask<Void, Void, Void> implements D
         } finally {
             progressDialog.dismiss();
         }
-        return null;
+
+        return wasSuccesfful;
     }
 
     @Override
@@ -57,10 +63,11 @@ public class InthegraCacheAsync extends AsyncTask<Void, Void, Void> implements D
     }
 
     @Override
-    protected void onPostExecute(Void param) {
+    protected void onPostExecute(Boolean wasSuccessful) {
         if (returned404) {
             alertDialog404.show();
         }
+        delegate.processFinish(wasSuccessful);
     }
 
     private void buildAlert404() {
