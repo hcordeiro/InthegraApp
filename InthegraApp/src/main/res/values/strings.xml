@@ -1,0 +1,47 @@
+<resources>
+    <!-- Main Activity -->
+    <string name="app_name">Inthegra App</string>
+    <string name="main_titulo">O que você deseja?</string>
+    <string name="menu_paradas_btn">Informação de Paradas</string>
+    <string name="menu_linhas_btn">Informação de Linhas</string>
+    <string name="menu_veiculos_btn">Cadê meu ôniubs?</string>
+    <string name="menu_rotas_btn">Que ônibus eu pego?</string>
+
+    <!-- Paradas -->
+    <string name="menu_paradas_titulo">Selecione uma parada</string>
+    <string name="detail_parada_codigoParadaLbl">Código:</string>
+    <string name="detail_parada_enderecoParadaLbl">Endereço:</string>
+    <string name="detail_parada_linhasLbl">Linhas</string>
+    <string name="detail_parada_verNoMapaBtn">Ver no mapa</string>
+
+    <!-- Linhas -->
+    <string name="menu_linhas_titulo">Selecione uma linha</string>
+    <string name="detail_linha_codigoLinhaLbl">Linha:</string>
+    <string name="detail_linha_origemLinhaLbl">Origem:</string>
+    <string name="detail_linha_retornoLinhaLbl">Retorno:</string>
+    <string name="detail_linha_isCircularLbl">Cirular:</string>
+    <string name="detail_linha_paradasLbl">Lista de Paradas:</string>
+
+    <!-- Rotas-->
+    <string name="menu_rotas_titulo">Que ônibus eu pego?</string>
+    <string name="menu_rotas_origem_lbl">Origem: </string>
+    <string name="menu_rotas_origem_btn">Selecionar Origem</string>
+    <string name="menu_rotas_destino_lbl">Destino: </string>
+    <string name="menu_rotas_destino_btn">Selecionar Destino</string>
+    <string name="menu_rotas_usarMeuLocal_lbl">Usar meu local como origem</string>
+    <string name="menu_rotas_gerarRota_btn">Mostra opções</string>
+    <string name="gerarRotas_escolharotaLbl">Escolha uma opção</string>
+
+    <!-- Veículos -->
+    <string name="menu_veiculos_titulo">Cadê meu ônibus?</string>
+    <string name="menu_veiculos_escolhaLinha">Escolha uma linha:</string>
+    <string name="detail_veiculo_qtdParadasLbl">Quantidade de paradas:</string>
+    <string name="detail_veiculo_qtdVeiculosLbl">Quantidade de veículos:</string>
+    <string name="detail_veiculo_linhaLbl">Linha:</string>
+
+
+    <!-- Geral -->
+    <string name="confirma_btn">Confirma</string>
+
+
+</resources>

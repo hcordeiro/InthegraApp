@@ -1,0 +1,12 @@
+package com.hcordeiro.android.InthegraApp.InthegraAPI;
+
+import com.equalsp.stransthe.rotas.Rota;
+
+import java.util.Set;
+
+/**
+ * Created by hugo on 18/05/16.
+ */
+public interface InthegraRotasAsyncResponse {
+    void processFinish(Set<Rota> rotas);
+}
