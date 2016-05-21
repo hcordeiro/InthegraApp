@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
 import android.Manifest;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
-public class SelecionarDestinoActivity extends FragmentActivity implements OnMapReadyCallback {
+public class RotasSelecionarDestinoActivity extends FragmentActivity implements OnMapReadyCallback {
     private final String TAG = "SelecionarDestino";
 
     private GoogleMap map;
@@ -32,7 +32,11 @@ public class SelecionarDestinoActivity extends FragmentActivity implements OnMap
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selecionar_destino);
+        preencherDados();
+    }
 
+    private void preencherDados() {
+        Log.i(TAG, "preencherDados Called");
         Bundle bundle = getIntent().getParcelableExtra("Bundle");
         destino = bundle.getParcelable("Destino");
 
@@ -40,7 +44,9 @@ public class SelecionarDestinoActivity extends FragmentActivity implements OnMap
         mapFragment.getMapAsync(this);
 
         confirmaBtn = (Button) findViewById(R.id.confirmaBtn);
-        confirmaBtn.setEnabled(false);
+        if (destino == null) {
+            confirmaBtn.setEnabled(false);
+        }
     }
 
     public void confirma(View view) {
@@ -65,7 +71,7 @@ public class SelecionarDestinoActivity extends FragmentActivity implements OnMap
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
             };
-            ActivityCompat.requestPermissions(SelecionarDestinoActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
+            ActivityCompat.requestPermissions(RotasSelecionarDestinoActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
         }
 
         map.setMyLocationEnabled(true);

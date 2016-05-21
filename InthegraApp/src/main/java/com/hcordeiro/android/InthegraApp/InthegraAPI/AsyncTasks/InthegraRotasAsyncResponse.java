@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.InthegraAPI;
+package com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks;
 
 import com.equalsp.stransthe.rotas.Rota;
 

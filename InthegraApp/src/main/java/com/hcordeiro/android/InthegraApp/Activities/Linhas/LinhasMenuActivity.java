@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Linhas;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.equalsp.stransthe.Linha;
+import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
 
@@ -19,29 +20,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisplayMenuLinhasActivity extends AppCompatActivity {
-
+public class LinhasMenuActivity extends AppCompatActivity {
+    String TAG = "DetailParada";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String TAG = "DetailParada";
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_menu_linhas);
 
+        carregarLinhas();
+    }
+
+    private void carregarLinhas() {
+        Log.i(TAG, "carregarLinhas Called");
         List<Linha> linhas = new ArrayList<>();
         try {
             Log.d(TAG, "Carregando linhas...");
             linhas = InthegraServiceSingleton.getLinhas();
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar linhas, motivo: " + e.getMessage());
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayMenuLinhasActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LinhasMenuActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Linhas");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(DisplayMenuLinhasActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LinhasMenuActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
                     });
@@ -58,7 +63,7 @@ public class DisplayMenuLinhasActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent myIntent = new Intent(DisplayMenuLinhasActivity.this, DetailLinhaActivity.class);
+                    Intent myIntent = new Intent(LinhasMenuActivity.this, LinhasDetailActivity.class);
                     Linha linha = (Linha) (listView.getItemAtPosition(position));
                     myIntent.putExtra("Linha", linha);
                     startActivity(myIntent);

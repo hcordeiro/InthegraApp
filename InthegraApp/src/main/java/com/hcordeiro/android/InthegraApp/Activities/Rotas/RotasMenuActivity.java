@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
 
 import android.Manifest;
@@ -22,9 +22,10 @@ import android.widget.Switch;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.model.LatLng;
+import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
 import com.hcordeiro.android.InthegraApp.R;
 
-public class DisplayMenuRotasActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class RotasMenuActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private final String TAG = "MenuRotas";
 
     private Button gerarRotaBtn;
@@ -38,6 +39,12 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
         super.onCreate(savedInstanceState);
         requestLocation();
         setContentView(R.layout.activity_display_menu_rotas);
+
+        preencherDados();
+    }
+
+    private void preencherDados() {
+        Log.i(TAG, "preencherDados Called");
         gerarRotaBtn = (Button) findViewById(R.id.gerarRotaBtn);
         assert gerarRotaBtn != null;
         gerarRotaBtn.setEnabled(false);
@@ -56,14 +63,14 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
                         selectionarOrigemBtn.setEnabled(false);
                         origem = new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude());
                     } else {
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayMenuRotasActivity.this);
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotasMenuActivity.this);
                         alertBuilder.setMessage("Não foi possível recuperar a localização do usuário.");
                         alertBuilder.setCancelable(false);
                         alertBuilder.setNeutralButton("Certo",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
-                                        Intent intent = new Intent(DisplayMenuRotasActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(RotasMenuActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
                                 });
@@ -85,7 +92,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
 
     public void selecionarOrigemActivity(View view) {
         Log.i(TAG, "selecionarOrigemActivity Called");
-        Intent intent = new Intent(new Intent(this, SelecionarOrigemActivity.class));
+        Intent intent = new Intent(new Intent(this, RotasSelecionarOrigemActivity.class));
         Bundle bundle = new Bundle();
         bundle.putParcelable("Origem", origem);
         intent.putExtra("Bundle", bundle);
@@ -94,7 +101,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
 
     public void selecionarDestinoActivity(View view) {
         Log.i(TAG, "selecionarDestinoActivity Called");
-        Intent intent = new Intent(new Intent(this, SelecionarDestinoActivity.class));
+        Intent intent = new Intent(new Intent(this, RotasSelecionarDestinoActivity.class));
         Bundle bundle = new Bundle();
         bundle.putParcelable("Destino", destino);
         intent.putExtra("Bundle", bundle);
@@ -103,7 +110,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
 
     public void gerarRotaActivity(View view) {
         Log.i(TAG, "gerarRotaActivity Called");
-        Intent intent = new Intent(this, GerarRotaActivity.class);
+        Intent intent = new Intent(this, RotaGerarActivity.class);
         Bundle bundle = new Bundle();
 
         bundle.putParcelable("Origem", origem);
@@ -149,7 +156,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
             };
-            ActivityCompat.requestPermissions(DisplayMenuRotasActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
+            ActivityCompat.requestPermissions(RotasMenuActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
         }
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
     }

@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Veiculos;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,16 +21,21 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraVeiculosAsync;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraVeiculosAsyncResponse;
 import com.hcordeiro.android.InthegraApp.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailVeiculosActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
+/**
+ * Activity de detalhe de veículos, exibe a localização dos veículos de uma linha.
+ *
+ * Created by hugo on 17/05/16.
+ */
+public class VeiculosDetailActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
     private final String TAG = "DetailVeiculos";
 
     private Linha linha;
@@ -48,6 +53,13 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        carregarDados();
+
+        UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, 30000);
+    }
+
+    private void carregarDados() {
+        Log.i(TAG, "carregarDados Called");
         linha = (Linha) getIntent().getSerializableExtra("Linha");
         veiculos = new ArrayList<>();
 
@@ -60,7 +72,7 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
             paradas = InthegraServiceSingleton.getParadas(linha);
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DetailVeiculosActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(VeiculosDetailActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas da Linha informada");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
@@ -74,9 +86,6 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
         }
         TextView qtdParadasTxt = (TextView) findViewById(R.id.qtdParadasTxt);
         qtdParadasTxt.setText(String.valueOf(paradas.size()));
-
-
-        UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, 30000);
     }
 
     @Override
@@ -104,7 +113,7 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
 
     private void updateVeiculos(boolean atualizaMarcadores) {
         Log.i(TAG, "UpdateVeiculos Called");
-        InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(DetailVeiculosActivity.this);
+        InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(VeiculosDetailActivity.this);
         asyncTask.delegate = this;
         asyncTask.execute(linha);
 
@@ -115,7 +124,7 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
 
     private void atualizaMarcadores() {
         Log.i(TAG, "AtualizarMarcadores Called");
-        Toast.makeText(DetailVeiculosActivity.this, "Atualizando marcadores...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(VeiculosDetailActivity.this, "Atualizando marcadores...", Toast.LENGTH_SHORT).show();
         List<MarkerOptions> markers = new ArrayList<>();
         for (Parada p : paradas) {
             MarkerOptions m = new MarkerOptions()

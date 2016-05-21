@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,31 +15,24 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraDirectionsAsync;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraDirectionsAsync;
 import com.hcordeiro.android.InthegraApp.R;
 
 import java.util.List;
 
-public class DetailRotaActivity extends FragmentActivity implements OnMapReadyCallback {
+public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCallback {
     private final String TAG = "DetailRota";
-
     private GoogleMap map;
-    private Rota rota;
-    LatLngBounds bounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_rota);
-
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        rota = (Rota) getIntent().getSerializableExtra("Rota");
-
     }
 
     @Override
@@ -47,7 +40,16 @@ public class DetailRotaActivity extends FragmentActivity implements OnMapReadyCa
         Log.i(TAG, "OnMapReady Called");
         map = googleMap;
 
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        LatLngBounds bounds = adicionarMarcadores();
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 800, 800, 1);
+        map.animateCamera(cameraUpdate);
+    }
+
+    private LatLngBounds adicionarMarcadores() {
+        Log.i(TAG, "adicionarMarcadores Called");
+        Rota rota = (Rota) getIntent().getSerializableExtra("Rota");
+        Builder builder = new Builder();
         List<Trecho> trechos = rota.getTrechos();
         int trechosAPe = 0;
 
@@ -79,14 +81,12 @@ public class DetailRotaActivity extends FragmentActivity implements OnMapReadyCa
                 .title("Destino Final");
         map.addMarker(destinoFinal);
 
-        bounds = builder.build();
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 800, 800, 1);
-        map.animateCamera(cameraUpdate);
+        return builder.build();
     }
 
     private void getDirections(Trecho trecho) {
         Log.i(TAG, "GetDirections Called");
-        InthegraDirectionsAsync asyncTask =  new InthegraDirectionsAsync(DetailRotaActivity.this, map);
+        InthegraDirectionsAsync asyncTask =  new InthegraDirectionsAsync(RotaDetailActivity.this, map);
         asyncTask.execute(trecho);
     }
 }

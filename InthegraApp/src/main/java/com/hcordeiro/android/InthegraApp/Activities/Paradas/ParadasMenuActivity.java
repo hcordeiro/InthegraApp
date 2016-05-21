@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Paradas;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.equalsp.stransthe.Parada;
+import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
 
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisplayMenuParadasActivity extends AppCompatActivity {
+public class ParadasMenuActivity extends AppCompatActivity {
     private final String TAG = "DetailParada";
 
     @Override
@@ -28,20 +29,25 @@ public class DisplayMenuParadasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_menu_paradas);
 
+        preencherDados();
+    }
+
+    private void preencherDados() {
+        Log.i(TAG, "preencherDados Called");
         List<Parada> paradas = new ArrayList<>();
         try {
             Log.d(TAG, "Carregando paradas...");
             paradas = InthegraServiceSingleton.getParadas();
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayMenuParadasActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ParadasMenuActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(DisplayMenuParadasActivity.this, MainActivity.class);
+                            Intent intent = new Intent(ParadasMenuActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
                     });
@@ -56,7 +62,7 @@ public class DisplayMenuParadasActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent myIntent = new Intent(DisplayMenuParadasActivity.this, DetailParadaActivity.class);
+                    Intent myIntent = new Intent(ParadasMenuActivity.this, ParadasDetailActivity.class);
                     Parada parada = (Parada) (listView.getItemAtPosition(position));
                     myIntent.putExtra("Parada", parada);
                     startActivity(myIntent);

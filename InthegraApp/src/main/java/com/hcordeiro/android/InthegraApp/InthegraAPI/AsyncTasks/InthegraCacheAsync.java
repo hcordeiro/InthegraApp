@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.InthegraAPI;
+package com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.equalsp.stransthe.CachedInthegraService;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.io.IOException;

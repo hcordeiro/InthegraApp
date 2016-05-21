@@ -21,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DisplayMenuParadasActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DisplayMenuLinhasActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DetailParadaActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DetailLinhaActivity" />
+        <activity android:name=".Activities.Paradas.ParadasMenuActivity" />
+        <activity android:name=".Activities.Linhas.LinhasMenuActivity" />
+        <activity android:name=".Activities.Paradas.ParadasDetailActivity" />
+        <activity android:name=".Activities.Linhas.LinhasDetailActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -33,14 +33,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC59hde9AxYwSzd_0ccclrAZociQr4PcJk" />
 
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DisplayMapaParadaActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DisplayMenuVeiculosActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DetailVeiculosActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DisplayMenuRotasActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.SelecionarOrigemActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.SelecionarDestinoActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.GerarRotaActivity" />
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.DetailRotaActivity"/>
+        <activity android:name=".Activities.Paradas.ParadasMapaActivity" />
+        <activity android:name=".Activities.Veiculos.VeiculosDetailActivity" />
+        <activity android:name=".Activities.Veiculos.VeiculosMenuActivity" />
+        <activity android:name=".Activities.Rotas.RotasMenuActivity" />
+        <activity android:name=".Activities.Rotas.RotasSelecionarOrigemActivity" />
+        <activity android:name=".Activities.Rotas.RotasSelecionarDestinoActivity" />
+        <activity android:name=".Activities.Rotas.RotaGerarActivity" />
+        <activity android:name=".Activities.Rotas.RotaDetailActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
 import android.Manifest;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
-public class SelecionarOrigemActivity extends FragmentActivity implements OnMapReadyCallback {
+public class RotasSelecionarOrigemActivity extends FragmentActivity implements OnMapReadyCallback {
     private final String TAG = "SelecionarOrigem";
 
     private GoogleMap map;
@@ -32,6 +32,12 @@ public class SelecionarOrigemActivity extends FragmentActivity implements OnMapR
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selecionar_origem);
+
+        preencherDados();
+    }
+
+    private void preencherDados() {
+        Log.i(TAG, "preencherDados Called");
         Bundle bundle = getIntent().getParcelableExtra("Bundle");
         origem = bundle.getParcelable("Origem");
 
@@ -39,7 +45,9 @@ public class SelecionarOrigemActivity extends FragmentActivity implements OnMapR
         mapFragment.getMapAsync(this);
 
         confirmaBtn = (Button) findViewById(R.id.confirmaBtn);
-        confirmaBtn.setEnabled(false);
+        if (origem == null) {
+            confirmaBtn.setEnabled(false);
+        }
     }
 
     public void confirma(View view) {
@@ -64,7 +72,7 @@ public class SelecionarOrigemActivity extends FragmentActivity implements OnMapR
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
             };
-            ActivityCompat.requestPermissions(SelecionarOrigemActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
+            ActivityCompat.requestPermissions(RotasSelecionarOrigemActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
         }
 
         map.setMyLocationEnabled(true);

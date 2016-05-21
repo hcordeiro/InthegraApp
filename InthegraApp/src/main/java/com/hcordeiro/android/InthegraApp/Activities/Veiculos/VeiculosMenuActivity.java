@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Veiculos;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,7 +20,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisplayMenuVeiculosActivity extends AppCompatActivity {
+/**
+ * Activity de menu de veículos.
+ *
+ * Created by hugo on 17/05/16.
+ */
+public class VeiculosMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,7 @@ public class DisplayMenuVeiculosActivity extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent myIntent = new Intent(DisplayMenuVeiculosActivity.this, DetailVeiculosActivity.class);
+                        Intent myIntent = new Intent(VeiculosMenuActivity.this, VeiculosDetailActivity.class);
                         Linha linha = (Linha) (listView.getItemAtPosition(position));
                         myIntent.putExtra("Linha", linha);
                         startActivity(myIntent);

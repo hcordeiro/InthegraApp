@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.InthegraAPI;
+package com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.equalsp.stransthe.rotas.Rota;
 import com.google.android.gms.maps.model.LatLng;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 
 import java.io.IOException;
 import java.util.Set;

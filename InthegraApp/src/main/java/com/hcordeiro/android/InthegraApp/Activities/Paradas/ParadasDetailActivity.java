@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Paradas;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
+import com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasDetailActivity;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
 
@@ -27,17 +28,20 @@ import java.util.List;
  *
  * Created by hugo on 17/05/16.
  */
-public class DetailParadaActivity extends AppCompatActivity {
+public class ParadasDetailActivity extends AppCompatActivity {
     private final String TAG = "DetailParada";
-    private Parada parada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_parada);
-        parada = (Parada) getIntent().getSerializableExtra("Parada");
+        preencherDados();
+    }
+
+    private void preencherDados() {
+        Log.i(TAG, "preencherDados Called");
+        Parada parada = (Parada) getIntent().getSerializableExtra("Parada");
 
         TextView denominacaoParadaTxt = (TextView) findViewById(R.id.denominacaoParadaTxt);
         if (denominacaoParadaTxt != null) {
@@ -54,21 +58,25 @@ public class DetailParadaActivity extends AppCompatActivity {
             enderecoParadaTxt.setText(parada.getEndereco());
         }
 
+        carregarLinhas(parada);
+    }
 
+    private void carregarLinhas(Parada parada) {
+        Log.i(TAG, "carregarLinhas Called");
         List<Linha> linhas = new ArrayList<>();
         try {
             Log.d(TAG, "Carregando linhas...");
             linhas = InthegraServiceSingleton.getLinhas(parada);
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar linhas, motivo: " + e.getMessage());
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DetailParadaActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ParadasDetailActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Linhas da Parada informada");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(DetailParadaActivity.this, DisplayMenuParadasActivity.class);
+                            Intent intent = new Intent(ParadasDetailActivity.this, ParadasMenuActivity.class);
                             startActivity(intent);
                         }
                     });
@@ -85,7 +93,7 @@ public class DetailParadaActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent myIntent = new Intent(DetailParadaActivity.this, DetailLinhaActivity.class);
+                    Intent myIntent = new Intent(ParadasDetailActivity.this, LinhasDetailActivity.class);
                     Linha linha = (Linha) (listView.getItemAtPosition(position));
                     myIntent.putExtra("Linha", linha);
                     startActivity(myIntent);
@@ -94,9 +102,10 @@ public class DetailParadaActivity extends AppCompatActivity {
         }
     }
 
-    public void displayMapActivity(View view) {
-        Log.i(TAG, "DisplayMapActivity Called");
-        Intent intent = new Intent(this, DisplayMapaParadaActivity.class);
+    public void displayParadasMapaActivity(View view) {
+        Log.i(TAG, "displayParadasMapaActivity Called");
+        Parada parada = (Parada) getIntent().getSerializableExtra("Parada");
+        Intent intent = new Intent(this, ParadasMapaActivity.class);
         intent.putExtra("Parada", parada);
         startActivity(intent);
     }

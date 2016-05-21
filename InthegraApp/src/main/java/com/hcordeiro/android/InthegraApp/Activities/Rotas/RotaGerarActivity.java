@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Activities;
+package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,8 +13,9 @@ import android.widget.ListView;
 
 import com.equalsp.stransthe.rotas.Rota;
 import com.google.android.gms.maps.model.LatLng;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraRotasAsync;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraRotasAsyncResponse;
+import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraRotasAsync;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraRotasAsyncResponse;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class GerarRotaActivity extends AppCompatActivity implements InthegraRotasAsyncResponse {
+public class RotaGerarActivity extends AppCompatActivity implements InthegraRotasAsyncResponse {
     private final String TAG = "GerarRota";
     private Set<Rota> rotas;
 
@@ -43,7 +44,7 @@ public class GerarRotaActivity extends AppCompatActivity implements InthegraRota
 
     private void carregarRotas(LatLng origem, LatLng destino, Double distanciaMaxima) {
         Log.i(TAG, "carregarRotas Called");
-        InthegraRotasAsync asyncTask =  new InthegraRotasAsync(GerarRotaActivity.this);
+        InthegraRotasAsync asyncTask =  new InthegraRotasAsync(RotaGerarActivity.this);
         asyncTask.delegate = this;
         asyncTask.execute(origem, destino, distanciaMaxima);
     }
@@ -57,14 +58,14 @@ public class GerarRotaActivity extends AppCompatActivity implements InthegraRota
         listaRotas.addAll(rotas);
 
         if (listaRotas.isEmpty()) {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(GerarRotaActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotaGerarActivity.this);
             alertBuilder.setMessage("Não foram encontradas rotas para a origem e o destino selecionados...");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(GerarRotaActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RotaGerarActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
                     });
@@ -79,7 +80,7 @@ public class GerarRotaActivity extends AppCompatActivity implements InthegraRota
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent myIntent = new Intent(GerarRotaActivity.this, DetailRotaActivity.class);
+                    Intent myIntent = new Intent(RotaGerarActivity.this, RotaDetailActivity.class);
                     Rota rota = (Rota) (listView.getItemAtPosition(position));
                     myIntent.putExtra("Rota", rota);
                     startActivity(myIntent);
