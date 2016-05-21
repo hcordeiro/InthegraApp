@@ -2,6 +2,8 @@ package com.hcordeiro.android.InthegraApp.Activities;
 
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -50,9 +52,26 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    selectionarOrigemBtn.setEnabled(false);
-                    origem = new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude());
+                    if (localUsuario != null) {
+                        selectionarOrigemBtn.setEnabled(false);
+                        origem = new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude());
+                    } else {
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayMenuRotasActivity.this);
+                        alertBuilder.setMessage("Não foi possível recuperar a localização do usuário.");
+                        alertBuilder.setCancelable(false);
+                        alertBuilder.setNeutralButton("Certo",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                        Intent intent = new Intent(DisplayMenuRotasActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                        AlertDialog alert = alertBuilder.create();
+                        alert.show();
+                    }
                 } else {
+                    origem = null;
                     selectionarOrigemBtn.setEnabled(true);
                 }
             }
@@ -97,13 +116,21 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.i(TAG, "onActivityResult Called");
         if (requestCode == 1) {
-            Bundle bundle = data.getParcelableExtra("Bundle");
-            origem = bundle.getParcelable("Origem");
+            if (data != null) {
+                Bundle bundle = data.getParcelableExtra("Bundle");
+                if (bundle != null) {
+                    origem = bundle.getParcelable("Origem");
+                }
+            }
         }
 
         if (requestCode == 2) {
-            Bundle bundle = data.getParcelableExtra("Bundle");
-            destino = bundle.getParcelable("Destino");
+            if (data != null) {
+                Bundle bundle = data.getParcelableExtra("Bundle");
+                if (bundle != null) {
+                    destino = bundle.getParcelable("Destino");
+                }
+            }
         }
 
         if (origem != null && destino != null) {

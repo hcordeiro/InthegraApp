@@ -73,7 +73,7 @@ public class DetailLinhaActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DetailLinhaActivity.this);
-            alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas da Linha informada");
+            alertBuilder.setMessage("Não foi possível recuperar a lista de Paradas da Linha informada");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
                     new DialogInterface.OnClickListener() {

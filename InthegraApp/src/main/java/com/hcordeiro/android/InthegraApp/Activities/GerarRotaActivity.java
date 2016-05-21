@@ -1,5 +1,7 @@
 package com.hcordeiro.android.InthegraApp.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +55,22 @@ public class GerarRotaActivity extends AppCompatActivity implements InthegraRota
         rotas = result;
         List<Rota> listaRotas = new ArrayList<>();
         listaRotas.addAll(rotas);
+
+        if (listaRotas.isEmpty()) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(GerarRotaActivity.this);
+            alertBuilder.setMessage("Não foram encontradas rotas para a origem e o destino selecionados...");
+            alertBuilder.setCancelable(false);
+            alertBuilder.setNeutralButton("Certo",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            Intent intent = new Intent(GerarRotaActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+            AlertDialog alert = alertBuilder.create();
+            alert.show();
+        }
 
         ArrayAdapter<Rota> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaRotas);
         final ListView listView = (ListView) findViewById(R.id.rotasListView);

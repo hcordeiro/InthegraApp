@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * Created by hugo on 17/05/16.
  */
 public class InthegraServiceSingleton {
-    private final String TAG = "ServiceSingleton";
+    private final static String TAG = "ServiceSingleton";
     private static CachedInthegraService cachedService;
     private static RotaService rotaService;
 
