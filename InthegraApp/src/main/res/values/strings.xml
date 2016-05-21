@@ -41,7 +41,9 @@
 
 
     <!-- Geral -->
-    <string name="confirma_btn">Confirma</string>
+    <string name="confirma">Confirma</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
 
 
 </resources>

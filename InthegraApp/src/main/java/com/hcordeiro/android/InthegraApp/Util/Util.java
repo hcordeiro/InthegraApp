@@ -8,6 +8,8 @@ import android.support.v4.app.ActivityCompat;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
+ * Contantes e Utilitarios
+ *
  * Created by hugo on 17/05/16.
  */
 public class Util {

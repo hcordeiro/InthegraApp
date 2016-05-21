@@ -18,7 +18,6 @@ import com.equalsp.stransthe.Localizacao;
 import com.equalsp.stransthe.rotas.Trecho;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 
@@ -29,10 +28,12 @@ import org.json.JSONObject;
 import java.util.List;
 
 /**
+ * AsyncTask responsável por recuperar as direções de um trecho da API Directions do google;
+ *
  * Created by hugo on 19/05/16.
  */
 public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> implements DialogInterface.OnCancelListener {
-    public final static String MODE_DRIVING = "driving";
+    private final String TAG = "DirectionsAsync";
     public final static String MODE_WALKING = "walking";
 
     private ProgressDialog dialog;
@@ -41,12 +42,14 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
     final private GoogleMap map;
 
     public InthegraDirectionsAsync(Context context, GoogleMap gMap){
+        Log.i(TAG, "Constructor Called");
         mContext = context;
         map = gMap;
     }
 
     @Override
     protected void onPreExecute() {
+        Log.i(TAG, "onPreExecute Called");
         super.onPreExecute();
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
         alertBuilder.setMessage("Não foi possível criar Rota");
@@ -65,6 +68,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
 
     @Override
     protected Void doInBackground(Trecho... params) {
+        Log.i(TAG, "doInBackground Called");
         Trecho trecho = params[0];
         getDirections(trecho.getOrigem(), trecho.getDestino(), MODE_WALKING);
         dialog.dismiss();
@@ -72,6 +76,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
     }
 
     public void getDirections(Localizacao origem, Localizacao destino, String mode) {
+        Log.i(TAG, "getDirections Called");
         double origemLat = origem.getLat();
         double origemLng = origem.getLong();
         double destinoLat = destino.getLat();
@@ -88,7 +93,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("ReponseOK", "Response OK");
+                        Log.d(TAG, "Response OK");
                         try {
                             final JSONObject json = new JSONObject(response);
                             JSONArray routeArray = json.getJSONArray("routes");
@@ -97,7 +102,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
                             String encodedString = overviewPolylines.getString("points");
                             List<LatLng> directions = PolyUtil.decode(encodedString);
 
-                            Polyline line = map.addPolyline(new PolylineOptions()
+                            map.addPolyline(new PolylineOptions()
                                     .addAll(directions)
                                     .width(12)
                                     .color(Color.parseColor("#05b1fb"))
@@ -105,6 +110,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
                             );
 
                         } catch (JSONException e) {
+                            Log.e(TAG, "Não foi possível processar o JSON, motivo: " + e.getMessage());
                             alert.show();
                         }
                     }
@@ -112,6 +118,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "Response NOK");
                         alert.show();
                     }
         });
@@ -119,6 +126,9 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
     }
 
     @Override
-    public void onCancel(DialogInterface dialog) {cancel(true);}
+    public void onCancel(DialogInterface dialog) {
+        Log.i(TAG, "onCancel Called");
+        cancel(true);
+    }
 
 }

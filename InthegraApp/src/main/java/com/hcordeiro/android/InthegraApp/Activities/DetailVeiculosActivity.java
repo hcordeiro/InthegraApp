@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailVeiculosActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
+    private final String TAG = "DetailVeiculos";
 
     private Linha linha;
     private List<Parada> paradas;
@@ -39,6 +41,7 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_veiculos);
 
@@ -53,8 +56,10 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
 
         paradas = new ArrayList<>();
         try {
+            Log.d(TAG, "Carregando paradas...");
             paradas = InthegraServiceSingleton.getParadas(linha);
         } catch (IOException e) {
+            Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DetailVeiculosActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas da Linha informada");
             alertBuilder.setCancelable(false);
@@ -76,12 +81,14 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.i(TAG, "OnMapReady Called");
         map = googleMap;
         updateVeiculos(true);
     }
 
     @Override
     public void processFinish(List<Veiculo> result) {
+        Log.i(TAG, "ProcessFinish Called");
         veiculos = result;
         TextView qtdVeiculosTxt = (TextView) findViewById(R.id.qtdVeiculosTxt);
         qtdVeiculosTxt.setText(String.valueOf(veiculos.size()));
@@ -96,6 +103,7 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
     };
 
     private void updateVeiculos(boolean atualizaMarcadores) {
+        Log.i(TAG, "UpdateVeiculos Called");
         InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(DetailVeiculosActivity.this);
         asyncTask.delegate = this;
         asyncTask.execute(linha);
@@ -106,6 +114,7 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
     }
 
     private void atualizaMarcadores() {
+        Log.i(TAG, "AtualizarMarcadores Called");
         Toast.makeText(DetailVeiculosActivity.this, "Atualizando marcadores...", Toast.LENGTH_SHORT).show();
         List<MarkerOptions> markers = new ArrayList<>();
         for (Parada p : paradas) {
@@ -138,6 +147,7 @@ public class DetailVeiculosActivity extends FragmentActivity implements OnMapRea
 
     @Override
     public void onDestroy() {
+        Log.i(TAG, "OnDestroy Called");
         UI_HANDLER.removeCallbacks(UI_UPDTAE_RUNNABLE);
         super.onDestroy();
     }

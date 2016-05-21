@@ -43,6 +43,7 @@ public class SelecionarOrigemActivity extends FragmentActivity implements OnMapR
     }
 
     public void confirma(View view) {
+        Log.i(TAG, "confirma Called");
         if (origem != null) {
             Intent intent = new Intent();
             Bundle bundle = new Bundle();

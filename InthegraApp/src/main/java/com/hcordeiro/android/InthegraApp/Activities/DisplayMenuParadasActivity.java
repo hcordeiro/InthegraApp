@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,16 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayMenuParadasActivity extends AppCompatActivity {
+    private final String TAG = "DetailParada";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_menu_paradas);
 
         List<Parada> paradas = new ArrayList<>();
         try {
+            Log.d(TAG, "Carregando paradas...");
             paradas = InthegraServiceSingleton.getParadas();
         } catch (IOException e) {
+            Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(DisplayMenuParadasActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas");
             alertBuilder.setCancelable(false);
@@ -43,19 +48,20 @@ public class DisplayMenuParadasActivity extends AppCompatActivity {
             AlertDialog alert = alertBuilder.create();
             alert.show();
         }
-        ArrayAdapter<Parada> adapter = new ArrayAdapter<Parada>(this, android.R.layout.simple_list_item_1, paradas);
-
+        ArrayAdapter<Parada> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, paradas);
 
         final ListView listView = (ListView) findViewById(R.id.paradasListView);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(DisplayMenuParadasActivity.this, DetailParadaActivity.class);
-                Parada parada = (Parada) (listView.getItemAtPosition(position));
-                myIntent.putExtra("Parada", parada);
-                startActivity(myIntent);
-            }
-        });
+        if (listView != null) {
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent myIntent = new Intent(DisplayMenuParadasActivity.this, DetailParadaActivity.class);
+                    Parada parada = (Parada) (listView.getItemAtPosition(position));
+                    myIntent.putExtra("Parada", parada);
+                    startActivity(myIntent);
+                }
+            });
+        }
     }
 }

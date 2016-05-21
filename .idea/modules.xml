@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ExemploInthegraAPI.iml" filepath="$PROJECT_DIR$/ExemploInthegraAPI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/InthegraApp/app.iml" filepath="$PROJECT_DIR$/InthegraApp/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InthegraApp/InthegraApp.iml" filepath="$PROJECT_DIR$/InthegraApp/InthegraApp.iml" />
     </modules>
   </component>
 </project>

@@ -1,6 +1,6 @@
 package com.hcordeiro.android.InthegraApp.InthegraAPI;
 
-import android.content.Context;
+import android.util.Log;
 
 import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.InthegraService;
@@ -13,7 +13,6 @@ import com.equalsp.stransthe.rotas.RotaService;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -21,14 +20,17 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Singleton para manter uma instância do CachedInthegraService sempre carregada.
+ *
  * Created by hugo on 17/05/16.
  */
 public class InthegraServiceSingleton {
+    private final String TAG = "ServiceSingleton";
     private static CachedInthegraService cachedService;
     private static RotaService rotaService;
-    private static boolean wasInitialized;
 
     public static void initInstance() {
+        Log.i(TAG, "initInstance Called");
         if (cachedService == null) {
             InthegraService service = new InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
             AndroidFileHandler fileHandler = new AndroidFileHandler();
@@ -38,6 +40,7 @@ public class InthegraServiceSingleton {
     }
 
     public static CachedInthegraService getInstance() {
+        Log.i(TAG, "getInstance Called");
         return cachedService;
     }
 
@@ -46,6 +49,7 @@ public class InthegraServiceSingleton {
     }
 
     public static List<Parada> getParadas(Linha linha) throws IOException {
+        Log.i(TAG, "getParadas Called");
         List<Parada> paradas;
         if (linha == null) {
             paradas = cachedService.getParadas();
@@ -69,7 +73,8 @@ public class InthegraServiceSingleton {
     }
 
     public static List<Linha> getLinhas(Parada parada) throws IOException {
-        List<Linha> linhas = new ArrayList<>();
+        Log.i(TAG, "getLinhas Called");
+        List<Linha> linhas;
 
         if(parada == null) {
             linhas = cachedService.getLinhas();
@@ -89,7 +94,8 @@ public class InthegraServiceSingleton {
     }
 
     public static List<Veiculo> getVeiculos(Linha linha) throws IOException {
-        List<Veiculo> veiculos = new ArrayList<>();
+        Log.i(TAG, "getVeiculos Called");
+        List<Veiculo> veiculos;
         if(linha == null) {
             veiculos = cachedService.getVeiculos();
         } else {
@@ -108,6 +114,7 @@ public class InthegraServiceSingleton {
     }
 
     public static Set<Rota> getRotas(LatLng origem, LatLng destino, double distanciaMaxima) throws IOException {
+        Log.i(TAG, "getRotas Called");
         assert origem != null;
         double origemLat = origem.latitude;
         double origemLng = origem.longitude;

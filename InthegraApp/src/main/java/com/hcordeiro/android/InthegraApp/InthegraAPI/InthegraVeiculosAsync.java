@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Veiculo;
@@ -14,9 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * AsyncTask resposnável por carregar as informações de véiculos de uma dada linha.
+ *
  * Created by hugo on 17/05/16.
  */
 public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>> implements DialogInterface.OnCancelListener {
+    private final String TAG = "FileHandler";
     public InthegraVeiculosAsyncResponse delegate = null;
     private ProgressDialog dialog;
     private AlertDialog alert;
@@ -24,11 +28,13 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
     private boolean wasUnsuccessful;
 
     public InthegraVeiculosAsync(Context context){
+        Log.i(TAG, "Constructor Called");
         mContext = context;
     }
 
     @Override
     protected void onPreExecute() {
+        Log.i(TAG, "onPreExecute Called");
         super.onPreExecute();
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
         alertBuilder.setMessage("Não foi possível recuperar os veículos da Linha informada");
@@ -48,11 +54,14 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
 
     @Override
     protected List<Veiculo> doInBackground(Linha... params) {
+        Log.i(TAG, "doInBackground Called");
         Linha linha = params[0];
         List<Veiculo> veiculos = new ArrayList<>();
         try {
+            Log.d(TAG, "Recuperando veículos da linha... ");
             veiculos = InthegraServiceSingleton.getVeiculos(linha);
         } catch (IOException e) {
+            Log.e(TAG, "Não foi possível recuperar os veículos da linha, motivo: " + e.getMessage());
             wasUnsuccessful = true;
         } finally {
             dialog.dismiss();
@@ -61,10 +70,14 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
     }
 
     @Override
-    public void onCancel(DialogInterface dialog) {cancel(true);}
+    public void onCancel(DialogInterface dialog) {
+        Log.i(TAG, "onCancel Called");
+        cancel(true);
+    }
 
     @Override
     protected void onPostExecute(List<Veiculo> veiculos) {
+        Log.i(TAG, "onPostExecute Called");
         if (wasUnsuccessful) {
             alert.show();
         }

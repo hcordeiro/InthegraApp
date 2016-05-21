@@ -65,6 +65,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
     }
 
     public void selecionarOrigemActivity(View view) {
+        Log.i(TAG, "selecionarOrigemActivity Called");
         Intent intent = new Intent(new Intent(this, SelecionarOrigemActivity.class));
         Bundle bundle = new Bundle();
         bundle.putParcelable("Origem", origem);
@@ -73,6 +74,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
     }
 
     public void selecionarDestinoActivity(View view) {
+        Log.i(TAG, "selecionarDestinoActivity Called");
         Intent intent = new Intent(new Intent(this, SelecionarDestinoActivity.class));
         Bundle bundle = new Bundle();
         bundle.putParcelable("Destino", destino);
@@ -81,6 +83,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
     }
 
     public void gerarRotaActivity(View view) {
+        Log.i(TAG, "gerarRotaActivity Called");
         Intent intent = new Intent(this, GerarRotaActivity.class);
         Bundle bundle = new Bundle();
 
@@ -92,6 +95,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(TAG, "onActivityResult Called");
         if (requestCode == 1) {
             Bundle bundle = data.getParcelableExtra("Bundle");
             origem = bundle.getParcelable("Origem");
@@ -108,6 +112,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
     }
 
     private void requestLocation() {
+        Log.i(TAG, "requestLocation Called");
         final int LOCATION_REFRESH_TIME = 1000;
         final int LOCATION_REFRESH_DISTANCE = 5;
         LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -123,6 +128,7 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
+
         @Override
         public void onLocationChanged(Location location) {
             Log.i(TAG, "onLocationChanged");
@@ -147,11 +153,17 @@ public class DisplayMenuRotasActivity extends AppCompatActivity implements Googl
     };
 
     @Override
-    public void onConnected(Bundle bundle) {}
+    public void onConnected(Bundle bundle) {
+        Log.i(TAG, "onConnected Called");
+    }
 
     @Override
-    public void onConnectionSuspended(int i) {}
+    public void onConnectionSuspended(int i) {
+        Log.i(TAG, "onConnectionSuspended Called");
+    }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i(TAG, "onConnectionFailed Called");
+    }
 }

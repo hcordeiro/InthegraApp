@@ -1,6 +1,7 @@
 package com.hcordeiro.android.InthegraApp.InthegraAPI;
 
 import android.os.Environment;
+import android.util.Log;
 
 import com.equalsp.stransthe.CachedServiceFileHander;
 
@@ -11,12 +12,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
+ * FileHandler para salvar o arquivo de cache no dispositivo.
+ *
  * Created by hugo on 17/05/16.
  */
 public class AndroidFileHandler implements CachedServiceFileHander {
+    private final String TAG = "FileHandler";
 
     @Override
     public String loadCacheFile() throws IOException {
+        Log.i(TAG, "loadCacheFile Called");
         File sdcard = Environment.getExternalStorageDirectory();
         File file = new File(sdcard,"cachedInthegraService.json");
         String fileContent = "";
@@ -38,6 +43,7 @@ public class AndroidFileHandler implements CachedServiceFileHander {
 
     @Override
     public void saveCacheFile(String content) throws IOException {
+        Log.i(TAG, "saveCacheFile Called");
         File sdcard = Environment.getExternalStorageDirectory();
         File file = new File(sdcard,"cachedInthegraService.json");
 

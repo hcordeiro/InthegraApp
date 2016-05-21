@@ -44,6 +44,7 @@ public class SelecionarDestinoActivity extends FragmentActivity implements OnMap
     }
 
     public void confirma(View view) {
+        Log.i(TAG, "confirma Called");
         if (destino != null) {
             Intent intent = new Intent();
             Bundle bundle = new Bundle();

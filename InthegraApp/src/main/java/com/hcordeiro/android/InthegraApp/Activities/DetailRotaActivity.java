@@ -1,8 +1,8 @@
 package com.hcordeiro.android.InthegraApp.Activities;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.equalsp.stransthe.Localizacao;
 import com.equalsp.stransthe.Parada;
@@ -22,15 +22,16 @@ import com.hcordeiro.android.InthegraApp.R;
 import java.util.List;
 
 public class DetailRotaActivity extends FragmentActivity implements OnMapReadyCallback {
+    private final String TAG = "DetailRota";
 
     private GoogleMap map;
     private Rota rota;
-    private List<LatLng> directions;
     LatLngBounds bounds;
-    private Handler UI_HANDLER = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "OnCreate Called");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_rota);
 
@@ -39,19 +40,11 @@ public class DetailRotaActivity extends FragmentActivity implements OnMapReadyCa
 
         rota = (Rota) getIntent().getSerializableExtra("Rota");
 
-//        TextView qtdTrechosTxt = (TextView) findViewById(R.id.qtdTrechosTxt);
-//        qtdTrechosTxt.setText(String.valueOf(rota.getTrechos().size()));
-//
-//        TextView distanciaTotalTxt = (TextView) findViewById(R.id.distanciaTotalTxt);
-//        DecimalFormat df = new DecimalFormat("#.00");
-//        String distanciaTotal = String.valueOf(df.format(rota.getDistanciaTotal())) + " m";
-//        distanciaTotalTxt.setText(distanciaTotal);
-//        TextView tempoEstimadoTxt = (TextView) findViewById(R.id.tempoEstimadoTxt);
-//        tempoEstimadoTxt.setText(String.valueOf(rota.getTempoTotal()));
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.i(TAG, "OnMapReady Called");
         map = googleMap;
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -92,6 +85,7 @@ public class DetailRotaActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void getDirections(Trecho trecho) {
+        Log.i(TAG, "GetDirections Called");
         InthegraDirectionsAsync asyncTask =  new InthegraDirectionsAsync(DetailRotaActivity.this, map);
         asyncTask.execute(trecho);
     }
