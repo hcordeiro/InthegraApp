@@ -29,4 +29,4 @@ O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache a
 [Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MeGV3WWF3elhtS1E)
 
 # Licensa de uso
-Essa biblioteca é distribuída sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
+Esse projeto é distribuído sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
