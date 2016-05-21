@@ -21,11 +21,13 @@ import android.widget.Switch;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
 import com.hcordeiro.android.InthegraApp.R;
 
-public class RotasMenuActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class RotasMenuActivity extends AppCompatActivity implements ConnectionCallbacks, OnConnectionFailedListener {
     private final String TAG = "MenuRotas";
 
     private Button gerarRotaBtn;
