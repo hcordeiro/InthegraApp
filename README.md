@@ -25,8 +25,9 @@ O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache a
  ![Selecionar Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/13SelecionarRota1.png)
  ![Detalhe Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/14DetalheRota1.png)
  ![Detalhe Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/15DetalheRota2.png)
+ ![Detalhe Rota 3](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/16DetalheRota3.png)
 # Download do APK
-[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MeGV3WWF3elhtS1E)
+[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MM1V3aEtGMlh4b2c)
 
 # Licensa de uso
 Esse projeto é distribuído sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
