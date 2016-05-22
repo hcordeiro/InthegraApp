@@ -1,18 +1,18 @@
 package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Localizacao;
 import com.equalsp.stransthe.Parada;
+import com.equalsp.stransthe.Veiculo;
 import com.equalsp.stransthe.rotas.Rota;
 import com.equalsp.stransthe.rotas.Trecho;
 import com.google.android.gms.maps.CameraUpdate;
@@ -20,53 +20,85 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraDirectionsAsync;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCallback {
+public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
     private final String TAG = "DetailRota";
     private GoogleMap map;
+
+    private ArrayList<Linha> linhas;
+    private List<Veiculo> veiculos;
+    private List<Marker> veiculosMarkers;
+
+    private Handler UI_HANDLER = new Handler();
+    private Runnable UI_UPDTAE_RUNNABLE = new Runnable() {
+        @Override
+        public void run() {
+            carregarVeiculos();
+            UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, Util.VEICULOS_REFRESH_TIME);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rotas_detail_activity);
+
+        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Util.requestLocation(this, mLocationManager, mLocationListener);
+
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        veiculosMarkers = new ArrayList<>();
+
+        Rota rota = (Rota) getIntent().getSerializableExtra("Rota");
+
+        List<Trecho> trechos = rota.getTrechos();
+        linhas = new ArrayList<>();
+        for (Trecho t : trechos) {
+            if (t.getLinha() != null) {
+                if (!linhas.contains(t.getLinha())) {
+                    linhas.add(t.getLinha());
+                }
+            }
+        }
+
+        UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, Util.VEICULOS_REFRESH_TIME);
     }
 
+    private void carregarVeiculos() {
+        for (Linha linha : linhas) {
+            InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(RotaDetailActivity.this);
+            asyncTask.delegate = this;
+            asyncTask.execute(linha);
+        }
+    }
+
+    @SuppressWarnings("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.i(TAG, "OnMapReady Called");
         map = googleMap;
-        final int LOCATION_REFRESH_TIME = 1000;
-        final int LOCATION_REFRESH_DISTANCE = 5;
-        LatLngBounds bounds = adicionarMarcadores();
-        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            int REQUEST_ACCESS_LOCATION = 1;
-            String[] PERMISSIONS_LOCATION = {
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-            };
-            ActivityCompat.requestPermissions(RotaDetailActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
-        }
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
         map.setMyLocationEnabled(true);
-
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 800, 800, 1);
-        map.animateCamera(cameraUpdate);
+        adicionarMarcadores();
     }
 
-    private LatLngBounds adicionarMarcadores() {
+    private void adicionarMarcadores() {
         Log.i(TAG, "adicionarMarcadores Called");
         Rota rota = (Rota) getIntent().getSerializableExtra("Rota");
         Builder builder = new Builder();
@@ -101,13 +133,42 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
                 .title("Destino Final");
         map.addMarker(destinoFinal);
 
-        return builder.build();
+        Localizacao inicio = rota.getTrechos().get(0).getOrigem();
+        LatLng pos = new LatLng(inicio.getLat(), inicio.getLong());
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 15);
+        map.animateCamera(cameraUpdate);
     }
 
     private void getDirections(Trecho trecho) {
         Log.i(TAG, "GetDirections Called");
         InthegraDirectionsAsync asyncTask =  new InthegraDirectionsAsync(RotaDetailActivity.this, map);
         asyncTask.execute(trecho);
+    }
+
+    @Override
+    public void processFinish(List<Veiculo> result) {
+        Log.i(TAG, "ProcessFinish Called");
+        veiculos = result;
+        updateMapa();
+    }
+
+    private void updateMapa() {
+        Log.i(TAG, "updateMapa Called");
+        Toast.makeText(RotaDetailActivity.this, "Atualizando mapa...", Toast.LENGTH_SHORT).show();
+        for (Marker m : veiculosMarkers) {
+            m.remove();
+        }
+        veiculosMarkers.clear();
+
+        for (Veiculo v : veiculos) {
+            LatLng pos = new LatLng(v.getLat(), v.getLong());
+            MarkerOptions m = new MarkerOptions()
+                    .position(pos)
+                    .title(v.getHora())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+            veiculosMarkers.add(map.addMarker(m));
+        }
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
@@ -137,4 +198,11 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
             Log.i(TAG, "onProviderDisabled");
         }
     };
+
+    @Override
+    public void onDestroy() {
+        Log.i(TAG, "OnDestroy Called");
+        UI_HANDLER.removeCallbacks(UI_UPDTAE_RUNNABLE);
+        super.onDestroy();
+    }
 }

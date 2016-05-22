@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.equalsp.stransthe.Linha;
+import com.equalsp.stransthe.Parada;
 import com.equalsp.stransthe.rotas.Rota;
 import com.google.android.gms.maps.model.LatLng;
 import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
@@ -20,6 +22,7 @@ import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -73,7 +76,30 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
             alert.show();
         }
 
-        ArrayList<Rota> rotasList = new ArrayList<>(rotas);
+        ArrayList<Rota> rotasList = new ArrayList<>();
+
+        for (Rota r1 : rotas) {
+            Rota melhorRota = r1;
+            Double melhorDistancia = r1.getTrechos().get(0).getDistancia();
+            Linha r1PrimeiraLinha = r1.getTrechos().get(1).getLinha();
+
+            for (Rota r2 : rotas) {
+                Linha r2PrimeiraLinha = r2.getTrechos().get(1).getLinha();
+                if(r1PrimeiraLinha.equals(r2PrimeiraLinha)) {
+                    Double r2PrimeiraDistancia = r2.getTrechos().get(0).getDistancia();
+                    if(r2PrimeiraDistancia.compareTo(melhorDistancia) > 0) {
+                        melhorDistancia = r2PrimeiraDistancia;
+                        melhorRota = r2;
+                    }
+                }
+            }
+
+            if (!rotasList.contains(melhorRota)) {
+                rotasList.add(melhorRota);
+            }
+
+        }
+
         RotasAdapter adapter = new RotasAdapter(this, rotasList);
 
         final ListView listView = (ListView) findViewById(R.id.rotasListView);

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -19,7 +20,7 @@ import java.io.IOException;
  *
  * Created by hugo on 17/05/16.
  */
-public class InthegraCacheAsync extends AsyncTask<Void, Void, Boolean> implements DialogInterface.OnCancelListener {
+public class InthegraCacheAsync extends AsyncTask<Void, Void, Boolean> implements OnCancelListener {
     private final String TAG = "CacheAsync";
 
     private Context mContext;

@@ -42,6 +42,33 @@ public class LinhasDetailActivity extends AppCompatActivity  {
     private Location localUsuario;
     private List<Parada> paradas;
 
+    private final LocationListener mLocationListener = new LocationListener() {
+
+        @Override
+        public void onLocationChanged(Location location) {
+            Log.i(TAG, "onLocationChanged");
+            Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
+            localUsuario = location;
+            Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
+            carregarParadas(linha);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            Log.i(TAG, "onStatusChanged");
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Log.i(TAG, "onProviderEnabled");
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Log.i(TAG, "onProviderDisabled");
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
@@ -145,31 +172,4 @@ public class LinhasDetailActivity extends AppCompatActivity  {
         intent.putExtra("Paradas", paradaJson);
         startActivity(intent);
     }
-
-    private final LocationListener mLocationListener = new LocationListener() {
-
-        @Override
-        public void onLocationChanged(Location location) {
-            Log.i(TAG, "onLocationChanged");
-            Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
-            localUsuario = location;
-            Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
-            carregarParadas(linha);
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            Log.i(TAG, "onStatusChanged");
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-            Log.i(TAG, "onProviderEnabled");
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-            Log.i(TAG, "onProviderDisabled");
-        }
-    };
 }

@@ -13,6 +13,7 @@ import com.equalsp.stransthe.rotas.Rota;
 import com.equalsp.stransthe.rotas.Trecho;
 import com.hcordeiro.android.InthegraApp.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +58,14 @@ public class RotasAdapter extends BaseAdapter {
         } else {
             viewHolder = (RotasViewHolder) v.getTag();
         }
+        DecimalFormat df = new DecimalFormat("#.00");
         StringBuilder textBuilder = new StringBuilder();
         Trecho primeiroTrecho = rotasTratadas.get(position).getTrechos().get(0);
+
         Trecho segundoTrecho = rotasTratadas.get(position).getTrechos().get(1);
         textBuilder.append(segundoTrecho.getLinha().getDenomicao());
         textBuilder.append(", Distância até a parada: ");
-        textBuilder.append(String.valueOf(primeiroTrecho.getDistancia()) + " m");
+        textBuilder.append(String.valueOf(df.format(primeiroTrecho.getDistancia())) + " m");
 
         viewHolder.itemRota.setText(textBuilder.toString());
         return v;

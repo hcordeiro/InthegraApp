@@ -89,7 +89,7 @@ public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCa
         for (Parada parada : paradas) {
             MarkerOptions marcador = new MarkerOptions()
                     .position(new LatLng(parada.getLat(), parada.getLong()))
-                    .title("Destino Final");
+                    .title(parada.getEndereco());
             listaMarcadores.add(map.addMarker(marcador));
 
             if (pontoDeInteresse != null) {
