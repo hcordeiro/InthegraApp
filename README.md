@@ -12,22 +12,25 @@ O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache a
 # Screenshots
  ![Carregando Cache](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/01Loading.png)
  ![Tela Inicial](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/02Main.png)
- ![Listagem de Paradas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/03ListParadas.png)
- ![Detalhe de Parada](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/04DetailParada.png)
- ![Mapa de Parada](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/05MapParada.png)
- ![Listagem de Linhas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/06ListLinhas.png)
- ![Detalhe de Linha](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/07DetailLinha.png)
- ![Menu de Veículos](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/08MenuVeiculos.png)
- ![Detalhe de Veículos](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/09DetailVeiculo.png)
- ![Gerar Rotas 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/10GerarRotas1.png)
- ![Gerar Rotas 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/11GerarRotas2.png)
- ![Selecionar Destino](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/12SelecionarDestino.png)
- ![Selecionar Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/13SelecionarRota1.png)
- ![Detalhe Rota 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/14DetalheRota1.png)
- ![Detalhe Rota 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/15DetalheRota2.png)
- ![Detalhe Rota 3](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/16DetalheRota3.png)
+ ![Listagem de Linhas 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/03ListLinhas1.png)
+ ![Listagem de Linhas 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/04ListLinhas2.png)
+ ![Datelhe de Linhas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/05DetailLinha.png)
+ ![Mapa de Linhas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/06MapLinha.png)
+ ![Listagem de Paradas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/07ListParadas.png)
+ ![Detalhe de Paradas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/08DetailParada.png)
+ ![Mapa de Paradas](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/09MapParada.png)
+ ![Menu de Veículos](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/10MenuVeiculos.png)
+ ![Mapa de Veículos](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/11MapVeiculos.png)
+ ![Menu Rotas 1](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/12MenuRotas1.png)
+ ![Menu Rotas 2](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/13MenuRotas2.png)
+ ![Selecionar Destino](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/14SelecionarDestino.png)
+ ![Menu Rotas 3](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/15MenuRotas3.png)
+ ![Escolher Rota](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/16Escolherrota.png)
+ ![Mapa Rota](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/17MapaRota.png)
+ 
+ 
 # Download do APK
-[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MM1V3aEtGMlh4b2c)
+[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MNTd6dnJ3akhsTFE)
 
 # Licensa de uso
 Esse projeto é distribuído sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
