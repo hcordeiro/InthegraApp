@@ -9,6 +9,10 @@ Aplicação móvel Android utilizando a  da bilbioteca [API Strans THE](https://
 # Observação
 O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache após 1 semana.
 
+# Em breve:
+- [ ] Melhorias de Interface;
+- [ ] Notificações push quando o seu ônibus estiver chegando na sua parada;
+
 # Screenshots
  ![Carregando Cache](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/01Loading.png)
  ![Tela Inicial](https://raw.githubusercontent.com/hcordeiro/ExemploInthegraAPI/master/screenshots/02Main.png)
