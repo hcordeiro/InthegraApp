@@ -12,19 +12,20 @@ import android.widget.Toast;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
 import com.equalsp.stransthe.Veiculo;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.LatLngBounds.Builder;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
+import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,25 +42,37 @@ public class VeiculosDetailActivity extends FragmentActivity implements OnMapRea
     private Linha linha;
     private List<Parada> paradas;
     private List<Veiculo> veiculos;
+    private List<Marker> veiculosMarkers;
+    private List<Marker> paradasMarkers;
     private GoogleMap map;
+
     private Handler UI_HANDLER = new Handler();
+    private Runnable UI_UPDTAE_RUNNABLE = new Runnable() {
+        @Override
+        public void run() {
+            carregarVeiculos();
+            UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, Util.VEICULOS_REFRESH_TIME);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_veiculos);
+        setContentView(R.layout.veiculos_detail_activity);
+        veiculosMarkers = new ArrayList<>();
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        carregarDados();
+        carregarParadas();
+        carregarVeiculos();
 
-        UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, 30000);
+        UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, Util.VEICULOS_REFRESH_TIME);
     }
 
-    private void carregarDados() {
-        Log.i(TAG, "carregarDados Called");
+    private void carregarParadas() {
+        Log.i(TAG, "carregarParadas Called");
         linha = (Linha) getIntent().getSerializableExtra("Linha");
         veiculos = new ArrayList<>();
 
@@ -88,11 +101,55 @@ public class VeiculosDetailActivity extends FragmentActivity implements OnMapRea
         qtdParadasTxt.setText(String.valueOf(paradas.size()));
     }
 
+    private void carregarVeiculos() {
+        InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(VeiculosDetailActivity.this);
+        asyncTask.delegate = this;
+        asyncTask.execute(linha);
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.i(TAG, "OnMapReady Called");
         map = googleMap;
-        updateVeiculos(true);
+        paradasMarkers = new ArrayList<>();
+
+        for (Parada p : paradas) {
+            LatLng pos = new LatLng(p.getLat(), p.getLong());
+            MarkerOptions m = new MarkerOptions()
+                    .position(pos)
+                    .title(p.getCodigoParada());
+            paradasMarkers.add(map.addMarker(m));
+        }
+
+        map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                Builder builder = new Builder();
+                for (Marker m : paradasMarkers) {
+                    builder.include(m.getPosition());
+                }
+                map.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 10));
+            }
+        });
+
+    }
+
+    private void updateMapa() {
+        Log.i(TAG, "updateMapa Called");
+        Toast.makeText(VeiculosDetailActivity.this, "Atualizando mapa...", Toast.LENGTH_SHORT).show();
+        for (Marker m : veiculosMarkers) {
+            m.remove();
+        }
+        veiculosMarkers.clear();
+
+        for (Veiculo v : veiculos) {
+            LatLng pos = new LatLng(v.getLat(), v.getLong());
+            MarkerOptions m = new MarkerOptions()
+                    .position(pos)
+                    .title(v.getHora())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+            veiculosMarkers.add(map.addMarker(m));
+        }
     }
 
     @Override
@@ -101,57 +158,7 @@ public class VeiculosDetailActivity extends FragmentActivity implements OnMapRea
         veiculos = result;
         TextView qtdVeiculosTxt = (TextView) findViewById(R.id.qtdVeiculosTxt);
         qtdVeiculosTxt.setText(String.valueOf(veiculos.size()));
-    }
-
-    Runnable UI_UPDTAE_RUNNABLE = new Runnable() {
-        @Override
-        public void run() {
-            updateVeiculos(true);
-            UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, 60000);
-        }
-    };
-
-    private void updateVeiculos(boolean atualizaMarcadores) {
-        Log.i(TAG, "UpdateVeiculos Called");
-        InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(VeiculosDetailActivity.this);
-        asyncTask.delegate = this;
-        asyncTask.execute(linha);
-
-        if(atualizaMarcadores) {
-            atualizaMarcadores();
-        }
-    }
-
-    private void atualizaMarcadores() {
-        Log.i(TAG, "AtualizarMarcadores Called");
-        Toast.makeText(VeiculosDetailActivity.this, "Atualizando marcadores...", Toast.LENGTH_SHORT).show();
-        List<MarkerOptions> markers = new ArrayList<>();
-        for (Parada p : paradas) {
-            MarkerOptions m = new MarkerOptions()
-                    .position(new LatLng(p.getLat(), p.getLong()))
-                    .title(p.getCodigoParada());
-            map.addMarker(m);
-            markers.add(m);
-        }
-
-        for (Veiculo v : veiculos) {
-            MarkerOptions m = new MarkerOptions()
-                    .position(new LatLng(v.getLat(), v.getLong()))
-                    .title(v.getHora())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-            map.addMarker(m);
-            markers.add(m);
-        }
-
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (MarkerOptions marker : markers) {
-            builder.include(marker.getPosition());
-        }
-
-        LatLngBounds bounds = builder.build();
-
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 800, 800, 1);
-        map.animateCamera(cameraUpdate);
+        updateMapa();
     }
 
     @Override

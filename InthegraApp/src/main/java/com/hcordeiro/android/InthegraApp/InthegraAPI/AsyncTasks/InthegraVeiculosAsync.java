@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Veiculo;
@@ -50,7 +51,7 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
 
         dialog = new ProgressDialog(mContext);
         dialog.setMessage("Carregando veículos...");
-        dialog.show();
+//        dialog.show();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
             Log.e(TAG, "Não foi possível recuperar os veículos da linha, motivo: " + e.getMessage());
             wasUnsuccessful = true;
         } finally {
-            dialog.dismiss();
+//            dialog.dismiss();
         }
         return veiculos;
     }
@@ -80,7 +81,7 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
     protected void onPostExecute(List<Veiculo> veiculos) {
         Log.i(TAG, "onPostExecute Called");
         if (wasUnsuccessful) {
-            alert.show();
+            Toast.makeText(mContext, "Não foi possível encontrar os veículos...", Toast.LENGTH_SHORT).show();
         }
         delegate.processFinish(veiculos);
     }

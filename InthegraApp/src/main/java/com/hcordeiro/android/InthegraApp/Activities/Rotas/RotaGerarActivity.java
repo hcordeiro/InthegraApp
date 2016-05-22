@@ -32,7 +32,7 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gerar_rota);
+        setContentView(R.layout.rotas_gerar_activity);
         Bundle bundle = getIntent().getParcelableExtra("Bundle");
         LatLng origem = bundle.getParcelable("Origem");
         LatLng destino = bundle.getParcelable("Destino");
@@ -73,7 +73,9 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
             alert.show();
         }
 
-        ArrayAdapter<Rota> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaRotas);
+        ArrayList<Rota> rotasList = new ArrayList<>(rotas);
+        RotasAdapter adapter = new RotasAdapter(this, rotasList);
+
         final ListView listView = (ListView) findViewById(R.id.rotasListView);
         if (listView != null) {
             listView.setAdapter(adapter);

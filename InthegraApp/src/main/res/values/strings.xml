@@ -9,14 +9,16 @@
     <string name="menu_rotas_btn">Que ônibus eu pego?</string>
 
     <!-- Paradas -->
-    <string name="menu_paradas_titulo">Selecione uma parada</string>
+    <string name="menu_paradas_titulo">Paradas Próximas</string>
+    <string name="menu_paradas_hint">informe a parada...</string>
     <string name="detail_parada_codigoParadaLbl">Código:</string>
     <string name="detail_parada_enderecoParadaLbl">Endereço:</string>
     <string name="detail_parada_linhasLbl">Linhas</string>
     <string name="detail_parada_verNoMapaBtn">Ver no mapa</string>
 
     <!-- Linhas -->
-    <string name="menu_linhas_titulo">Linha: </string>
+    <string name="menu_linhas_titulo">Achar uma linha</string>
+    <string name="menu_linhas_hint">informe a linha...</string>
     <string name="detail_linha_codigoLinhaLbl">Linha:</string>
     <string name="detail_linha_origemLinhaLbl">Origem:</string>
     <string name="detail_linha_retornoLinhaLbl">Retorno:</string>
@@ -34,7 +36,7 @@
     <string name="gerarRotas_escolharotaLbl">Escolha uma opção</string>
 
     <!-- Veículos -->
-    <string name="menu_veiculos_titulo">Cadê meu ônibus?</string>
+    <string name="menu_veiculos_titulo">Escolha uma linha</string>
     <string name="menu_veiculos_escolhaLinha">Escolha uma linha:</string>
     <string name="detail_veiculo_qtdParadasLbl">Quantidade de paradas:</string>
     <string name="detail_veiculo_qtdVeiculosLbl">Quantidade de veículos:</string>

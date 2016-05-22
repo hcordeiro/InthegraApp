@@ -7,23 +7,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activities.Paradas.ParadasMenuActivity">
+    tools:context=".Activities.Linhas.LinhasDetailActivity$VeiculosMenuActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/menu_paradas_titulo"
-        android:id="@+id/menuParadasTitleTxt"
+        android:text="@string/menu_veiculos_titulo"
+        android:id="@+id/menuVeiculosTitleLbl"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linhaSearchView"
+        android:layout_below="@+id/menuVeiculosTitleLbl"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:queryHint="@string/menu_linhas_hint"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/paradasListView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:choiceMode="singleChoice"
-        android:layout_below="@+id/menuParadasTitleTxt" />
+        android:id="@+id/linhasListView"
+        android:layout_below="@+id/linhaSearchView"
+        android:layout_centerHorizontal="true"
+        android:choiceMode="singleChoice" />
+
 </RelativeLayout>

@@ -21,7 +21,7 @@ public class LoadCacheActivity extends AppCompatActivity implements InthegraCach
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_load_cache);
+        setContentView(R.layout.load_cache_activity);
         carregarCache();
     }
 

@@ -35,7 +35,7 @@ public class ParadasDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_parada);
+        setContentView(R.layout.paradas_detail_activity);
         preencherDados();
     }
 

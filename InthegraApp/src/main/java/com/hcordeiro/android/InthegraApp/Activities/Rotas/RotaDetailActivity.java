@@ -38,10 +38,9 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_rota);
+        setContentView(R.layout.rotas_detail_activity);
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
     }
 
     @Override

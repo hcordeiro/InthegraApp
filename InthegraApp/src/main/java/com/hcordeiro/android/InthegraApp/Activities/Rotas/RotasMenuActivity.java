@@ -1,32 +1,27 @@
 package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
 import com.hcordeiro.android.InthegraApp.R;
+import com.hcordeiro.android.InthegraApp.Util.Util;
 
-public class RotasMenuActivity extends AppCompatActivity implements ConnectionCallbacks, OnConnectionFailedListener {
+public class RotasMenuActivity extends AppCompatActivity {
     private final String TAG = "MenuRotas";
 
     private Button gerarRotaBtn;
@@ -38,8 +33,10 @@ public class RotasMenuActivity extends AppCompatActivity implements ConnectionCa
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        requestLocation();
-        setContentView(R.layout.activity_display_menu_rotas);
+        setContentView(R.layout.rotas_menu_activity);
+
+        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Util.requestLocation(this,mLocationManager, mLocationListener);
 
         preencherDados();
     }
@@ -63,6 +60,9 @@ public class RotasMenuActivity extends AppCompatActivity implements ConnectionCa
                     if (localUsuario != null) {
                         selectionarOrigemBtn.setEnabled(false);
                         origem = new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude());
+                        CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
+                        assert origemCheckedTextView != null;
+                        origemCheckedTextView.setChecked(true);
                     } else {
                         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotasMenuActivity.this);
                         alertBuilder.setMessage("Não foi possível recuperar a localização do usuário.");
@@ -76,11 +76,14 @@ public class RotasMenuActivity extends AppCompatActivity implements ConnectionCa
                                     }
                                 });
                         AlertDialog alert = alertBuilder.create();
-                        alert.show();
+//                        alert.show();
                     }
                 } else {
                     origem = null;
                     selectionarOrigemBtn.setEnabled(true);
+                    CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
+                    assert origemCheckedTextView != null;
+                    origemCheckedTextView.setChecked(false);
                 }
             }
         });
@@ -128,6 +131,11 @@ public class RotasMenuActivity extends AppCompatActivity implements ConnectionCa
                 Bundle bundle = data.getParcelableExtra("Bundle");
                 if (bundle != null) {
                     origem = bundle.getParcelable("Origem");
+
+                    CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
+                    assert origemCheckedTextView != null;
+                    origemCheckedTextView.setChecked(true);
+
                 }
             }
         }
@@ -137,6 +145,9 @@ public class RotasMenuActivity extends AppCompatActivity implements ConnectionCa
                 Bundle bundle = data.getParcelableExtra("Bundle");
                 if (bundle != null) {
                     destino = bundle.getParcelable("Destino");
+                    CheckedTextView destinoCheckedTextView = (CheckedTextView) findViewById(R.id.destinoCheckedTextView);
+                    assert destinoCheckedTextView != null;
+                    destinoCheckedTextView.setChecked(true);
                 }
             }
         }
@@ -144,22 +155,6 @@ public class RotasMenuActivity extends AppCompatActivity implements ConnectionCa
         if (origem != null && destino != null) {
             gerarRotaBtn.setEnabled(true);
         }
-    }
-
-    private void requestLocation() {
-        Log.i(TAG, "requestLocation Called");
-        final int LOCATION_REFRESH_TIME = 1000;
-        final int LOCATION_REFRESH_DISTANCE = 5;
-        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            int REQUEST_ACCESS_LOCATION = 1;
-            String[] PERMISSIONS_LOCATION = {
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-            };
-            ActivityCompat.requestPermissions(RotasMenuActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
-        }
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
@@ -187,18 +182,4 @@ public class RotasMenuActivity extends AppCompatActivity implements ConnectionCa
         }
     };
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        Log.i(TAG, "onConnected Called");
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Log.i(TAG, "onConnectionSuspended Called");
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.i(TAG, "onConnectionFailed Called");
-    }
 }

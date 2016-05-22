@@ -18,37 +18,25 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/menu_rotas_origem_lbl"
-        android:id="@+id/origemRotaLbl"
-        android:layout_below="@+id/meuLocalSwtich"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/menu_rotas_destino_lbl"
-        android:id="@+id/destinoRotaLbl"
-        android:layout_marginTop="55dp"
-        android:layout_below="@+id/origemRotaLbl"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/menu_rotas_usarMeuLocal_lbl"
         android:id="@+id/meuLocalSwtich"
         android:checked="false"
+        android:layout_below="@+id/origemCheckedTextView"
+        android:layout_centerHorizontal="true" />
+
+    <CheckedTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/menu_rotas_origem_lbl"
+        android:id="@+id/origemCheckedTextView"
         android:layout_below="@+id/menuRotasLbl"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:checked="false" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -56,32 +44,39 @@
         android:layout_height="wrap_content"
         android:text="@string/menu_rotas_origem_btn"
         android:id="@+id/selectionarOrigemBtn"
-        android:layout_alignBaseline="@+id/origemRotaLbl"
-        android:layout_alignBottom="@+id/origemRotaLbl"
-        android:layout_toRightOf="@+id/origemRotaLbl"
-        android:layout_toEndOf="@+id/origemRotaLbl"
-        android:onClick="selecionarOrigemActivity" />
+        android:layout_below="@+id/meuLocalSwtich"
+        android:layout_centerHorizontal="true"
+        android:onClick="selecionarOrigemActivity"/>
+
+    <CheckedTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/menu_rotas_destino_lbl"
+        android:id="@+id/destinoCheckedTextView"
+        android:layout_below="@+id/selectionarOrigemBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:checked="false" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/menu_rotas_destino_btn"
-        android:id="@+id/selectionarDestinoBtn"
-        android:layout_alignBaseline="@+id/destinoRotaLbl"
-        android:layout_alignBottom="@+id/destinoRotaLbl"
-        android:layout_toRightOf="@+id/destinoRotaLbl"
-        android:layout_toEndOf="@+id/destinoRotaLbl"
-        android:onClick="selecionarDestinoActivity" />
+        android:id="@+id/menu_rotas_destino_btn"
+        android:layout_below="@+id/destinoCheckedTextView"
+        android:layout_centerHorizontal="true"
+        android:onClick="selecionarDestinoActivity"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/menu_rotas_gerarRota_btn"
         android:id="@+id/gerarRotaBtn"
-        android:layout_below="@+id/selectionarDestinoBtn"
+        android:layout_below="@+id/menu_rotas_destino_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
-        android:onClick="gerarRotaActivity" />
+        android:layout_marginTop="69dp"
+        android:onClick="gerarRotaActivity"/>
 
 </RelativeLayout>

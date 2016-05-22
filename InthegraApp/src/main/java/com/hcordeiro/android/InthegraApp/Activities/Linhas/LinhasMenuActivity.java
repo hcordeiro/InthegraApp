@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.equalsp.stransthe.Linha;
 import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
@@ -21,14 +21,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LinhasMenuActivity extends AppCompatActivity {
-    String TAG = "DetailParada";
+    private final String TAG = "DetailParada";
+    private LinhasAdapter adapter;
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_linhas_menu);
+        setContentView(R.layout.linhas_menu_activity);
 
         carregarLinhas();
+        carregarBusca();
     }
 
     private void carregarLinhas() {
@@ -54,9 +58,9 @@ public class LinhasMenuActivity extends AppCompatActivity {
             alert.show();
         }
 
-        ArrayAdapter<Linha> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, linhas);
+        adapter = new LinhasAdapter(this, linhas);
 
-        final ListView listView = (ListView) findViewById(R.id.linhasListView);
+        listView = (ListView) findViewById(R.id.linhasListView);
         if (listView != null) {
             listView.setAdapter(adapter);
 
@@ -71,4 +75,24 @@ public class LinhasMenuActivity extends AppCompatActivity {
             });
         }
     }
+
+    private void carregarBusca() {
+        SearchView linhaSearchView = (SearchView) findViewById(R.id.linhaSearchView);
+        if (linhaSearchView != null) {
+            linhaSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String query) {
+                    adapter.getLinhasFilter().filter(query);
+                    return false;
+                }
+            });
+        }
+    }
 }
+
+

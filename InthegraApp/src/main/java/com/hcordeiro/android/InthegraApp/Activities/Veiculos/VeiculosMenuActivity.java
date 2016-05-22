@@ -8,11 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.Linha;
+import com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasAdapter;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
 
@@ -26,19 +27,27 @@ import java.util.List;
  * Created by hugo on 17/05/16.
  */
 public class VeiculosMenuActivity extends AppCompatActivity {
+    String TAG = "MenuVeiculos";
+    private LinhasAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String TAG = "MenuVeiculos";
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_menu_veiculos);
+        setContentView(R.layout.veiculos_menu_activity);
 
-        CachedInthegraService service = InthegraServiceSingleton.getInstance();
+        carregarLinhas();
+        carregarBusca();
+
+
+    }
+    private void carregarLinhas() {
+        Log.i(TAG, "carregarLinhas Called");
         List<Linha> linhas = new ArrayList<>();
         try {
             Log.d(TAG, "Carregando linhas...");
-            linhas = service.getLinhas();
+            linhas = InthegraServiceSingleton.getLinhas();
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar linhas, motivo: " + e.getMessage());
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -56,7 +65,9 @@ public class VeiculosMenuActivity extends AppCompatActivity {
 
         if (!linhas.isEmpty()) {
             final ListView listView = (ListView) findViewById(R.id.linhasListView);
-            ArrayAdapter<Linha> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, linhas);
+
+            adapter = new LinhasAdapter(this, linhas);
+
             if (listView != null) {
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,6 +80,26 @@ public class VeiculosMenuActivity extends AppCompatActivity {
                     }
                 });
             }
+        }
+    }
+
+    private void carregarBusca() {
+        Log.i(TAG, "carregarBusca Called");
+
+        SearchView linhaSearchView = (SearchView) findViewById(R.id.linhaSearchView);
+        if (linhaSearchView != null) {
+            linhaSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String query) {
+                    adapter.getLinhasFilter().filter(query);
+                    return false;
+                }
+            });
         }
     }
 }

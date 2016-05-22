@@ -3,9 +3,10 @@ package com.hcordeiro.android.InthegraApp.Activities.Linhas;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,29 +14,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
-import com.equalsp.stransthe.Veiculo;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.equalsp.stransthe.rotas.ComparadorPorProximidade;
+import com.equalsp.stransthe.rotas.PontoDeInteresse;
+import com.google.gson.Gson;
+import com.hcordeiro.android.InthegraApp.Activities.Paradas.ParadasAdapter;
 import com.hcordeiro.android.InthegraApp.Activities.Paradas.ParadasDetailActivity;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
 import com.hcordeiro.android.InthegraApp.R;
+import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -43,14 +37,19 @@ import java.util.List;
  *
  * Created by hugo on 17/05/16.
  */
-public class LinhasDetailActivity extends AppCompatActivity {
-    String TAG = "DetailLinha";
+public class LinhasDetailActivity extends AppCompatActivity  {
+    private final String TAG = "DetailLinha";
+    private Location localUsuario;
+    private List<Parada> paradas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_linha);
+        setContentView(R.layout.linhas_detail_activity);
+
+        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Util.requestLocation(this, mLocationManager, mLocationListener);
 
         preencherDados();
     }
@@ -92,7 +91,7 @@ public class LinhasDetailActivity extends AppCompatActivity {
 
     private void carregarParadas(Linha linha) {
         Log.i(TAG, "carregarParadas Called");
-        List<Parada> paradas = new ArrayList<>();
+        paradas = new ArrayList<>();
         try {
             Log.d(TAG, "Recuperando paradas...");
             paradas = InthegraServiceSingleton.getParadas(linha);
@@ -113,7 +112,13 @@ public class LinhasDetailActivity extends AppCompatActivity {
             alert.show();
         }
 
-        ArrayAdapter<Parada> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, paradas);
+        if (localUsuario != null) {
+            PontoDeInteresse pontoDeInteresse
+                    = new PontoDeInteresse(localUsuario.getLatitude(), localUsuario.getLongitude());
+            Collections.sort(paradas, new ComparadorPorProximidade(pontoDeInteresse));
+        }
+
+        ParadasAdapter adapter = new ParadasAdapter(this, paradas);
 
         final ListView listView = (ListView) findViewById(R.id.paradasListView);
         if (listView != null) {
@@ -131,4 +136,40 @@ public class LinhasDetailActivity extends AppCompatActivity {
         }
     }
 
+    public void displayLinhasMapaActivity(View view) {
+        Log.i(TAG, "displayLinhasMapaActivity Called");
+        Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
+        Intent intent = new Intent(this, LinhasMapaActivity.class);
+        intent.putExtra("Linha", linha);
+        String paradaJson = new Gson().toJson(paradas);
+        intent.putExtra("Paradas", paradaJson);
+        startActivity(intent);
+    }
+
+    private final LocationListener mLocationListener = new LocationListener() {
+
+        @Override
+        public void onLocationChanged(Location location) {
+            Log.i(TAG, "onLocationChanged");
+            Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
+            localUsuario = location;
+            Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
+            carregarParadas(linha);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            Log.i(TAG, "onStatusChanged");
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Log.i(TAG, "onProviderEnabled");
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Log.i(TAG, "onProviderDisabled");
+        }
+    };
 }

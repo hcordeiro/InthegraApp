@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasMenuActivity;
 import com.hcordeiro.android.InthegraApp.Activities.Paradas.ParadasMenuActivity;
@@ -20,7 +19,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.menu_principal_activity);
     }
 
     public void displayMenuParadasActivity(View view) {

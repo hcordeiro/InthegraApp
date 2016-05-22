@@ -1,10 +1,7 @@
 package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +28,8 @@ public class RotasSelecionarDestinoActivity extends FragmentActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selecionar_destino);
+        setContentView(R.layout.rotas_selecionar_destino_activity);
+        Util.requestLocation(this);
         preencherDados();
     }
 
@@ -60,20 +58,11 @@ public class RotasSelecionarDestinoActivity extends FragmentActivity implements 
             finish();
         }
     }
-
+    @SuppressWarnings("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.i(TAG, "OnMapReady Called");
         map = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            int REQUEST_ACCESS_LOCATION = 1;
-            String[] PERMISSIONS_LOCATION = {
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-            };
-            ActivityCompat.requestPermissions(RotasSelecionarDestinoActivity.this, PERMISSIONS_LOCATION, REQUEST_ACCESS_LOCATION);
-        }
-
         map.setMyLocationEnabled(true);
 
         map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
