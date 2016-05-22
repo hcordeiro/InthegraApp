@@ -1,5 +1,6 @@
 package com.hcordeiro.android.InthegraApp.InthegraAPI;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.equalsp.stransthe.CachedInthegraService;
@@ -29,11 +30,11 @@ public class InthegraServiceSingleton {
     private static CachedInthegraService cachedService;
     private static RotaService rotaService;
 
-    public static void initInstance() {
+    public static void initInstance(Context context) {
         Log.i(TAG, "initInstance Called");
         if (cachedService == null) {
             InthegraService service = new InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
-            AndroidFileHandler fileHandler = new AndroidFileHandler();
+            AndroidFileHandler fileHandler = new AndroidFileHandler(context);
             cachedService = new CachedInthegraService(service, fileHandler, 7, TimeUnit.DAYS);
             rotaService = new RotaService(cachedService);
         }

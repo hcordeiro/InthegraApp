@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activities.MainActivity">
+    tools:context=".Activities.MenuPrincipalActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,27 +20,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/menu_paradas_btn"
-        android:id="@+id/menuParadasBtn"
-        android:layout_above="@+id/menuLinhasBtn"
-        android:layout_centerHorizontal="true"
-        android:onClick="displayMenuParadasActivity"/>
+        android:text="@string/menu_linhas_btn"
+        android:id="@+id/menuLinhasBtn"
+        android:onClick="displayMenuLinhasActivity"
+        android:layout_above="@+id/menuParadasBtn"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/menu_linhas_btn"
-        android:id="@+id/menuLinhasBtn"
+        android:text="@string/menu_paradas_btn"
+        android:id="@+id/menuParadasBtn"
+        android:onClick="displayMenuParadasActivity"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="displayMenuLinhasActivity"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/menu_veiculos_btn"
         android:id="@+id/menuVeiculosBtn"
-        android:layout_below="@+id/menuLinhasBtn"
+        android:layout_below="@+id/menuParadasBtn"
         android:layout_centerHorizontal="true"
         android:onClick="displayMenuVeiculosActivity" />
 

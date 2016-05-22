@@ -1,9 +1,10 @@
 <resources>
-    <!-- Main Activity -->
-    <string name="app_name">Inthegra App</string>
+    <string name="app_name">Cadê meu Ônibus?</string>
+
+    <!-- Menu Principal -->
     <string name="main_titulo">O que você deseja?</string>
-    <string name="menu_paradas_btn">Informação de Paradas</string>
-    <string name="menu_linhas_btn">Informação de Linhas</string>
+    <string name="menu_linhas_btn">Achar uma linha</string>
+    <string name="menu_paradas_btn">Paradas próximas</string>
     <string name="menu_veiculos_btn">Cadê meu ôniubs?</string>
     <string name="menu_rotas_btn">Que ônibus eu pego?</string>
 
@@ -15,7 +16,7 @@
     <string name="detail_parada_verNoMapaBtn">Ver no mapa</string>
 
     <!-- Linhas -->
-    <string name="menu_linhas_titulo">Selecione uma linha</string>
+    <string name="menu_linhas_titulo">Linha: </string>
     <string name="detail_linha_codigoLinhaLbl">Linha:</string>
     <string name="detail_linha_origemLinhaLbl">Origem:</string>
     <string name="detail_linha_retornoLinhaLbl">Retorno:</string>

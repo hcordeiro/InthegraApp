@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 import com.equalsp.stransthe.rotas.Rota;
 import com.google.android.gms.maps.model.LatLng;
-import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
+import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraRotasAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraRotasAsyncResponse;
 import com.hcordeiro.android.InthegraApp.R;
@@ -65,7 +65,7 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(RotaGerarActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RotaGerarActivity.this, MenuPrincipalActivity.class);
                             startActivity(intent);
                         }
                     });

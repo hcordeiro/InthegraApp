@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.equalsp.stransthe.Parada;
-import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
+import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
 
@@ -47,7 +47,7 @@ public class ParadasMenuActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(ParadasMenuActivity.this, MainActivity.class);
+                            Intent intent = new Intent(ParadasMenuActivity.this, MenuPrincipalActivity.class);
                             startActivity(intent);
                         }
                     });

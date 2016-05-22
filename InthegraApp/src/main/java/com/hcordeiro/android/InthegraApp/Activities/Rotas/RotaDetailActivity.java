@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.equalsp.stransthe.Localizacao;
 import com.equalsp.stransthe.Parada;
@@ -115,6 +116,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
         @Override
         public void onLocationChanged(Location location) {
             Log.i(TAG, "onLocationChanged");
+            Toast.makeText(RotaDetailActivity.this, "Atualizando localização...", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
             LatLng pos = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, Util.ZOOM);

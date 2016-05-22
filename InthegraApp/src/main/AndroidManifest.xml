@@ -3,8 +3,6 @@
     package="com.hcordeiro.android.InthegraApp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -14,17 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.hcordeiro.android.InthegraApp.Activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Activities.Paradas.ParadasMenuActivity" />
-        <activity android:name=".Activities.Linhas.LinhasMenuActivity" />
-        <activity android:name=".Activities.Paradas.ParadasDetailActivity" />
-        <activity android:name=".Activities.Linhas.LinhasDetailActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -33,14 +20,33 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC59hde9AxYwSzd_0ccclrAZociQr4PcJk" />
 
+
+        <activity android:name=".Activities.LoadCacheActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Activities.MenuPrincipalActivity"></activity>
+        <activity android:name=".Activities.Linhas.LinhasMapaActivity" />
+        <activity android:name=".Activities.Linhas.LinhasMenuActivity" />
+        <activity android:name=".Activities.Linhas.LinhasDetailActivity" />
+
+        <activity android:name=".Activities.Paradas.ParadasMenuActivity" />
+        <activity android:name=".Activities.Paradas.ParadasDetailActivity" />
         <activity android:name=".Activities.Paradas.ParadasMapaActivity" />
+
         <activity android:name=".Activities.Veiculos.VeiculosDetailActivity" />
         <activity android:name=".Activities.Veiculos.VeiculosMenuActivity" />
         <activity android:name=".Activities.Rotas.RotasMenuActivity" />
         <activity android:name=".Activities.Rotas.RotasSelecionarOrigemActivity" />
         <activity android:name=".Activities.Rotas.RotasSelecionarDestinoActivity" />
         <activity android:name=".Activities.Rotas.RotaGerarActivity" />
-        <activity android:name=".Activities.Rotas.RotaDetailActivity"/>
+        <activity android:name=".Activities.Rotas.RotaDetailActivity" />
+
+
     </application>
 
 </manifest>

@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.equalsp.stransthe.Linha;
-import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
+import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
 
@@ -26,7 +26,7 @@ public class LinhasMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_menu_linhas);
+        setContentView(R.layout.activity_linhas_menu);
 
         carregarLinhas();
     }
@@ -46,7 +46,7 @@ public class LinhasMenuActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(LinhasMenuActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LinhasMenuActivity.this, MenuPrincipalActivity.class);
                             startActivity(intent);
                         }
                     });

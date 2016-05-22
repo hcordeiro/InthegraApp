@@ -20,11 +20,10 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.model.LatLng;
-import com.hcordeiro.android.InthegraApp.Activities.MainActivity;
+import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
 import com.hcordeiro.android.InthegraApp.R;
 
 public class RotasMenuActivity extends AppCompatActivity implements ConnectionCallbacks, OnConnectionFailedListener {
@@ -72,7 +71,7 @@ public class RotasMenuActivity extends AppCompatActivity implements ConnectionCa
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
-                                        Intent intent = new Intent(RotasMenuActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(RotasMenuActivity.this, MenuPrincipalActivity.class);
                                         startActivity(intent);
                                     }
                                 });

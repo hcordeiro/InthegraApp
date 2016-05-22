@@ -1,6 +1,6 @@
 package com.hcordeiro.android.InthegraApp.InthegraAPI;
 
-import android.os.Environment;
+import android.content.Context;
 import android.util.Log;
 
 import com.equalsp.stransthe.CachedServiceFileHander;
@@ -18,12 +18,16 @@ import java.io.IOException;
  */
 public class AndroidFileHandler implements CachedServiceFileHander {
     private final String TAG = "FileHandler";
+    private final Context mContext;
+
+    public AndroidFileHandler(Context context){
+        this.mContext = context;
+    }
 
     @Override
     public String loadCacheFile() throws IOException {
         Log.i(TAG, "loadCacheFile Called");
-        File sdcard = Environment.getExternalStorageDirectory();
-        File file = new File(sdcard,"cachedInthegraService.json");
+        File file = new File(mContext.getFilesDir(), FILE_NAME);
         String fileContent = "";
 
         if (file.exists()) {
@@ -44,8 +48,7 @@ public class AndroidFileHandler implements CachedServiceFileHander {
     @Override
     public void saveCacheFile(String content) throws IOException {
         Log.i(TAG, "saveCacheFile Called");
-        File sdcard = Environment.getExternalStorageDirectory();
-        File file = new File(sdcard,"cachedInthegraService.json");
+        File file = new File(mContext.getFilesDir(), FILE_NAME);
 
         FileWriter writer = new FileWriter(file);
         writer.write(content);
