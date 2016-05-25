@@ -34,7 +34,7 @@ O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache a
  
  
 # Download do APK
-[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MNTd6dnJ3akhsTFE)
+[Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-Mb3VGWk9DaTdicWc)
 
 # Licensa de uso
 Esse projeto é distribuído sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
