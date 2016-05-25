@@ -7,7 +7,7 @@ Aplicação móvel Android utilizando a  da bilbioteca [API Strans THE](https://
 4. Listar as linhas de ônibus possíveis dados uma origem e um destino, e em quais paradas subir/descer do ônibus;
 
 # Observação
-O primeiro carregamento do cache demora (~4min), o aplicativo atualiza o cache após 1 semana.
+Os dados que o Strans disponibiliza já foram adicionado ao aok, i.e. não há mais a necessidade de carregar o cache da internet na primeira utilização.
 
 # Em breve:
 - [ ] Melhorias de Interface;
