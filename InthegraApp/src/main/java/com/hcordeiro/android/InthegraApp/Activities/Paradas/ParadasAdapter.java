@@ -87,8 +87,21 @@ public class ParadasAdapter extends BaseAdapter {
                 ArrayList<Parada> paradasFiltradas = new ArrayList<>();
                 for (int i = 0; i < paradasOriginal.size(); i++) {
                     Parada parada = paradasOriginal.get(i);
-                    if (parada.getEndereco().toLowerCase().contains(constraint) ||
-                            parada.getCodigoParada().toLowerCase().contains(constraint)) {
+                    StringBuilder builder = new StringBuilder();
+
+                    if (parada.getDenomicao() != null) {
+                        builder.append(parada.getDenomicao().toLowerCase());
+                    }
+
+                    if (parada.getEndereco() != null) {
+                        builder.append(" " + parada.getEndereco().toLowerCase());
+                    }
+
+                    if (parada.getCodigoParada() != null) {
+                        builder.append(" " + parada.getCodigoParada().toLowerCase());
+                    }
+
+                    if (builder.toString().contains(constraint)) {
                         paradasFiltradas.add(parada);
                     }
                 }

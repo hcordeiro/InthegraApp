@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
+@SuppressWarnings("MissingPermission")
 public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyCallback {
     private final String TAG = "ParadaMadas";
     private GoogleMap map;
@@ -28,9 +29,10 @@ public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyC
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paradas_mapa_activity);
-
-        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Util.requestLocation(this,mLocationManager, mLocationListener);
+        if (!Util.isOnline(this)) {
+            finish();
+        }
+        Util.requestLocation(this, mLocationListener);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -45,7 +47,7 @@ public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyC
         denominacaoParadaTxt.setText(parada.getDenomicao());
     }
 
-    @SuppressWarnings("MissingPermission")
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.i(TAG, "OnMapReady Called");
@@ -58,7 +60,9 @@ public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyC
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 15);
         map.animateCamera(cameraUpdate);
-        map.setMyLocationEnabled(true);
+        if (Util.IS_LOCATION_AUTHORIZED) {
+            map.setMyLocationEnabled(true);
+        }
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
@@ -67,6 +71,7 @@ public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyC
         public void onLocationChanged(Location location) {
             Log.i(TAG, "onLocationChanged");
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
+            map.setMyLocationEnabled(true);
             LatLng pos = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 17);
             map.animateCamera(cameraUpdate);

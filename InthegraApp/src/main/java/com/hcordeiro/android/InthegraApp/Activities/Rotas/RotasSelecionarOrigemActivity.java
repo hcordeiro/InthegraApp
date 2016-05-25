@@ -29,7 +29,6 @@ public class RotasSelecionarOrigemActivity extends FragmentActivity implements O
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rotas_selecionar_origem_activity);
-        Util.requestLocation(this);
         preencherDados();
     }
 
@@ -64,7 +63,9 @@ public class RotasSelecionarOrigemActivity extends FragmentActivity implements O
     public void onMapReady(GoogleMap googleMap) {
         Log.i(TAG, "OnMapReady Called");
         map = googleMap;
-        map.setMyLocationEnabled(true);
+        if (Util.IS_LOCATION_AUTHORIZED) {
+            map.setMyLocationEnabled(true);
+        }
 
         map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override

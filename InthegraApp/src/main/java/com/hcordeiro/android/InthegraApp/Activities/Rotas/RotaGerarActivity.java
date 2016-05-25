@@ -8,11 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.equalsp.stransthe.Linha;
-import com.equalsp.stransthe.Parada;
 import com.equalsp.stransthe.rotas.Rota;
 import com.google.android.gms.maps.model.LatLng;
 import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
@@ -22,7 +20,8 @@ import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -42,7 +41,6 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
 
         rotas = new TreeSet<>();
         carregarRotas(origem, destino, Util.DISTANCIA_MAXIMA_A_PE);
-
     }
 
     private void carregarRotas(LatLng origem, LatLng destino, Double distanciaMaxima) {
@@ -99,6 +97,15 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
             }
 
         }
+
+        Collections.sort(rotasList, new Comparator<Rota>() {
+            @Override
+            public int compare(Rota r1, Rota r2) {
+                Double d1 = r1.getTrechos().get(0).getDistancia();
+                Double d2 = r2.getTrechos().get(0).getDistancia();
+                return d1.compareTo(d2);
+            }
+        });
 
         RotasAdapter adapter = new RotasAdapter(this, rotasList);
 

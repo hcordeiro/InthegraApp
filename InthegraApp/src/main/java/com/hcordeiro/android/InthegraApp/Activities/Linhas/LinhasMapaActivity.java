@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("MissingPermission")
 public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCallback {
     private final String TAG = "LinhasMapa";
     private GoogleMap map;
@@ -43,22 +44,25 @@ public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.linhas_mapa_activity);
+        if (!Util.isOnline(this)) {
+
+            finish();
+        }
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Util.requestLocation(this, mLocationManager, mLocationListener);
+        Util.requestLocation(this, mLocationListener);
 
         preencherDados();
     }
 
-    @SuppressWarnings("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.i(TAG, "OnMapReady Called");
         map = googleMap;
         carregarMarcadores();
-        map.setMyLocationEnabled(true);
+        if (Util.IS_LOCATION_AUTHORIZED) {
+            map.setMyLocationEnabled(true);
+        }
     }
 
     private void preencherDados() {
@@ -84,7 +88,6 @@ public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCa
             pontoDeInteresse = new PontoDeInteresse(localUsuario.getLatitude(), localUsuario.getLongitude());
             builder.include(new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude()));
         }
-
 
         for (Parada parada : paradas) {
             MarkerOptions marcador = new MarkerOptions()
@@ -113,6 +116,7 @@ public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCa
             Toast.makeText(LinhasMapaActivity.this, "Atualizando localização...", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
             localUsuario = location;
+            map.setMyLocationEnabled(true);
             carregarMarcadores();
         }
 

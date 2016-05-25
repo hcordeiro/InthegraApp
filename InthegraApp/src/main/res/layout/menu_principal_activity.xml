@@ -42,7 +42,8 @@
         android:id="@+id/menuVeiculosBtn"
         android:layout_below="@+id/menuParadasBtn"
         android:layout_centerHorizontal="true"
-        android:onClick="displayMenuVeiculosActivity" />
+        android:onClick="displayMenuVeiculosActivity"
+        android:enabled="false" />
 
     <Button
         android:layout_width="wrap_content"
@@ -51,7 +52,8 @@
         android:id="@+id/menuRotasBtn"
         android:layout_below="@+id/menuVeiculosBtn"
         android:layout_centerHorizontal="true"
-        android:onClick="displayMenuRotasActivity" />
+        android:onClick="displayMenuRotasActivity"
+        android:enabled="false" />
 
 
 </RelativeLayout>

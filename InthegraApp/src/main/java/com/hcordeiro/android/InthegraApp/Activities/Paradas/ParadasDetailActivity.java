@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.equalsp.stransthe.Parada;
 import com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasDetailActivity;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
+import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,6 +58,11 @@ public class ParadasDetailActivity extends AppCompatActivity {
         TextView enderecoParadaTxt = (TextView) findViewById(R.id.enderecoParadaTxt);
         if (enderecoParadaTxt != null) {
             enderecoParadaTxt.setText(parada.getEndereco());
+        }
+
+        if (Util.isOnline(this)) {
+            Button verNoMapaBtn = (Button) findViewById(R.id.verNoMapaBtn);
+            verNoMapaBtn.setEnabled(true);
         }
 
         carregarLinhas(parada);

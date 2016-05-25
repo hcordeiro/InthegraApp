@@ -7,9 +7,11 @@ import com.equalsp.stransthe.CachedServiceFileHander;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * FileHandler para salvar o arquivo de cache no dispositivo.
@@ -27,22 +29,18 @@ public class AndroidFileHandler implements CachedServiceFileHander {
     @Override
     public String loadCacheFile() throws IOException {
         Log.i(TAG, "loadCacheFile Called");
-        File file = new File(mContext.getFilesDir(), FILE_NAME);
-        String fileContent = "";
 
-        if (file.exists()) {
-            StringBuilder stringBuilder = new StringBuilder();
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                stringBuilder.append(line);
-                stringBuilder.append('\n');
-            }
-            br.close();
+        InputStream inputStream = mContext.getResources().openRawResource(
+                mContext.getResources().getIdentifier("cachedinthegraservice",
+                        "raw", mContext.getPackageName()));
 
-            fileContent = stringBuilder.toString();
-        }
-        return fileContent;
+        int size = inputStream.available();
+        byte[] buffer = new byte[size];
+        inputStream.read(buffer);
+        inputStream.close();
+        String str = new String(buffer);
+
+        return str;
     }
 
     @Override

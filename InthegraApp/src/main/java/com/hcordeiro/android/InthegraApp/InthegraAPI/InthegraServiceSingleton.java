@@ -30,13 +30,14 @@ public class InthegraServiceSingleton {
     private static CachedInthegraService cachedService;
     private static RotaService rotaService;
 
-    public static void initInstance(Context context) {
+    public static void initInstance(Context context) throws IOException {
         Log.i(TAG, "initInstance Called");
         if (cachedService == null) {
             InthegraService service = new InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
             AndroidFileHandler fileHandler = new AndroidFileHandler(context);
-            cachedService = new CachedInthegraService(service, fileHandler, 7, TimeUnit.DAYS);
+            cachedService = new CachedInthegraService(service, fileHandler, 180, TimeUnit.DAYS);
             rotaService = new RotaService(cachedService);
+            cachedService.initialize();
         }
     }
 
@@ -127,6 +128,7 @@ public class InthegraServiceSingleton {
         PontoDeInteresse p1 = new PontoDeInteresse(origemLat, origemLng);
         PontoDeInteresse p2 = new PontoDeInteresse(destinoLat, destinoLng);
 
-        return rotaService.getRotas(p1, p2, distanciaMaxima);
+        Set<Rota> rotas = rotaService.getRotas(p1, p2, distanciaMaxima);
+        return rotas;
     }
 }

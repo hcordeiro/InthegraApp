@@ -31,6 +31,7 @@ public class ParadasMenuActivity extends AppCompatActivity {
     private final String TAG = "ParadasMenu";
     private Location localUsuario;
     private ParadasAdapter adapter;
+    private List<Parada> paradas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,9 @@ public class ParadasMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paradas_menu_activity);
 
-        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Util.requestLocation(this,mLocationManager, mLocationListener);
+        Util.requestLocation(this, mLocationListener);
+
+        paradas = new ArrayList<>();
 
         carregarParadas();
         carregarBusca();
@@ -47,25 +49,26 @@ public class ParadasMenuActivity extends AppCompatActivity {
 
     private void carregarParadas() {
         Log.i(TAG, "carregarParadas Called");
-        List<Parada> paradas = new ArrayList<>();
-        try {
-            Log.d(TAG, "Carregando paradas...");
-            paradas = InthegraServiceSingleton.getParadas();
-        } catch (IOException e) {
-            Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ParadasMenuActivity.this);
-            alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas");
-            alertBuilder.setCancelable(false);
-            alertBuilder.setNeutralButton("Certo",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            Intent intent = new Intent(ParadasMenuActivity.this, MenuPrincipalActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-            AlertDialog alert = alertBuilder.create();
-            alert.show();
+        if (paradas.isEmpty()) {
+            try {
+                Log.d(TAG, "Carregando paradas...");
+                paradas = InthegraServiceSingleton.getParadas();
+            } catch (IOException e) {
+                Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ParadasMenuActivity.this);
+                alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas");
+                alertBuilder.setCancelable(false);
+                alertBuilder.setNeutralButton("Certo",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                Intent intent = new Intent(ParadasMenuActivity.this, MenuPrincipalActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                AlertDialog alert = alertBuilder.create();
+                alert.show();
+            }
         }
 
         if (localUsuario != null) {

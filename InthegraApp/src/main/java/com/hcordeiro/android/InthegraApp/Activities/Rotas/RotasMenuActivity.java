@@ -25,6 +25,7 @@ public class RotasMenuActivity extends AppCompatActivity {
     private final String TAG = "MenuRotas";
 
     private Button gerarRotaBtn;
+    private Button selectionarOrigemBtn;
     private Location localUsuario;
     private LatLng origem;
     private LatLng destino;
@@ -34,9 +35,7 @@ public class RotasMenuActivity extends AppCompatActivity {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rotas_menu_activity);
-
-        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Util.requestLocation(this,mLocationManager, mLocationListener);
+        Util.requestLocation(this, mLocationListener);
 
         preencherDados();
     }
@@ -47,46 +46,29 @@ public class RotasMenuActivity extends AppCompatActivity {
         assert gerarRotaBtn != null;
         gerarRotaBtn.setEnabled(false);
 
-        final Button selectionarOrigemBtn = (Button) findViewById(R.id.selectionarOrigemBtn);
+        selectionarOrigemBtn = (Button) findViewById(R.id.selectionarOrigemBtn);
         assert selectionarOrigemBtn != null;
 
         Switch meuLocalSwtich = (Switch) findViewById(R.id.meuLocalSwtich);
         assert meuLocalSwtich != null;
         meuLocalSwtich.setChecked(false);
-        meuLocalSwtich.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    if (localUsuario != null) {
-                        selectionarOrigemBtn.setEnabled(false);
-                        origem = new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude());
+
+        if (Util.IS_LOCATION_AUTHORIZED) {
+            meuLocalSwtich.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (!isChecked) {
+                        origem = null;
+                        selectionarOrigemBtn.setEnabled(true);
                         CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
                         assert origemCheckedTextView != null;
-                        origemCheckedTextView.setChecked(true);
-                    } else {
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotasMenuActivity.this);
-                        alertBuilder.setMessage("Não foi possível recuperar a localização do usuário.");
-                        alertBuilder.setCancelable(false);
-                        alertBuilder.setNeutralButton("Certo",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                        Intent intent = new Intent(RotasMenuActivity.this, MenuPrincipalActivity.class);
-                                        startActivity(intent);
-                                    }
-                                });
-                        AlertDialog alert = alertBuilder.create();
-//                        alert.show();
+                        origemCheckedTextView.setChecked(false);
                     }
-                } else {
-                    origem = null;
-                    selectionarOrigemBtn.setEnabled(true);
-                    CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
-                    assert origemCheckedTextView != null;
-                    origemCheckedTextView.setChecked(false);
                 }
-            }
-        });
+            });
+        } else {
+            meuLocalSwtich.setEnabled(false);
+        }
 
 
         if (origem != null && destino != null) {
@@ -164,6 +146,16 @@ public class RotasMenuActivity extends AppCompatActivity {
             Log.i(TAG, "onLocationChanged");
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
             localUsuario = location;
+
+            Switch meuLocalSwtich = (Switch) findViewById(R.id.meuLocalSwtich);
+            assert meuLocalSwtich != null;
+            if (meuLocalSwtich.isChecked()) {
+                selectionarOrigemBtn.setEnabled(false);
+                origem = new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude());
+                CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
+                assert origemCheckedTextView != null;
+                origemCheckedTextView.setChecked(true);
+            }
         }
 
         @Override

@@ -9,13 +9,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hcordeiro.android.InthegraApp.Activities.LoadCacheActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tentar Novamente"
-        android:id="@+id/tentarNovamenteBtn"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        android:onClick="tentarNovamente" />/>
 </RelativeLayout>

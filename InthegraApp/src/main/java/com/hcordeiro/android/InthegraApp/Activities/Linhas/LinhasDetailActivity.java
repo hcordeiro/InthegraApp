@@ -5,13 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +28,6 @@ import com.hcordeiro.android.InthegraApp.Util.Util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -41,49 +39,24 @@ public class LinhasDetailActivity extends AppCompatActivity  {
     private final String TAG = "DetailLinha";
     private Location localUsuario;
     private List<Parada> paradas;
-
-    private final LocationListener mLocationListener = new LocationListener() {
-
-        @Override
-        public void onLocationChanged(Location location) {
-            Log.i(TAG, "onLocationChanged");
-            Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
-            localUsuario = location;
-            Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
-            carregarParadas(linha);
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            Log.i(TAG, "onStatusChanged");
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-            Log.i(TAG, "onProviderEnabled");
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-            Log.i(TAG, "onProviderDisabled");
-        }
-    };
+    private Linha linha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.linhas_detail_activity);
+        Util.requestLocation(this, mLocationListener);
 
-        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Util.requestLocation(this, mLocationManager, mLocationListener);
+        linha = (Linha) getIntent().getSerializableExtra("Linha");
+        paradas = new ArrayList<>();
 
         preencherDados();
+        carregarParadas(linha);
     }
 
     private void preencherDados() {
         Log.i(TAG, "preencherDados Called");
-        Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
         TextView denominacaoLinhaTxt = (TextView) findViewById(R.id.denominacaoLinhaTxt);
         if (denominacaoLinhaTxt != null) {
             denominacaoLinhaTxt.setText(linha.getDenomicao());
@@ -113,30 +86,37 @@ public class LinhasDetailActivity extends AppCompatActivity  {
             }
         }
 
+        if (Util.isOnline(this)) {
+            Button button = (Button) findViewById(R.id.button);
+            button.setEnabled(true);
+        }
+
         carregarParadas(linha);
     }
 
     private void carregarParadas(Linha linha) {
         Log.i(TAG, "carregarParadas Called");
-        paradas = new ArrayList<>();
-        try {
-            Log.d(TAG, "Recuperando paradas...");
-            paradas = InthegraServiceSingleton.getParadas(linha);
-        } catch (IOException e) {
-            Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LinhasDetailActivity.this);
-            alertBuilder.setMessage("Não foi possível recuperar a lista de Paradas da Linha informada");
-            alertBuilder.setCancelable(false);
-            alertBuilder.setNeutralButton("Certo",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            Intent intent = new Intent(LinhasDetailActivity.this, LinhasMenuActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-            AlertDialog alert = alertBuilder.create();
-            alert.show();
+
+        if (paradas.isEmpty()) {
+            try {
+                Log.d(TAG, "Recuperando paradas...");
+                paradas = InthegraServiceSingleton.getParadas(linha);
+            } catch (IOException e) {
+                Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LinhasDetailActivity.this);
+                alertBuilder.setMessage("Não foi possível recuperar a lista de Paradas da Linha informada");
+                alertBuilder.setCancelable(false);
+                alertBuilder.setNeutralButton("Certo",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                Intent intent = new Intent(LinhasDetailActivity.this, LinhasMenuActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                AlertDialog alert = alertBuilder.create();
+                alert.show();
+            }
         }
 
         if (localUsuario != null) {
@@ -163,13 +143,42 @@ public class LinhasDetailActivity extends AppCompatActivity  {
         }
     }
 
+    private final LocationListener mLocationListener = new LocationListener() {
+
+        @Override
+        public void onLocationChanged(Location location) {
+            Log.i(TAG, "onLocationChanged");
+            Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
+            localUsuario = location;
+            Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
+            carregarParadas(linha);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            Log.i(TAG, "onStatusChanged");
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Log.i(TAG, "onProviderEnabled");
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Log.i(TAG, "onProviderDisabled");
+        }
+    };
+
     public void displayLinhasMapaActivity(View view) {
         Log.i(TAG, "displayLinhasMapaActivity Called");
-        Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
-        Intent intent = new Intent(this, LinhasMapaActivity.class);
-        intent.putExtra("Linha", linha);
-        String paradaJson = new Gson().toJson(paradas);
-        intent.putExtra("Paradas", paradaJson);
-        startActivity(intent);
+        if (Util.isOnline(this)) {
+            Linha linha = (Linha) getIntent().getSerializableExtra("Linha");
+            Intent intent = new Intent(this, LinhasMapaActivity.class);
+            intent.putExtra("Linha", linha);
+            String paradaJson = new Gson().toJson(paradas);
+            intent.putExtra("Paradas", paradaJson);
+            startActivity(intent);
+        }
     }
 }

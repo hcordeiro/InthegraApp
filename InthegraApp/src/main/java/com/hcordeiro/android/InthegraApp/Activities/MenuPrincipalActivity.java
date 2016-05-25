@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasMenuActivity;
 import com.hcordeiro.android.InthegraApp.Activities.Paradas.ParadasMenuActivity;
 import com.hcordeiro.android.InthegraApp.Activities.Rotas.RotasMenuActivity;
 import com.hcordeiro.android.InthegraApp.Activities.Veiculos.VeiculosMenuActivity;
 import com.hcordeiro.android.InthegraApp.R;
+import com.hcordeiro.android.InthegraApp.Util.Util;
 
 
 public class MenuPrincipalActivity extends AppCompatActivity {
@@ -20,6 +22,15 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_principal_activity);
+
+        boolean isOnline = Util.isOnline(this);
+        if(isOnline) {
+            Button menuVeiculosBtn = (Button) findViewById(R.id.menuVeiculosBtn);
+            menuVeiculosBtn.setEnabled(true);
+
+            Button menuRotasBtn = (Button) findViewById(R.id.menuRotasBtn);
+            menuRotasBtn.setEnabled(true);
+        }
     }
 
     public void displayMenuParadasActivity(View view) {
@@ -45,5 +56,4 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RotasMenuActivity.class);
         startActivity(intent);
     }
-
 }

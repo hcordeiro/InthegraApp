@@ -118,7 +118,8 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="displayLinhasMapaActivity" />
+        android:onClick="displayLinhasMapaActivity"
+        android:enabled="false"/>
 
     <ListView
         android:layout_width="wrap_content"
@@ -127,6 +128,7 @@
         android:layout_below="@+id/paradasLbl"
         android:layout_centerHorizontal="true"
         android:choiceMode="singleChoice"
-        android:layout_above="@+id/button" />
+        android:layout_above="@+id/button"
+        />
 
 </RelativeLayout>

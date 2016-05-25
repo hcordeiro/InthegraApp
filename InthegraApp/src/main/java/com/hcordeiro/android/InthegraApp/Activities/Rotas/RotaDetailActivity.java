@@ -22,7 +22,6 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -35,6 +34,8 @@ import com.hcordeiro.android.InthegraApp.Util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@SuppressWarnings("MissingPermission")
 public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
     private final String TAG = "DetailRota";
     private GoogleMap map;
@@ -58,8 +59,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rotas_detail_activity);
 
-        LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Util.requestLocation(this, mLocationManager, mLocationListener);
+        Util.requestLocation(this, mLocationListener);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -89,12 +89,15 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
-    @SuppressWarnings("MissingPermission")
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.i(TAG, "OnMapReady Called");
         map = googleMap;
-        map.setMyLocationEnabled(true);
+        if (Util.IS_LOCATION_AUTHORIZED) {
+            map.setMyLocationEnabled(true);
+        }
+
         adicionarMarcadores();
     }
 
@@ -180,6 +183,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
             LatLng pos = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, Util.ZOOM);
+            map.setMyLocationEnabled(true);
             map.animateCamera(cameraUpdate);
         }
 

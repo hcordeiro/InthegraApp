@@ -3,6 +3,7 @@
     package="com.hcordeiro.android.InthegraApp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -45,7 +46,6 @@
         <activity android:name=".Activities.Rotas.RotasSelecionarDestinoActivity" />
         <activity android:name=".Activities.Rotas.RotaGerarActivity" />
         <activity android:name=".Activities.Rotas.RotaDetailActivity" />
-
 
     </application>
 
