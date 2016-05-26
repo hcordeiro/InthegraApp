@@ -88,6 +88,7 @@ public class LinhasDetailActivity extends AppCompatActivity  {
 
         if (Util.isOnline(this)) {
             Button button = (Button) findViewById(R.id.button);
+            assert button != null;
             button.setEnabled(true);
         }
 

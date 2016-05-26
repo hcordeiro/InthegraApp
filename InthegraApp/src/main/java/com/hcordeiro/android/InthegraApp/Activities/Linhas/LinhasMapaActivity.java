@@ -1,11 +1,7 @@
 package com.hcordeiro.android.InthegraApp.Activities.Linhas;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,15 +40,15 @@ public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.linhas_mapa_activity);
+
         if (!Util.isOnline(this)) {
-
             finish();
+        } else {
+            MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+            Util.requestLocation(this, mLocationListener);
+            preencherDados();
         }
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        Util.requestLocation(this, mLocationListener);
-
-        preencherDados();
     }
 
     @Override
@@ -73,7 +69,6 @@ public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCa
 
         String paradasJson = getIntent().getStringExtra("Paradas");
         paradas = new ArrayList<>(Arrays.asList(new Gson().fromJson(paradasJson, Parada[].class)));
-
         listaMarcadores = new ArrayList<>();
     }
 
@@ -116,7 +111,6 @@ public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCa
             Toast.makeText(LinhasMapaActivity.this, "Atualizando localização...", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
             localUsuario = location;
-            map.setMyLocationEnabled(true);
             carregarMarcadores();
         }
 

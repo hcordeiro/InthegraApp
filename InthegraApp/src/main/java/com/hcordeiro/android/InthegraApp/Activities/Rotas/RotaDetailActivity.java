@@ -183,7 +183,6 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
             LatLng pos = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, Util.ZOOM);
-            map.setMyLocationEnabled(true);
             map.animateCamera(cameraUpdate);
         }
 

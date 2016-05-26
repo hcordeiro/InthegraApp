@@ -1,12 +1,9 @@
 package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.hcordeiro.android.InthegraApp.Activities.MenuPrincipalActivity;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
@@ -26,7 +23,6 @@ public class RotasMenuActivity extends AppCompatActivity {
 
     private Button gerarRotaBtn;
     private Button selectionarOrigemBtn;
-    private Location localUsuario;
     private LatLng origem;
     private LatLng destino;
 
@@ -54,26 +50,12 @@ public class RotasMenuActivity extends AppCompatActivity {
         meuLocalSwtich.setChecked(false);
 
         if (Util.IS_LOCATION_AUTHORIZED) {
-            meuLocalSwtich.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (!isChecked) {
-                        origem = null;
-                        selectionarOrigemBtn.setEnabled(true);
-                        CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
-                        assert origemCheckedTextView != null;
-                        origemCheckedTextView.setChecked(false);
-                    }
-                }
-            });
+            meuLocalSwtich.setOnCheckedChangeListener(mOnCheckedChangeListener);
         } else {
             meuLocalSwtich.setEnabled(false);
         }
 
-
-        if (origem != null && destino != null) {
-            gerarRotaBtn.setEnabled(true);
-        }
+        verificaDados();
     }
 
     public void selecionarOrigemActivity(View view) {
@@ -114,10 +96,9 @@ public class RotasMenuActivity extends AppCompatActivity {
                 if (bundle != null) {
                     origem = bundle.getParcelable("Origem");
 
-                    CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
-                    assert origemCheckedTextView != null;
-                    origemCheckedTextView.setChecked(true);
-
+                    Switch meuLocalSwtich = (Switch) findViewById(R.id.meuLocalSwtich);
+                    assert meuLocalSwtich != null;
+                    meuLocalSwtich.setChecked(false);
                 }
             }
         }
@@ -127,17 +108,32 @@ public class RotasMenuActivity extends AppCompatActivity {
                 Bundle bundle = data.getParcelableExtra("Bundle");
                 if (bundle != null) {
                     destino = bundle.getParcelable("Destino");
-                    CheckedTextView destinoCheckedTextView = (CheckedTextView) findViewById(R.id.destinoCheckedTextView);
-                    assert destinoCheckedTextView != null;
-                    destinoCheckedTextView.setChecked(true);
                 }
             }
         }
 
+       verificaDados();
+    }
+
+    private void verificaDados() {
         if (origem != null && destino != null) {
             gerarRotaBtn.setEnabled(true);
         }
     }
+
+    private final OnCheckedChangeListener mOnCheckedChangeListener = new OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (!isChecked) {
+                origem = null;
+                selectionarOrigemBtn.setEnabled(true);
+            } else {
+                selectionarOrigemBtn.setEnabled(false);
+            }
+            verificaDados();
+        }
+    };
 
     private final LocationListener mLocationListener = new LocationListener() {
 
@@ -145,17 +141,18 @@ public class RotasMenuActivity extends AppCompatActivity {
         public void onLocationChanged(Location location) {
             Log.i(TAG, "onLocationChanged");
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
-            localUsuario = location;
 
             Switch meuLocalSwtich = (Switch) findViewById(R.id.meuLocalSwtich);
             assert meuLocalSwtich != null;
             if (meuLocalSwtich.isChecked()) {
                 selectionarOrigemBtn.setEnabled(false);
-                origem = new LatLng(localUsuario.getLatitude(), localUsuario.getLongitude());
+                origem = new LatLng(location.getLatitude(), location.getLongitude());
                 CheckedTextView origemCheckedTextView = (CheckedTextView) findViewById(R.id.origemCheckedTextView);
                 assert origemCheckedTextView != null;
                 origemCheckedTextView.setChecked(true);
             }
+
+            verificaDados();
         }
 
         @Override

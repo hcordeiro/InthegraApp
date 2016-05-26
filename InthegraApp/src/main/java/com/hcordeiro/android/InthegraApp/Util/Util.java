@@ -11,7 +11,6 @@ import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import com.google.android.gms.location.*;
 import com.google.android.gms.maps.model.LatLng;
 
 import static android.content.Context.LOCATION_SERVICE;
@@ -37,9 +36,8 @@ public class Util {
     private static final int LOCATION_REFRESH_TIME = 10000;
     private static final int LOCATION_REFRESH_DISTANCE = 10;
 
-
-    public static final String ERRO_API_404 = "Not Found (404)";
-    public static final String ERRO_HOSTNAME = "Unable to resolve host \"api.inthegra.strans.teresina.pi.gov.br\": No address associated with hostname";
+//    public static final String ERRO_API_404 = "Not Found (404)";
+//    public static final String ERRO_HOSTNAME = "Unable to resolve host \"api.inthegra.strans.teresina.pi.gov.br\": No address associated with hostname";
 
     @SuppressWarnings("MissingPermission")
     public static void requestLocation(Context context, LocationListener locationListener) {

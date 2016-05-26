@@ -22,17 +22,13 @@ import java.util.List;
 
 public class LinhasMenuActivity extends AppCompatActivity {
     private final String TAG = "DetailParada";
-    private LinhasAdapter adapter;
-    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.linhas_menu_activity);
-
         carregarLinhas();
-        carregarBusca();
     }
 
     private void carregarLinhas() {
@@ -57,10 +53,13 @@ public class LinhasMenuActivity extends AppCompatActivity {
             AlertDialog alert = alertBuilder.create();
             alert.show();
         }
+        preencherDados(linhas);
+    }
 
-        adapter = new LinhasAdapter(this, linhas);
+    private void preencherDados(List<Linha> linhas) {
+        final LinhasAdapter adapter = new LinhasAdapter(this, linhas);
 
-        listView = (ListView) findViewById(R.id.linhasListView);
+        final ListView listView = (ListView) findViewById(R.id.linhasListView);
         if (listView != null) {
             listView.setAdapter(adapter);
 
@@ -74,9 +73,6 @@ public class LinhasMenuActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    private void carregarBusca() {
         SearchView linhaSearchView = (SearchView) findViewById(R.id.linhaSearchView);
         if (linhaSearchView != null) {
             linhaSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -94,5 +90,4 @@ public class LinhasMenuActivity extends AppCompatActivity {
         }
     }
 }
-
 
