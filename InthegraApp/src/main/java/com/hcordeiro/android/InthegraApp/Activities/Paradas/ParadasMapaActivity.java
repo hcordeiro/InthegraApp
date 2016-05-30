@@ -11,6 +11,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hcordeiro.android.InthegraApp.R;
@@ -42,7 +44,6 @@ public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyC
         denominacaoParadaTxt.setText(parada.getDenomicao());
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.i(TAG, "OnMapReady Called");
@@ -51,7 +52,8 @@ public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyC
         LatLng pos = new LatLng(parada.getLat(), parada.getLong());
         map.addMarker(new MarkerOptions()
                 .position(pos)
-                .title(parada.getCodigoParada()));
+                .title(parada.getCodigoParada())
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.paradapointer)));
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 15);
         map.animateCamera(cameraUpdate);

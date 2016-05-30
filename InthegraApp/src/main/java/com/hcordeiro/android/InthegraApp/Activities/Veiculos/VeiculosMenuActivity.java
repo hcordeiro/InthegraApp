@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.equalsp.stransthe.CachedInthegraService;
 import com.equalsp.stransthe.Linha;
 import com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasAdapter;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
@@ -73,7 +72,7 @@ public class VeiculosMenuActivity extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent myIntent = new Intent(VeiculosMenuActivity.this, VeiculosDetailActivity.class);
+                        Intent myIntent = new Intent(VeiculosMenuActivity.this, VeiculosMapaActivity.class);
                         Linha linha = (Linha) (listView.getItemAtPosition(position));
                         myIntent.putExtra("Linha", linha);
                         startActivity(myIntent);

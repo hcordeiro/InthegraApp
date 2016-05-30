@@ -2,7 +2,6 @@ package com.hcordeiro.android.InthegraApp.Activities.Rotas;
 
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -21,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
@@ -29,7 +29,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.JsonObject;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraDirectionsAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
@@ -38,11 +37,10 @@ import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 @SuppressWarnings("MissingPermission")
-public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
+public class RotasMapaActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
     private final String TAG = "DetailRota";
     private GoogleMap map;
 
@@ -91,7 +89,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
 
     private void carregarVeiculos() {
         for (Linha linha : linhas) {
-            InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(RotaDetailActivity.this);
+            InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(RotasMapaActivity.this);
             asyncTask.delegate = this;
             asyncTask.execute(linha);
         }
@@ -115,10 +113,12 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
         List<Trecho> trechos = rota.getTrechos();
         int trechosAPe = 0;
 
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.defaultMarker();
         for (Trecho trecho : trechos) {
-            if (trecho.getLinha() == null) {
+            if (trecho.getLinha() == null && primeiraParada == null) {
                 trechosAPe = trechosAPe + 1;
                 getDirections(trecho);
+                bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.startpointer);
             }
 
             Localizacao origem = trecho.getOrigem();
@@ -130,11 +130,13 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
                 }
 
                 tituloOrigem = p.getDenomicao();
+                bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.paradapointer);
             }
 
             MarkerOptions mOrigem = new MarkerOptions()
                     .position(new LatLng(origem.getLat(), origem.getLong()))
-                    .title(tituloOrigem);
+                    .title(tituloOrigem)
+                    .icon(bitmapDescriptor);
 
             map.addMarker(mOrigem);
 
@@ -144,7 +146,8 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
         Trecho ultimoTrecho = trechos.get(trechos.size()-1);
         MarkerOptions destinoFinal = new MarkerOptions()
                 .position(new LatLng(ultimoTrecho.getDestino().getLat(), ultimoTrecho.getDestino().getLong()))
-                .title("Destino Final");
+                .title("Destino Final")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.finishpointer));
         map.addMarker(destinoFinal);
 
         Localizacao inicio = rota.getTrechos().get(0).getOrigem();
@@ -156,7 +159,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
 
     private void getDirections(Trecho trecho) {
         Log.i(TAG, "GetDirections Called");
-        InthegraDirectionsAsync asyncTask =  new InthegraDirectionsAsync(RotaDetailActivity.this, map);
+        InthegraDirectionsAsync asyncTask =  new InthegraDirectionsAsync(RotasMapaActivity.this, map);
         asyncTask.execute(trecho);
     }
 
@@ -189,7 +192,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
 
     private void updateMapa() {
         Log.i(TAG, "updateMapa Called");
-        Toast.makeText(RotaDetailActivity.this, "Atualizando mapa...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(RotasMapaActivity.this, "Atualizando mapa...", Toast.LENGTH_SHORT).show();
         for (Marker m : veiculosMarkers) {
             m.remove();
         }
@@ -200,7 +203,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
             MarkerOptions m = new MarkerOptions()
                     .position(pos)
                     .title(v.getHora())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.onibuspointer));
             veiculosMarkers.add(map.addMarker(m));
         }
     }
@@ -210,7 +213,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
         @Override
         public void onLocationChanged(Location location) {
             Log.i(TAG, "onLocationChanged");
-            Toast.makeText(RotaDetailActivity.this, "Atualizando localização...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RotasMapaActivity.this, "Atualizando localização...", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
             LatLng pos = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, Util.ZOOM);

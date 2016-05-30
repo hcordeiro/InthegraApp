@@ -78,7 +78,7 @@ public class RotasMenuActivity extends AppCompatActivity {
 
     public void gerarRotaActivity(View view) {
         Log.i(TAG, "gerarRotaActivity Called");
-        Intent intent = new Intent(this, RotaGerarActivity.class);
+        Intent intent = new Intent(this, RotasGerarActivity.class);
         Bundle bundle = new Bundle();
 
         bundle.putParcelable("Origem", origem);

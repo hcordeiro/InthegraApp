@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class RotaGerarActivity extends AppCompatActivity implements InthegraRotasAsyncResponse {
+public class RotasGerarActivity extends AppCompatActivity implements InthegraRotasAsyncResponse {
     private final String TAG = "GerarRota";
     private Set<Rota> rotas;
 
@@ -45,7 +45,7 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
 
     private void carregarRotas(LatLng origem, LatLng destino, Double distanciaMaxima) {
         Log.i(TAG, "carregarRotas Called");
-        InthegraRotasAsync asyncTask =  new InthegraRotasAsync(RotaGerarActivity.this);
+        InthegraRotasAsync asyncTask =  new InthegraRotasAsync(RotasGerarActivity.this);
         asyncTask.delegate = this;
         asyncTask.execute(origem, destino, distanciaMaxima);
     }
@@ -59,14 +59,14 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
         listaRotas.addAll(rotas);
 
         if (listaRotas.isEmpty()) {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotaGerarActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotasGerarActivity.this);
             alertBuilder.setMessage("Não foram encontradas rotas para a origem e o destino selecionados...");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(RotaGerarActivity.this, MenuPrincipalActivity.class);
+                            Intent intent = new Intent(RotasGerarActivity.this, MenuPrincipalActivity.class);
                             startActivity(intent);
                         }
                     });
@@ -115,7 +115,7 @@ public class RotaGerarActivity extends AppCompatActivity implements InthegraRota
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent myIntent = new Intent(RotaGerarActivity.this, RotaDetailActivity.class);
+                    Intent myIntent = new Intent(RotasGerarActivity.this, RotasMapaActivity.class);
                     Rota rota = (Rota) (listView.getItemAtPosition(position));
                     myIntent.putExtra("Rota", rota);
                     startActivity(myIntent);

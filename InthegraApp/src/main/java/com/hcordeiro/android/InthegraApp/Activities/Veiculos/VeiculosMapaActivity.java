@@ -36,7 +36,7 @@ import java.util.List;
  *
  * Created by hugo on 17/05/16.
  */
-public class VeiculosDetailActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
+public class VeiculosMapaActivity extends FragmentActivity implements OnMapReadyCallback, InthegraVeiculosAsyncResponse {
     private final String TAG = "DetailVeiculos";
 
     private Linha linha;
@@ -85,7 +85,7 @@ public class VeiculosDetailActivity extends FragmentActivity implements OnMapRea
             paradas = InthegraServiceSingleton.getParadas(linha);
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(VeiculosDetailActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(VeiculosMapaActivity.this);
             alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas da Linha informada");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
@@ -102,7 +102,7 @@ public class VeiculosDetailActivity extends FragmentActivity implements OnMapRea
     }
 
     private void carregarVeiculos() {
-        InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(VeiculosDetailActivity.this);
+        InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(VeiculosMapaActivity.this);
         asyncTask.delegate = this;
         asyncTask.execute(linha);
     }
@@ -117,7 +117,8 @@ public class VeiculosDetailActivity extends FragmentActivity implements OnMapRea
             LatLng pos = new LatLng(p.getLat(), p.getLong());
             MarkerOptions m = new MarkerOptions()
                     .position(pos)
-                    .title(p.getCodigoParada());
+                    .title(p.getCodigoParada())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.paradapointer));
             paradasMarkers.add(map.addMarker(m));
         }
 
@@ -136,7 +137,7 @@ public class VeiculosDetailActivity extends FragmentActivity implements OnMapRea
 
     private void updateMapa() {
         Log.i(TAG, "updateMapa Called");
-        Toast.makeText(VeiculosDetailActivity.this, "Atualizando mapa...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(VeiculosMapaActivity.this, "Atualizando mapa...", Toast.LENGTH_SHORT).show();
         for (Marker m : veiculosMarkers) {
             m.remove();
         }
@@ -147,7 +148,7 @@ public class VeiculosDetailActivity extends FragmentActivity implements OnMapRea
             MarkerOptions m = new MarkerOptions()
                     .position(pos)
                     .title(v.getHora())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.onibuspointer));
             veiculosMarkers.add(map.addMarker(m));
         }
     }

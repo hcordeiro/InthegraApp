@@ -16,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import com.google.android.gms.maps.model.Marker;
@@ -87,7 +89,8 @@ public class LinhasMapaActivity extends FragmentActivity implements OnMapReadyCa
         for (Parada parada : paradas) {
             MarkerOptions marcador = new MarkerOptions()
                     .position(new LatLng(parada.getLat(), parada.getLong()))
-                    .title(parada.getEndereco());
+                    .title(parada.getEndereco())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.paradapointer));
             listaMarcadores.add(map.addMarker(marcador));
 
             if (pontoDeInteresse != null) {

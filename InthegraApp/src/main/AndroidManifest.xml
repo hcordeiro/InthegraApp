@@ -40,13 +40,13 @@
         <activity android:name=".Activities.Paradas.ParadasDetailActivity" android:screenOrientation="nosensor"/>
         <activity android:name=".Activities.Paradas.ParadasMapaActivity" android:screenOrientation="nosensor"/>
 
-        <activity android:name=".Activities.Veiculos.VeiculosDetailActivity" android:screenOrientation="nosensor"/>
+        <activity android:name=".Activities.Veiculos.VeiculosMapaActivity" android:screenOrientation="nosensor"/>
         <activity android:name=".Activities.Veiculos.VeiculosMenuActivity" android:screenOrientation="nosensor"/>
         <activity android:name=".Activities.Rotas.RotasMenuActivity" android:screenOrientation="nosensor"/>
         <activity android:name=".Activities.Rotas.RotasSelecionarOrigemActivity" android:screenOrientation="nosensor"/>
         <activity android:name=".Activities.Rotas.RotasSelecionarDestinoActivity" android:screenOrientation="nosensor"/>
-        <activity android:name=".Activities.Rotas.RotaGerarActivity" android:screenOrientation="nosensor"/>
-        <activity android:name=".Activities.Rotas.RotaDetailActivity" android:screenOrientation="nosensor"/>
+        <activity android:name=".Activities.Rotas.RotasGerarActivity" android:screenOrientation="nosensor"/>
+        <activity android:name=".Activities.Rotas.RotasMapaActivity" android:screenOrientation="nosensor"/>
 
         <service
             android:name=".GCM.MessagingServer">
