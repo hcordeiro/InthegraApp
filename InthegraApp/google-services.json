@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "252844749965",
+    "firebase_url": "https://inthegra.firebaseio.com",
+    "project_id": "project-3411427911079264992",
+    "storage_bucket": "project-3411427911079264992.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252844749965:android:8410d2a8c5e2a42c",
+        "android_client_info": {
+          "package_name": "com.hcordeiro.android.InthegraApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252844749965-ljmuoonl6sa7l25gjbkgnrdjg1j3u0n6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBQM9Z3kIKhXk3qol1roFCRDyTY9To90Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

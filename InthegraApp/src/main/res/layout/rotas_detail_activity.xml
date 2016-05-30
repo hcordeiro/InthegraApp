@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activities.Rotas.RotaDetailActivity">
+    tools:context=".Activities.Rotas.RotaDetailActivity"
+    android:onClick="solicitarAviso">
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +24,17 @@
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/detalhesRotaLbl" />
+        android:layout_below="@+id/detalhesRotaLbl"
+        android:layout_above="@+id/solicitarAviso" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avise-me"
+        android:id="@+id/solicitarAviso"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="solicitarAviso"/>
 
 
 </RelativeLayout>

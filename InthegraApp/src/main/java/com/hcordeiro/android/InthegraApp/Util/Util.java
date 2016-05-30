@@ -11,7 +11,13 @@ import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiActivity;
 import com.google.android.gms.maps.model.LatLng;
+import com.hcordeiro.android.InthegraApp.Activities.LoadCacheActivity;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -35,6 +41,7 @@ public class Util {
     public static final int VEICULOS_REFRESH_TIME = 30000;
     private static final int LOCATION_REFRESH_TIME = 10000;
     private static final int LOCATION_REFRESH_DISTANCE = 10;
+    public static AtomicInteger msgId = new AtomicInteger();
 
 //    public static final String ERRO_API_404 = "Not Found (404)";
 //    public static final String ERRO_HOSTNAME = "Unable to resolve host \"api.inthegra.strans.teresina.pi.gov.br\": No address associated with hostname";

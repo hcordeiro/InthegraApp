@@ -1,6 +1,8 @@
 package com.hcordeiro.android.InthegraApp.Activities;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
@@ -25,6 +29,7 @@ public class LoadCacheActivity extends AppCompatActivity {
         setContentView(R.layout.load_cache_activity);
 
         Util.checarPermissoes(this);
+        checarGooglePlay();
 
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Carregando...");
@@ -56,6 +61,14 @@ public class LoadCacheActivity extends AppCompatActivity {
                 }
                 return;
             }
+        }
+    }
+
+    public void checarGooglePlay() {
+        int isAvailable = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        if (isAvailable != ConnectionResult.SUCCESS) {
+            Dialog errorDialog = GoogleApiAvailability.getInstance().getErrorDialog(this, isAvailable, 0);
+            errorDialog.show();
         }
     }
 }

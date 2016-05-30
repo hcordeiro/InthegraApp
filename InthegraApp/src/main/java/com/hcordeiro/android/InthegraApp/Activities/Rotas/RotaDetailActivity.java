@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.equalsp.stransthe.Linha;
@@ -25,6 +26,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.JsonObject;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraDirectionsAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
@@ -33,6 +38,7 @@ import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @SuppressWarnings("MissingPermission")
@@ -40,6 +46,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
     private final String TAG = "DetailRota";
     private GoogleMap map;
 
+    private Parada primeiraParada;
     private ArrayList<Linha> linhas;
     private List<Veiculo> veiculos;
     private List<Marker> veiculosMarkers;
@@ -65,6 +72,7 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
         mapFragment.getMapAsync(this);
 
         veiculosMarkers = new ArrayList<>();
+        primeiraParada = null;
 
         Rota rota = (Rota) getIntent().getSerializableExtra("Rota");
 
@@ -88,7 +96,6 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
             asyncTask.execute(linha);
         }
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -118,6 +125,10 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
             String tituloOrigem = "Origem do trecho a pé " + trechosAPe;
             if (origem instanceof Parada) {
                 Parada p = (Parada) origem;
+                if (primeiraParada == null) {
+                    primeiraParada = p;
+                }
+
                 tituloOrigem = p.getDenomicao();
             }
 
@@ -147,6 +158,26 @@ public class RotaDetailActivity extends FragmentActivity implements OnMapReadyCa
         Log.i(TAG, "GetDirections Called");
         InthegraDirectionsAsync asyncTask =  new InthegraDirectionsAsync(RotaDetailActivity.this, map);
         asyncTask.execute(trecho);
+    }
+
+    public void solicitarAviso(View view) {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        String codigoLinha = linhas.get(0).getCodigoLinha();
+        String codigoParada = primeiraParada.getCodigoParada();
+        int quantidadeParadas = 3;
+
+        FirebaseMessaging fm = FirebaseMessaging.getInstance();
+        RemoteMessage remoteMessage = new RemoteMessage.Builder("252844749965@gcm.googleapis.com")
+                .setMessageId(Integer.toString(Util.msgId.incrementAndGet()))
+                .addData("action", "esperar_onibus")
+                .addData("registration_token", token)
+                .addData("codigo_linha", codigoLinha)
+                .addData("codigo_parada", codigoParada)
+                .addData("quantidades_paradas", String.valueOf(quantidadeParadas))
+                .build();
+
+        fm.send(remoteMessage);
+        Log.i(TAG, "Message sent: " + remoteMessage.getMessageId());
     }
 
     @Override

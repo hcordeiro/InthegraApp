@@ -7,12 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasMenuActivity;
 import com.hcordeiro.android.InthegraApp.Activities.Paradas.ParadasMenuActivity;
 import com.hcordeiro.android.InthegraApp.Activities.Rotas.RotasMenuActivity;
 import com.hcordeiro.android.InthegraApp.Activities.Veiculos.VeiculosMenuActivity;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class MenuPrincipalActivity extends AppCompatActivity {
@@ -31,6 +34,9 @@ public class MenuPrincipalActivity extends AppCompatActivity {
             Button menuRotasBtn = (Button) findViewById(R.id.menuRotasBtn);
             menuRotasBtn.setEnabled(true);
         }
+
+
+        Log.i(TAG, "Token: "+ FirebaseInstanceId.getInstance().getToken());
     }
 
     public void displayMenuParadasActivity(View view) {
