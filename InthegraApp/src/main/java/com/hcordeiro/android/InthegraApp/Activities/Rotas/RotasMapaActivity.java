@@ -29,10 +29,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.maps.android.clustering.ClusterManager;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraDirectionsAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
 import com.hcordeiro.android.InthegraApp.R;
+import com.hcordeiro.android.InthegraApp.Util.GoogleMaps.ItemParadaClusterizavel;
+import com.hcordeiro.android.InthegraApp.Util.GoogleMaps.ParadaClusterRenderer;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.util.ArrayList;
@@ -113,6 +116,12 @@ public class RotasMapaActivity extends FragmentActivity implements OnMapReadyCal
         List<Trecho> trechos = rota.getTrechos();
         int trechosAPe = 0;
 
+        ClusterManager<ItemParadaClusterizavel> clusterManager = new ClusterManager<>(this, map);
+        clusterManager.setRenderer(new ParadaClusterRenderer(this, map, clusterManager));
+        map.setOnCameraChangeListener(clusterManager);
+        map.setOnMarkerClickListener(clusterManager);
+
+
         BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.defaultMarker();
         for (Trecho trecho : trechos) {
             if (trecho.getLinha() == null && primeiraParada == null) {
@@ -131,6 +140,7 @@ public class RotasMapaActivity extends FragmentActivity implements OnMapReadyCal
 
                 tituloOrigem = p.getDenomicao();
                 bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.paradapointer);
+                clusterManager.addItem(new ItemParadaClusterizavel(p));
             }
 
             MarkerOptions mOrigem = new MarkerOptions()

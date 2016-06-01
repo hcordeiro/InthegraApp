@@ -49,14 +49,14 @@
         <activity android:name=".Activities.Rotas.RotasMapaActivity" android:screenOrientation="nosensor"/>
 
         <service
-            android:name=".GCM.MessagingServer">
+            android:name=".Util.GCM.MessagingServer">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name=".GCM.InstanceService">
+            android:name=".Util.GCM.InstanceService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

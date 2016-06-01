@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.GCM;
+package com.hcordeiro.android.InthegraApp.Util.GCM;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

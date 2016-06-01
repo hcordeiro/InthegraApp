@@ -21,10 +21,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
 import com.hcordeiro.android.InthegraApp.R;
+import com.hcordeiro.android.InthegraApp.Util.GoogleMaps.ItemParadaClusterizavel;
+import com.hcordeiro.android.InthegraApp.Util.GoogleMaps.ParadaClusterRenderer;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
 import java.io.IOException;
@@ -113,6 +116,11 @@ public class VeiculosMapaActivity extends FragmentActivity implements OnMapReady
         map = googleMap;
         paradasMarkers = new ArrayList<>();
 
+        ClusterManager<ItemParadaClusterizavel> clusterManager = new ClusterManager<>(this, googleMap);
+        clusterManager.setRenderer(new ParadaClusterRenderer(this, googleMap, clusterManager));
+        googleMap.setOnCameraChangeListener(clusterManager);
+        googleMap.setOnMarkerClickListener(clusterManager);
+
         for (Parada p : paradas) {
             LatLng pos = new LatLng(p.getLat(), p.getLong());
             MarkerOptions m = new MarkerOptions()
@@ -120,6 +128,7 @@ public class VeiculosMapaActivity extends FragmentActivity implements OnMapReady
                     .title(p.getCodigoParada())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.paradapointer));
             paradasMarkers.add(map.addMarker(m));
+            clusterManager.addItem(new ItemParadaClusterizavel(p));
         }
 
         map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
