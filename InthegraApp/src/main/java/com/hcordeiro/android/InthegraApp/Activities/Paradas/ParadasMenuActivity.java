@@ -146,25 +146,25 @@ public class ParadasMenuActivity extends AppCompatActivity {
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            Log.i(TAG, "onLocationChanged");
-            Log.d(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
+            Log.d(TAG, "onLocationChanged");
+            Log.v(TAG, "Nova localização: " + location.getLatitude() + "," + location.getLongitude());
             /* Ordena as paradas pela proximidade com a localização do usuário */
             adapter.sort(location);
         }
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            Log.i(TAG, "onStatusChanged");
+            Log.d(TAG, "onStatusChanged");
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-            Log.i(TAG, "onProviderEnabled");
+            Log.d(TAG, "onProviderEnabled");
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            Log.i(TAG, "onProviderDisabled");
+            Log.d(TAG, "onProviderDisabled");
         }
     };
 }

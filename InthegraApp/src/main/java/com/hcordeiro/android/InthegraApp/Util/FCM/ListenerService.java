@@ -20,9 +20,9 @@ import java.util.Map;
 
     @Override
     public void onMessageReceived(RemoteMessage message) {
-        Log.i(TAG, "###############onMessageReceived Called");
+        Log.d(TAG, "###############onMessageReceived Called");
         super.onMessageReceived(message);
-        Log.d(TAG, "From: " + message.getFrom());
+        Log.v(TAG, "From: " + message.getFrom());
 
         String from = message.getFrom();
         Map data = message.getData();

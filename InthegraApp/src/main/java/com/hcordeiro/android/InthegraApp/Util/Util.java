@@ -47,7 +47,7 @@ public class Util {
 
     @SuppressWarnings("MissingPermission")
     public static void requestLocation(Context context, LocationListener locationListener) {
-        Log.i(TAG, "requestLocation Called");
+        Log.d(TAG, "requestLocation Called");
         if (IS_LOCATION_AUTHORIZED) {
             LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
             if (locationManager != null && locationListener != null) {
@@ -57,7 +57,7 @@ public class Util {
     }
 
     public static void checarPermissoes(Activity activity) {
-        Log.i(TAG, "checarPermissoes Called");
+        Log.d(TAG, "checarPermissoes Called");
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 

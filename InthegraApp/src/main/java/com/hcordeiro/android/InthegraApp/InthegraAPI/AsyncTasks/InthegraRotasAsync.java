@@ -27,13 +27,13 @@ public class InthegraRotasAsync extends AsyncTask<Object, Void, Set<Rota>> imple
     private Context mContext;
 
     public InthegraRotasAsync(Context context){
-        Log.i(TAG, "Constructor Called");
+        Log.d(TAG, "Constructor Called");
         mContext = context;
     }
 
     @Override
     protected void onPreExecute() {
-        Log.i(TAG, "onPreExecute Called");
+        Log.d(TAG, "onPreExecute Called");
         super.onPreExecute();
         dialog = new ProgressDialog(mContext);
         this.dialog.setMessage("Carregando rotas...");
@@ -42,7 +42,7 @@ public class InthegraRotasAsync extends AsyncTask<Object, Void, Set<Rota>> imple
 
     @Override
     protected Set<Rota> doInBackground(Object... params) {
-        Log.i(TAG, "doInBackground Called");
+        Log.d(TAG, "doInBackground Called");
         LatLng p1 = (LatLng) params[0];
         LatLng p2 = (LatLng) params[1];
         Double d = (Double) params[2];
@@ -60,13 +60,13 @@ public class InthegraRotasAsync extends AsyncTask<Object, Void, Set<Rota>> imple
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        Log.i(TAG, "onCancel( Called");
+        Log.d(TAG, "onCancel Called");
         cancel(true);
     }
 
     @Override
     protected void onPostExecute(Set<Rota> rotas) {
-        Log.i(TAG, "onPostExecute Called");
+        Log.d(TAG, "onPostExecute Called");
         delegate.processFinish(rotas);
     }
 }

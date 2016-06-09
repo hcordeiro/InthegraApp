@@ -42,14 +42,14 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
     final private GoogleMap map;
 
     public InthegraDirectionsAsync(Context context, GoogleMap gMap){
-        Log.i(TAG, "Constructor Called");
+        Log.d(TAG, "Constructor Called");
         mContext = context;
         map = gMap;
     }
 
     @Override
     protected void onPreExecute() {
-        Log.i(TAG, "onPreExecute Called");
+        Log.d(TAG, "onPreExecute Called");
         super.onPreExecute();
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
         alertBuilder.setMessage("Não foi possível criar Rota");
@@ -68,7 +68,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
 
     @Override
     protected Void doInBackground(Trecho... params) {
-        Log.i(TAG, "doInBackground Called");
+        Log.d(TAG, "doInBackground Called");
         Trecho trecho = params[0];
         getDirections(trecho.getOrigem(), trecho.getDestino(), MODE_WALKING);
         dialog.dismiss();
@@ -76,7 +76,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
     }
 
     public void getDirections(Localizacao origem, Localizacao destino, String mode) {
-        Log.i(TAG, "getDirections Called");
+        Log.d(TAG, "getDirections Called");
         double origemLat = origem.getLat();
         double origemLng = origem.getLong();
         double destinoLat = destino.getLat();
@@ -93,7 +93,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, "Response OK");
+                        Log.v(TAG, "Response OK");
                         try {
                             final JSONObject json = new JSONObject(response);
                             JSONArray routeArray = json.getJSONArray("routes");
@@ -118,7 +118,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Response NOK");
+                        Log.v(TAG, "Response NOK");
                         alert.show();
                     }
         });
@@ -127,7 +127,7 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        Log.i(TAG, "onCancel Called");
+        Log.d(TAG, "onCancel Called");
         cancel(true);
     }
 

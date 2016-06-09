@@ -67,7 +67,7 @@ public class RotasSelecionarDestinoActivity extends FragmentActivity implements 
     /* Seta o destino selecionado e finaliza a
      * activity, voltando para a activity anterior */
     public void confirma(View view) {
-        Log.i(TAG, "confirma Called");
+        Log.d(TAG, "confirma Called");
         if (destino != null) {
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
@@ -85,7 +85,7 @@ public class RotasSelecionarDestinoActivity extends FragmentActivity implements 
     @SuppressWarnings("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.i(TAG, "OnMapReady Called");
+        Log.d(TAG, "OnMapReady Called");
         map = googleMap;
         /* Se o usuário permitiu os serviços de localização,
          * o botão "meu local" é habilitado no mapa */

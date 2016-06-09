@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
 import com.equalsp.stransthe.Veiculo;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -49,7 +50,9 @@ public class VeiculosMapaActivity extends FragmentActivity implements OnMapReady
     private List<Marker> paradasMarkers;
     private GoogleMap map;
 
+    /* Handler para coordenar a execução de uma tarefa */
     private Handler UI_HANDLER = new Handler();
+    /* Tarefa para atualizar a posição dos veículos na tela */
     private Runnable UI_UPDTAE_RUNNABLE = new Runnable() {
         @Override
         public void run() {
@@ -60,98 +63,121 @@ public class VeiculosMapaActivity extends FragmentActivity implements OnMapReady
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "OnCreate Called");
+        Log.d(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.veiculos_detail_activity);
-        veiculosMarkers = new ArrayList<>();
 
+        /* Se o usuário não possuir conexão com a internet, a activity é finalizada */
+        if (!Util.isOnline(this)) {
+            finish();
+        }
+
+        /* Recupera o Fragment da tela que possui um mapa */
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+
+        /* Recupera de maneira assíncrona o mapa */
         mapFragment.getMapAsync(this);
 
+        /* Inicializa uma lista de marcadores para os veículos */
+        veiculosMarkers = new ArrayList<>();
+
+        /* Carrega as paradas */
         carregarParadas();
+        /* Carrega os veículos */
         carregarVeiculos();
 
         UI_HANDLER.postDelayed(UI_UPDTAE_RUNNABLE, Util.VEICULOS_REFRESH_TIME);
     }
 
     private void carregarParadas() {
-        Log.i(TAG, "carregarParadas Called");
+        Log.d(TAG, "carregarParadas Called");
+        /* Recupera a linha selecionada no menu anterior */
         linha = (Linha) getIntent().getSerializableExtra("Linha");
+        /* Inicializa a lista de veículos */
         veiculos = new ArrayList<>();
+        /* Cria um alerta para exibir caso não seja possível carregas as paradas da linha */
+        AlertDialog alert = criarAlerta();
 
+        /* Recupera e seta o TextView de denominação da linha */
         TextView denominacaoLinhaTxt = (TextView) findViewById(R.id.denominacaoLinhaTxt);
         denominacaoLinhaTxt.setText(linha.getDenomicao());
 
+        /* Recupera as paradas da linha*/
         paradas = new ArrayList<>();
         try {
-            Log.d(TAG, "Carregando paradas...");
+            Log.v(TAG, "Carregando paradas...");
             paradas = InthegraService.getParadas(linha);
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(VeiculosMapaActivity.this);
-            alertBuilder.setMessage("Não foi possível recuperar recuperar a lista de Paradas da Linha informada");
-            alertBuilder.setCancelable(false);
-            alertBuilder.setNeutralButton("Certo",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = alertBuilder.create();
             alert.show();
         }
+        /* Recupera e seta o TextView de quantidade de paradas */
         TextView qtdParadasTxt = (TextView) findViewById(R.id.qtdParadasTxt);
         qtdParadasTxt.setText(String.valueOf(paradas.size()));
     }
 
+    /**
+     * Carrega os veículos de maneira assíncrona
+     */
     private void carregarVeiculos() {
         InthegraVeiculosAsync asyncTask =  new InthegraVeiculosAsync(VeiculosMapaActivity.this);
         asyncTask.delegate = this;
         asyncTask.execute(linha);
     }
 
+    /**
+     * Função chamada quando o carregamento do mapa é finalizado
+     * @param googleMap mapa carregado
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.i(TAG, "OnMapReady Called");
+        Log.d(TAG, "OnMapReady Called");
         map = googleMap;
         paradasMarkers = new ArrayList<>();
 
-        ClusterManager<ItemParadaClusterizavel> clusterManager = new ClusterManager<>(this, googleMap);
-        clusterManager.setRenderer(new ParadaClusterRenderer(this, googleMap, clusterManager));
-        googleMap.setOnCameraChangeListener(clusterManager);
-        googleMap.setOnMarkerClickListener(clusterManager);
+        /* Cria e seta um CluterManager responsável por agrupar os marcadores
+         * de paradas exibidos no mapa de acordo com o zoom da tela,
+         * e um ParadaClusterRenderer responsável por exibir os agrupamentos
+         * realizados no mapa. */
+        ClusterManager<ItemParadaClusterizavel> clusterManager = new ClusterManager<>(this, map);
+        clusterManager.setRenderer(new ParadaClusterRenderer(this, map, clusterManager));
+        map.setOnCameraChangeListener(clusterManager);
+        map.setOnMarkerClickListener(clusterManager);
 
-        for (Parada p : paradas) {
-            LatLng pos = new LatLng(p.getLat(), p.getLong());
-            MarkerOptions m = new MarkerOptions()
-                    .position(pos)
-                    .title(p.getCodigoParada())
+        /* Builder dos limites da tela para que o mapa exiba o percurso completo na tela */
+        Builder builder = new Builder();
+        /* Adiciona os marcadores de paradas */
+        for (Parada parada : paradas) {
+            /* Marcador do google maps */
+            MarkerOptions marcador = new MarkerOptions()
+                    .position(new LatLng(parada.getLat(), parada.getLong()))
+                    .title(parada.getEndereco())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.paradapointer));
-            paradasMarkers.add(map.addMarker(m));
-            clusterManager.addItem(new ItemParadaClusterizavel(p));
+            builder.include(marcador.getPosition());
+            clusterManager.addItem(new ItemParadaClusterizavel(parada));
         }
 
-        map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                Builder builder = new Builder();
-                for (Marker m : paradasMarkers) {
-                    builder.include(m.getPosition());
-                }
-                map.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 10));
-            }
-        });
+        /* Seta os limites criados pelo builder e anima a camêra para a vizualização indicada */
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(builder.build(), 1);
+        googleMap.animateCamera(cameraUpdate);
 
     }
 
+    /**
+     * Atualiza o mapa com a posição atual dos veículos
+     */
     private void updateMapa() {
-        Log.i(TAG, "updateMapa Called");
-        Toast.makeText(VeiculosMapaActivity.this, "Atualizando mapa...", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "updateMapa Called");
+        /* Exibe a mensagem na tela */
+        Toast.makeText(VeiculosMapaActivity.this, this.getString(R.string.atualizando_mapa), Toast.LENGTH_SHORT).show();
+        /* Remove os marcadores de veículos existentes */
         for (Marker m : veiculosMarkers) {
             m.remove();
         }
+        /* Limpa a lista de marcadores de veículos*/
         veiculosMarkers.clear();
 
+        /* Cria novos marcadores de veículos */
         for (Veiculo v : veiculos) {
             LatLng pos = new LatLng(v.getLat(), v.getLong());
             MarkerOptions m = new MarkerOptions()
@@ -162,19 +188,47 @@ public class VeiculosMapaActivity extends FragmentActivity implements OnMapReady
         }
     }
 
+    /**
+     * Função que processa o resultado da chamada assíncrona ao service de veículos.
+     *
+     * @param result List de veículos da linha
+     */
     @Override
     public void processFinish(List<Veiculo> result) {
-        Log.i(TAG, "ProcessFinish Called");
+        Log.d(TAG, "ProcessFinish Called");
         veiculos = result;
+        /* Recupera e preenche o TextView de quantidade de veículos */
         TextView qtdVeiculosTxt = (TextView) findViewById(R.id.qtdVeiculosTxt);
         qtdVeiculosTxt.setText(String.valueOf(veiculos.size()));
+        /* Atualiza o mapa */
         updateMapa();
     }
 
+    /**
+     * IMPORTANTE!
+     * Este método desabilita a função agendada de atualização de veículos
+     */
     @Override
     public void onDestroy() {
-        Log.i(TAG, "OnDestroy Called");
+        Log.d(TAG, "OnDestroy Called");
         UI_HANDLER.removeCallbacks(UI_UPDTAE_RUNNABLE);
         super.onDestroy();
+    }
+
+    /**
+     * Cria o diálogo de erro que será exibido caso não seja possível carregar as paradas do cache
+     * @return diálogo de erro de carregamento de paradas
+     */
+    private AlertDialog criarAlerta() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(VeiculosMapaActivity.this);
+        alertBuilder.setMessage(this.getString(R.string.carregar_paradas));
+        alertBuilder.setCancelable(false);
+        alertBuilder.setNeutralButton(this.getString(R.string.certo),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        return alertBuilder.create();
     }
 }

@@ -82,6 +82,7 @@ public class ParadasDetailActivity extends AppCompatActivity {
             verNoMapaBtn.setEnabled(true);
         }
 
+        /* Adapter que observará a lista de linhas */
         ArrayAdapter<Linha> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, linhas);
 
         /* Recupera a ListView que irá conter as informações das linhas que passam naquela parada */
@@ -89,7 +90,7 @@ public class ParadasDetailActivity extends AppCompatActivity {
         if (listView != null) {
             listView.setAdapter(adapter);
 
-            /* Seta a função que será executada ao clicar em algum item da ListView*/
+            /* Seta a função que será executada ao clicar em algum item da ListView */
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -129,7 +130,7 @@ public class ParadasDetailActivity extends AppCompatActivity {
      * Exibe o mapa com a parada escolhida
      */
     public void displayParadasMapaActivity(View view) {
-        Log.i(TAG, "displayParadasMapaActivity Called");
+        Log.d(TAG, "displayParadasMapaActivity Called");
         Parada parada = (Parada) getIntent().getSerializableExtra("Parada");
         Intent intent = new Intent(this, ParadasMapaActivity.class);
         intent.putExtra("Parada", parada);

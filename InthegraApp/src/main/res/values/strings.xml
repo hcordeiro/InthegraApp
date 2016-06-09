@@ -54,6 +54,7 @@
     <string name="iniciar_app">Não foi possível iniciar o aplicativo</string>
     <string name="carregar_linhas">Não foi possível carregar as Linhas</string>
     <string name="carregar_paradas">Não foi possível carregar as Paradas</string>
+    <string name="atualizando_mapa">Atualizando mapa...</string>
 
 
 </resources>

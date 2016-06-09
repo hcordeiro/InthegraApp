@@ -29,7 +29,7 @@ public class InthegraService {
     private static RotaService rotaService;
 
     public static void initInstance(Context context) throws IOException {
-        Log.i(TAG, "initInstance Called");
+        Log.d(TAG, "initInstance Called");
         if (cachedService == null) {
             FileHandler fileHandler = new FileHandler(context);
             com.equalsp.stransthe.InthegraService service = new com.equalsp.stransthe.InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
@@ -40,7 +40,7 @@ public class InthegraService {
     }
 
     public static CachedInthegraService getInstance() {
-        Log.i(TAG, "getInstance Called");
+        Log.d(TAG, "getInstance Called");
         return cachedService;
     }
 
@@ -49,7 +49,7 @@ public class InthegraService {
     }
 
     public static List<Parada> getParadas(Linha linha) throws IOException {
-        Log.i(TAG, "getParadas Called");
+        Log.d(TAG, "getParadas Called");
         List<Parada> paradas;
         if (linha == null) {
             paradas = cachedService.getParadas();
@@ -73,7 +73,7 @@ public class InthegraService {
     }
 
     public static List<Linha> getLinhas(Parada parada) throws IOException {
-        Log.i(TAG, "getLinhas Called");
+        Log.d(TAG, "getLinhas Called");
         List<Linha> linhas;
 
         if(parada == null) {
@@ -94,7 +94,7 @@ public class InthegraService {
     }
 
     public static List<Veiculo> getVeiculos(Linha linha) throws IOException {
-        Log.i(TAG, "getVeiculos Called");
+        Log.d(TAG, "getVeiculos Called");
         List<Veiculo> veiculos;
         if(linha == null) {
             veiculos = cachedService.getVeiculos();
@@ -114,7 +114,7 @@ public class InthegraService {
     }
 
     public static Set<Rota> getRotas(LatLng origem, LatLng destino, double distanciaMaxima) throws IOException {
-        Log.i(TAG, "getRotas Called");
+        Log.d(TAG, "getRotas Called");
         assert origem != null;
         double origemLat = origem.latitude;
         double origemLng = origem.longitude;

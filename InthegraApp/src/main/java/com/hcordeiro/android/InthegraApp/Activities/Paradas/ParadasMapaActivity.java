@@ -34,16 +34,15 @@ public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyC
         /* Se o usuário não possuir conexão com a internet, a activity é finalizada */
         if (!Util.isOnline(this)) {
             finish();
-        } else {
-            /* Preenche a tela dos dados da linha */
-            preencherDados();
-
-            /* Recupera o Fragment da tela que possui um mapa */
-            MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-
-            /* Recupera de maneira assíncrona o mapa */
-            mapFragment.getMapAsync(this);
         }
+        /* Preenche a tela dos dados da linha */
+        preencherDados();
+
+        /* Recupera o Fragment da tela que possui um mapa */
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+
+        /* Recupera de maneira assíncrona o mapa */
+        mapFragment.getMapAsync(this);
     }
 
     /**
@@ -64,7 +63,7 @@ public class ParadasMapaActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.i(TAG, "OnMapReady Called");
+        Log.d(TAG, "OnMapReady Called");
         /* Se o usuário permitiu os serviços de localização,
          * o botão "meu local" é habilitado no mapa */
         if (Util.IS_LOCATION_AUTHORIZED) {

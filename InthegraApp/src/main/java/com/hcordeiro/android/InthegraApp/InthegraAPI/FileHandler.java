@@ -28,7 +28,7 @@ public class FileHandler implements CachedServiceFileHander {
 
     @Override
     public String loadCacheFile() throws IOException {
-        Log.i(TAG, "loadCacheFile Called");
+        Log.d(TAG, "loadCacheFile Called");
 
         InputStream inputStream = mContext.getResources().openRawResource(
                 mContext.getResources().getIdentifier("cachedinthegraservice",
@@ -51,6 +51,6 @@ public class FileHandler implements CachedServiceFileHander {
     @Deprecated
     @Override
     public void saveCacheFile(String content) throws IOException {
-        Log.i(TAG, "saveCacheFile Called");
+        Log.d(TAG, "saveCacheFile Called");
     }
 }

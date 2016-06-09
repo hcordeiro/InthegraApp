@@ -108,7 +108,7 @@ public class RotasMenuActivity extends AppCompatActivity {
         bundle.putParcelable("Destino", destino);
 
          /* Inicia a atividade que exibe as rotas possíveis entre a origem e o destino */
-        Intent intent = new Intent(this, RotasGerarActivity.class);
+        Intent intent = new Intent(this, RotasEscolherActivity.class);
         intent.putExtra("Bundle", bundle);
         startActivity(intent);
     }
@@ -239,17 +239,17 @@ public class RotasMenuActivity extends AppCompatActivity {
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            Log.i(TAG, "onStatusChanged");
+            Log.d(TAG, "onStatusChanged");
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-            Log.i(TAG, "onProviderEnabled");
+            Log.d(TAG, "onProviderEnabled");
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            Log.i(TAG, "onProviderDisabled");
+            Log.d(TAG, "onProviderDisabled");
         }
     };
 

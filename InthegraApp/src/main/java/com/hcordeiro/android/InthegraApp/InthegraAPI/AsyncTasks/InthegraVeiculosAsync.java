@@ -30,13 +30,13 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
     private boolean wasUnsuccessful;
 
     public InthegraVeiculosAsync(Context context){
-        Log.i(TAG, "Constructor Called");
+        Log.d(TAG, "Constructor Called");
         mContext = context;
     }
 
     @Override
     protected void onPreExecute() {
-        Log.i(TAG, "onPreExecute Called");
+        Log.d(TAG, "onPreExecute Called");
         super.onPreExecute();
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
         alertBuilder.setMessage("Não foi possível recuperar os veículos da Linha informada");
@@ -56,7 +56,7 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
 
     @Override
     protected List<Veiculo> doInBackground(Linha... params) {
-        Log.i(TAG, "doInBackground Called");
+        Log.d(TAG, "doInBackground Called");
         Linha linha = params[0];
         List<Veiculo> veiculos = new ArrayList<>();
         try {
@@ -73,13 +73,13 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        Log.i(TAG, "onCancel Called");
+        Log.d(TAG, "onCancel Called");
         cancel(true);
     }
 
     @Override
     protected void onPostExecute(List<Veiculo> veiculos) {
-        Log.i(TAG, "onPostExecute Called");
+        Log.d(TAG, "onPostExecute Called");
         if (wasUnsuccessful) {
             Toast.makeText(mContext, "Não foi possível encontrar os veículos...", Toast.LENGTH_SHORT).show();
         }
