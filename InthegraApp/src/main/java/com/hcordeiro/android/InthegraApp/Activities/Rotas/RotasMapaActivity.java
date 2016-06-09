@@ -38,6 +38,8 @@ import com.hcordeiro.android.InthegraApp.Util.GoogleMaps.ItemParadaClusterizavel
 import com.hcordeiro.android.InthegraApp.Util.GoogleMaps.ParadaClusterRenderer;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,26 +173,6 @@ public class RotasMapaActivity extends FragmentActivity implements OnMapReadyCal
         Log.i(TAG, "GetDirections Called");
         InthegraDirectionsAsync asyncTask =  new InthegraDirectionsAsync(RotasMapaActivity.this, map);
         asyncTask.execute(trecho);
-    }
-
-    public void solicitarAviso(View view) {
-        String token = FirebaseInstanceId.getInstance().getToken();
-        String codigoLinha = linhas.get(0).getCodigoLinha();
-        String codigoParada = primeiraParada.getCodigoParada();
-        int quantidadeParadas = 3;
-
-        FirebaseMessaging fm = FirebaseMessaging.getInstance();
-        RemoteMessage remoteMessage = new RemoteMessage.Builder("252844749965@gcm.googleapis.com")
-                .setMessageId(Integer.toString(Util.msgId.incrementAndGet()))
-                .addData("action", "esperar_onibus")
-                .addData("registration_token", token)
-                .addData("codigo_linha", codigoLinha)
-                .addData("codigo_parada", codigoParada)
-                .addData("quantidades_paradas", String.valueOf(quantidadeParadas))
-                .build();
-
-        fm.send(remoteMessage);
-        Log.i(TAG, "Message sent: " + remoteMessage.getMessageId());
     }
 
     @Override

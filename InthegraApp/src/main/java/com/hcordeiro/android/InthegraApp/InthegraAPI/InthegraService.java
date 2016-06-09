@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.equalsp.stransthe.CachedInthegraService;
-import com.equalsp.stransthe.InthegraService;
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Parada;
 import com.equalsp.stransthe.Veiculo;
@@ -18,14 +17,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Singleton para manter uma instância do CachedInthegraService sempre carregada.
  *
  * Created by hugo on 17/05/16.
  */
-public class InthegraServiceSingleton {
+public class InthegraService {
     private final static String TAG = "ServiceSingleton";
     private static CachedInthegraService cachedService;
     private static RotaService rotaService;
@@ -33,9 +31,9 @@ public class InthegraServiceSingleton {
     public static void initInstance(Context context) throws IOException {
         Log.i(TAG, "initInstance Called");
         if (cachedService == null) {
-            InthegraService service = new InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
-            AndroidFileHandler fileHandler = new AndroidFileHandler(context);
-            cachedService = new CachedInthegraService(service, fileHandler, 180, TimeUnit.DAYS);
+            FileHandler fileHandler = new FileHandler(context);
+            com.equalsp.stransthe.InthegraService service = new com.equalsp.stransthe.InthegraService("aa91935448534d519da1cda34d0b1ee4", "c2387331@trbvn.com", "c2387331@trbvn.com");
+            cachedService = new CachedInthegraService(service, fileHandler);
             rotaService = new RotaService(cachedService);
             cachedService.initialize();
         }

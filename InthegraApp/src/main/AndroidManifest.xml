@@ -23,7 +23,7 @@
             android:value="AIzaSyBeKpvl_wOh2_mj-piaw0FrVEf5C_sgSaU" />
 
 
-        <activity android:name=".Activities.LoadCacheActivity">
+        <activity android:name=".Activities.inicioActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,14 +49,14 @@
         <activity android:name=".Activities.Rotas.RotasMapaActivity" android:screenOrientation="nosensor"/>
 
         <service
-            android:name=".Util.GCM.MessagingServer">
+            android:name="com.hcordeiro.android.InthegraApp.Util.FCM.ListenerService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name=".Util.GCM.InstanceService">
+            android:name="com.hcordeiro.android.InthegraApp.Util.FCM.InstanceService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

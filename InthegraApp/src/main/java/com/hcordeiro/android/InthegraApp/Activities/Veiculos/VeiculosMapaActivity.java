@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsync;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraVeiculosAsyncResponse;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraService;
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.GoogleMaps.ItemParadaClusterizavel;
 import com.hcordeiro.android.InthegraApp.Util.GoogleMaps.ParadaClusterRenderer;
@@ -85,7 +85,7 @@ public class VeiculosMapaActivity extends FragmentActivity implements OnMapReady
         paradas = new ArrayList<>();
         try {
             Log.d(TAG, "Carregando paradas...");
-            paradas = InthegraServiceSingleton.getParadas(linha);
+            paradas = InthegraService.getParadas(linha);
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar paradas, motivo: " + e.getMessage());
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(VeiculosMapaActivity.this);

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Adapter de linha para utilziar a busca no listview
+ * Adapter de linha necessário para utilização de busca no listview
  * Created by hugo on 22/05/16.
  */
 public class LinhasAdapter extends BaseAdapter {

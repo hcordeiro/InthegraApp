@@ -2,6 +2,7 @@ package com.hcordeiro.android.InthegraApp.Activities.Paradas;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,16 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import com.equalsp.stransthe.Parada;
+import com.equalsp.stransthe.rotas.ComparadorPorProximidade;
+import com.equalsp.stransthe.rotas.PontoDeInteresse;
 import com.hcordeiro.android.InthegraApp.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Adapter de parada para utilziar a busca no listview
+ * Adapter de parada necessário para utilização de busca no listview
  * Created by hugo on 22/05/16.
  */
 public class ParadasAdapter extends BaseAdapter {
@@ -29,6 +33,16 @@ public class ParadasAdapter extends BaseAdapter {
         mContext = context;
         paradasOriginal = list;
         paradasTratadas = list;
+    }
+
+
+    public void sort(Location location) {
+        if (location != null) {
+            PontoDeInteresse pontoDeInteresse
+                    = new PontoDeInteresse(location.getLatitude(), location.getLongitude());
+            Collections.sort(paradasTratadas, new ComparadorPorProximidade(pontoDeInteresse));
+            this.notifyDataSetChanged();
+        }
     }
 
     @Override

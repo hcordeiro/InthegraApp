@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.equalsp.stransthe.rotas.Rota;
 import com.google.android.gms.maps.model.LatLng;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraService;
 
 import java.io.IOException;
 import java.util.Set;
@@ -49,7 +49,7 @@ public class InthegraRotasAsync extends AsyncTask<Object, Void, Set<Rota>> imple
 
         Set<Rota> rotas = new TreeSet<>();
         try {
-            rotas = InthegraServiceSingleton.getRotas(p1, p2, d);
+            rotas = InthegraService.getRotas(p1, p2, d);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {

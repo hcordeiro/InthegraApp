@@ -26,23 +26,33 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Activity para exibir as rotas entre uma origem e um destino.
+ *
+ * Created by hugo on 17/05/16.
+ */
 public class RotasGerarActivity extends AppCompatActivity implements InthegraRotasAsyncResponse {
     private final String TAG = "GerarRota";
     private Set<Rota> rotas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "OnCreate Called");
+        Log.d(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rotas_gerar_activity);
+        /* Recupera a origem e o destino setados no menu anterior */
         Bundle bundle = getIntent().getParcelableExtra("Bundle");
         LatLng origem = bundle.getParcelable("Origem");
         LatLng destino = bundle.getParcelable("Destino");
 
+        /* Carrega as rotas possíves*/
         rotas = new TreeSet<>();
         carregarRotas(origem, destino, Util.DISTANCIA_MAXIMA_A_PE);
     }
 
+    /* Carrega as rotas possíveis através do service de rotas. Esse
+     * carregamento é feito de maneira assíncrona e quando a resposta
+     * é recebida a função processFinish é chamada */
     private void carregarRotas(LatLng origem, LatLng destino, Double distanciaMaxima) {
         Log.i(TAG, "carregarRotas Called");
         InthegraRotasAsync asyncTask =  new InthegraRotasAsync(RotasGerarActivity.this);
@@ -50,14 +60,21 @@ public class RotasGerarActivity extends AppCompatActivity implements InthegraRot
         asyncTask.execute(origem, destino, distanciaMaxima);
     }
 
-
+    /**
+     * Funçãp que processa o resultado da chamada assíncrona ao service de rotas.
+     *
+     * @param result List de rotas entre a origem e o destino
+     */
     @Override
     public void processFinish(Set<Rota> result) {
-        Log.i(TAG, "processFinish Called");
+        Log.d(TAG, "processFinish Called");
         rotas = result;
         List<Rota> listaRotas = new ArrayList<>();
         listaRotas.addAll(rotas);
 
+        /* Se a lista de rotas retornar vazia,
+         * i.e. não há rotas diretas entre a origem e o destino,
+         * um alerta é exibido e a activity é finalizada*/
         if (listaRotas.isEmpty()) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotasGerarActivity.this);
             alertBuilder.setMessage("Não foram encontradas rotas para a origem e o destino selecionados...");
@@ -68,6 +85,7 @@ public class RotasGerarActivity extends AppCompatActivity implements InthegraRot
                             dialog.cancel();
                             Intent intent = new Intent(RotasGerarActivity.this, MenuPrincipalActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     });
             AlertDialog alert = alertBuilder.create();

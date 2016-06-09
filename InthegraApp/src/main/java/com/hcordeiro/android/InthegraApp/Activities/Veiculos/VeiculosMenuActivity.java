@@ -13,7 +13,7 @@ import android.widget.SearchView;
 
 import com.equalsp.stransthe.Linha;
 import com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasAdapter;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraService;
 import com.hcordeiro.android.InthegraApp.R;
 
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class VeiculosMenuActivity extends AppCompatActivity {
         List<Linha> linhas = new ArrayList<>();
         try {
             Log.d(TAG, "Carregando linhas...");
-            linhas = InthegraServiceSingleton.getLinhas();
+            linhas = InthegraService.getLinhas();
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar linhas, motivo: " + e.getMessage());
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);

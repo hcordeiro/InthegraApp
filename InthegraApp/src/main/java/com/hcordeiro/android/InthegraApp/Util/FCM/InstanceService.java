@@ -1,4 +1,4 @@
-package com.hcordeiro.android.InthegraApp.Util.GCM;
+package com.hcordeiro.android.InthegraApp.Util.FCM;
 
 import android.util.Log;
 
@@ -15,7 +15,6 @@ public class InstanceService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Refreshed token: " + refreshedToken);
-
         // TODO: Implement this method to send any registration to your app's servers.
         sendRegistrationToServer(refreshedToken);
     }

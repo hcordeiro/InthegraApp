@@ -11,19 +11,19 @@
     <!-- Paradas -->
     <string name="menu_paradas_titulo">Paradas Próximas</string>
     <string name="menu_paradas_hint">informe a parada...</string>
-    <string name="detail_parada_codigoParadaLbl">Código:</string>
-    <string name="detail_parada_enderecoParadaLbl">Endereço:</string>
+    <string name="detail_parada_codigoParadaLbl">Código: </string>
+    <string name="detail_parada_enderecoParadaLbl">Endereço: </string>
     <string name="detail_parada_linhasLbl">Linhas</string>
     <string name="detail_parada_verNoMapaBtn">Ver no mapa</string>
 
     <!-- Linhas -->
     <string name="menu_linhas_titulo">Achar uma linha</string>
     <string name="menu_linhas_hint">informe a linha...</string>
-    <string name="detail_linha_codigoLinhaLbl">Linha:</string>
-    <string name="detail_linha_origemLinhaLbl">Origem:</string>
-    <string name="detail_linha_retornoLinhaLbl">Retorno:</string>
-    <string name="detail_linha_isCircularLbl">Cirular:</string>
-    <string name="detail_linha_paradasLbl">Lista de Paradas:</string>
+    <string name="detail_linha_codigoLinhaLbl">Linha: </string>
+    <string name="detail_linha_origemLinhaLbl">Origem: </string>
+    <string name="detail_linha_retornoLinhaLbl">Retorno: </string>
+    <string name="detail_linha_isCircularLbl">Cirular: </string>
+    <string name="detail_linha_paradasLbl">Lista de Paradas</string>
 
     <!-- Rotas-->
     <string name="menu_rotas_titulo">Que ônibus eu pego?</string>
@@ -37,16 +37,23 @@
 
     <!-- Veículos -->
     <string name="menu_veiculos_titulo">Escolha uma linha</string>
-    <string name="menu_veiculos_escolhaLinha">Escolha uma linha:</string>
-    <string name="detail_veiculo_qtdParadasLbl">Quantidade de paradas:</string>
-    <string name="detail_veiculo_qtdVeiculosLbl">Quantidade de veículos:</string>
+    <string name="menu_veiculos_escolhaLinha">Escolha uma linha: </string>
+    <string name="detail_veiculo_qtdParadasLbl">Quantidade de paradas: </string>
+    <string name="detail_veiculo_qtdVeiculosLbl">Quantidade de veículos: </string>
     <string name="detail_veiculo_linhaLbl">Linha:</string>
 
 
     <!-- Geral -->
+    <string name="carregando">Carregando</string>
     <string name="confirma">Confirma</string>
+    <string name="certo">Certo</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
+
+    <!-- Erros -->
+    <string name="iniciar_app">Não foi possível iniciar o aplicativo</string>
+    <string name="carregar_linhas">Não foi possível carregar as Linhas</string>
+    <string name="carregar_paradas">Não foi possível carregar as Paradas</string>
 
 
 </resources>

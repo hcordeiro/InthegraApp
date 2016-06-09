@@ -14,15 +14,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * FileHandler para salvar o arquivo de cache no dispositivo.
+ * FileHandler para ler o arquivo de cache no dispositivo.
  *
  * Created by hugo on 17/05/16.
  */
-public class AndroidFileHandler implements CachedServiceFileHander {
+public class FileHandler implements CachedServiceFileHander {
     private final String TAG = "FileHandler";
     private final Context mContext;
 
-    public AndroidFileHandler(Context context){
+    public FileHandler(Context context){
         this.mContext = context;
     }
 
@@ -39,18 +39,18 @@ public class AndroidFileHandler implements CachedServiceFileHander {
         inputStream.read(buffer);
         inputStream.close();
         String str = new String(buffer);
-
         return str;
     }
 
+
+    /**
+     * Nenhuma operação deve ser feita nesse método, o arquivo do cache é fornecido junto com o app.
+     * @param content, o conteúdo que deveria ser salvo no arquivo
+     * @throws IOException, caso houvesse algum problema no salvamento do arquivo
+     */
+    @Deprecated
     @Override
     public void saveCacheFile(String content) throws IOException {
         Log.i(TAG, "saveCacheFile Called");
-        File file = new File(mContext.getFilesDir(), FILE_NAME);
-
-        FileWriter writer = new FileWriter(file);
-        writer.write(content);
-        writer.flush();
-        writer.close();
     }
 }

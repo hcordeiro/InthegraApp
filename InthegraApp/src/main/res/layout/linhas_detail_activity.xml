@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/denominacaoLinhaTxt"
-        android:text="Linha X"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -115,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ver no mapa"
-        android:id="@+id/button"
+        android:id="@+id/verNoMapaBtn"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="displayLinhasMapaActivity"
@@ -128,7 +127,7 @@
         android:layout_below="@+id/paradasLbl"
         android:layout_centerHorizontal="true"
         android:choiceMode="singleChoice"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/verNoMapaBtn"
         />
 
 </RelativeLayout>

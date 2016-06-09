@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.equalsp.stransthe.Linha;
 import com.equalsp.stransthe.Veiculo;
-import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraServiceSingleton;
+import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class InthegraVeiculosAsync extends AsyncTask<Linha, Void, List<Veiculo>>
         List<Veiculo> veiculos = new ArrayList<>();
         try {
             Log.d(TAG, "Recuperando veículos da linha... ");
-            veiculos = InthegraServiceSingleton.getVeiculos(linha);
+            veiculos = InthegraService.getVeiculos(linha);
         } catch (IOException e) {
             Log.e(TAG, "Não foi possível recuperar os veículos da linha, motivo: " + e.getMessage());
             wasUnsuccessful = true;
