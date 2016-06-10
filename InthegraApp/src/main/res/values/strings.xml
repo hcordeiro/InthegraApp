@@ -49,12 +49,14 @@
     <string name="certo">Certo</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
+    <string name="atualizando_mapa">Atualizando mapa...</string>
 
     <!-- Erros -->
     <string name="iniciar_app">Não foi possível iniciar o aplicativo</string>
-    <string name="carregar_linhas">Não foi possível carregar as Linhas</string>
-    <string name="carregar_paradas">Não foi possível carregar as Paradas</string>
-    <string name="atualizando_mapa">Atualizando mapa...</string>
+    <string name="erro_carregar_linhas">Não foi possível carregar as Linhas</string>
+    <string name="erro_carregar_paradas">Não foi possível carregar as Paradas</string>
+    <string name="erro_carregar_rotas">Não foi possível carregar as Rotas</string>
+    <string name="erro_carregar_veiculos">Não foi possível carregar os Veículos da Linha Informada</string>
 
 
 </resources>

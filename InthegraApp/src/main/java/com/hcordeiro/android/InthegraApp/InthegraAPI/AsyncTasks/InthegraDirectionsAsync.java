@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
+import com.hcordeiro.android.InthegraApp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,19 +52,23 @@ public class InthegraDirectionsAsync extends AsyncTask<Trecho, Void, Void> imple
     protected void onPreExecute() {
         Log.d(TAG, "onPreExecute Called");
         super.onPreExecute();
+        alert = criarAlerta();
+        dialog = new ProgressDialog(mContext);
+        dialog.setMessage(mContext.getString(R.string.carregando));
+        dialog.show();
+    }
+
+    private AlertDialog criarAlerta() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
-        alertBuilder.setMessage("Não foi possível criar Rota");
+        alertBuilder.setMessage(mContext.getString(R.string.erro_carregar_rotas));
         alertBuilder.setCancelable(false);
-        alertBuilder.setNeutralButton("Certo",
+        alertBuilder.setNeutralButton(mContext.getString(R.string.certo),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
                 });
-        alert = alertBuilder.create();
-        dialog = new ProgressDialog(mContext);
-        dialog.setMessage("Carregando rota...");
-        dialog.show();
+        return alertBuilder.create();
     }
 
     @Override

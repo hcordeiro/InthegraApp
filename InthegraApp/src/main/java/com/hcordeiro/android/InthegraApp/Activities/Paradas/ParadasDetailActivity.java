@@ -120,7 +120,7 @@ public class ParadasDetailActivity extends AppCompatActivity {
             Log.v(TAG, "Carregando linhas...");
             linhas = InthegraService.getLinhas(parada);
         } catch (IOException e) {
-            Log.e(TAG, this.getString(R.string.carregar_linhas) + ", motivo: " + e.getMessage());
+            Log.e(TAG, this.getString(R.string.erro_carregar_linhas) + ", motivo: " + e.getMessage());
             alert.show();
         }
         return linhas;
@@ -145,7 +145,7 @@ public class ParadasDetailActivity extends AppCompatActivity {
      */
     private AlertDialog criarAlerta() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ParadasDetailActivity.this);
-        alertBuilder.setMessage(this.getString(R.string.carregar_linhas));
+        alertBuilder.setMessage(this.getString(R.string.erro_carregar_linhas));
         alertBuilder.setCancelable(false);
         alertBuilder.setNeutralButton(this.getString(R.string.certo),
                 new DialogInterface.OnClickListener() {

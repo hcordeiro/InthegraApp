@@ -5,6 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 /**
+ * CluesterItem de Parada. Serve para permitir o agrupamento de marcadores no google maps
  * Created by hugo on 30/05/16.
  */
 public class ItemParadaClusterizavel implements ClusterItem {

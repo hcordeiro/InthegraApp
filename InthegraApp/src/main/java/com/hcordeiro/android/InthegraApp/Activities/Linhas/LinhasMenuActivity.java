@@ -53,7 +53,7 @@ public class LinhasMenuActivity extends AppCompatActivity {
             Log.v(TAG, "Carregando linhas...");
             linhas = InthegraService.getLinhas();
         } catch (IOException e) {
-            Log.e(TAG, this.getString(R.string.carregar_linhas) + ", motivo: " + e.getMessage());
+            Log.e(TAG, this.getString(R.string.erro_carregar_linhas) + ", motivo: " + e.getMessage());
             alert.show();
         }
         return linhas;
@@ -116,7 +116,7 @@ public class LinhasMenuActivity extends AppCompatActivity {
      */
     private AlertDialog criarAlerta() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setMessage(this.getString(R.string.carregar_linhas));
+        alertBuilder.setMessage(this.getString(R.string.erro_carregar_linhas));
         alertBuilder.setCancelable(false);
         alertBuilder.setNeutralButton(this.getString(R.string.certo),
                 new DialogInterface.OnClickListener() {

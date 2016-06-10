@@ -221,7 +221,7 @@ public class VeiculosMapaActivity extends FragmentActivity implements OnMapReady
      */
     private AlertDialog criarAlerta() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(VeiculosMapaActivity.this);
-        alertBuilder.setMessage(this.getString(R.string.carregar_paradas));
+        alertBuilder.setMessage(this.getString(R.string.erro_carregar_paradas));
         alertBuilder.setCancelable(false);
         alertBuilder.setNeutralButton(this.getString(R.string.certo),
                 new DialogInterface.OnClickListener() {

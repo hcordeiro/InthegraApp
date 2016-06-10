@@ -9,6 +9,7 @@ import android.util.Log;
 import com.equalsp.stransthe.rotas.Rota;
 import com.google.android.gms.maps.model.LatLng;
 import com.hcordeiro.android.InthegraApp.InthegraAPI.InthegraService;
+import com.hcordeiro.android.InthegraApp.R;
 
 import java.io.IOException;
 import java.util.Set;
@@ -36,7 +37,7 @@ public class InthegraRotasAsync extends AsyncTask<Object, Void, Set<Rota>> imple
         Log.d(TAG, "onPreExecute Called");
         super.onPreExecute();
         dialog = new ProgressDialog(mContext);
-        this.dialog.setMessage("Carregando rotas...");
+        this.dialog.setMessage(mContext.getString(R.string.carregando));
         this.dialog.show();
     }
 

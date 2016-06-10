@@ -19,6 +19,8 @@ import com.google.maps.android.ui.SquareTextView;
 import com.hcordeiro.android.InthegraApp.R;
 
 /**
+ * Responsável por renderizar os marcadores quando ocorreo mudanças no mapa do googlemaps
+ *
  * http://stackoverflow.com/questions/37211274/google-map-marker-is-replaced-by-bounding-rectangle-on-zoom
  */
 public class ParadaClusterRenderer extends DefaultClusterRenderer<ItemParadaClusterizavel> {

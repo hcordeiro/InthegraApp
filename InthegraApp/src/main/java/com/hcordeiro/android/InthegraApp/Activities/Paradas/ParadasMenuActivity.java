@@ -62,7 +62,7 @@ public class ParadasMenuActivity extends AppCompatActivity {
             Log.v(TAG, "Carregando paradas...");
             paradas = InthegraService.getParadas();
         } catch (IOException e) {
-            Log.e(TAG, this.getString(R.string.carregar_paradas) + ", motivo: " + e.getMessage());
+            Log.e(TAG, this.getString(R.string.erro_carregar_paradas) + ", motivo: " + e.getMessage());
             alert.show();
         }
         return paradas;
@@ -129,7 +129,7 @@ public class ParadasMenuActivity extends AppCompatActivity {
      */
     private AlertDialog criarAlerta() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ParadasMenuActivity.this);
-        alertBuilder.setMessage(this.getString(R.string.carregar_paradas));
+        alertBuilder.setMessage(this.getString(R.string.erro_carregar_paradas));
         alertBuilder.setCancelable(false);
         alertBuilder.setNeutralButton(this.getString(R.string.certo),
                 new DialogInterface.OnClickListener() {
