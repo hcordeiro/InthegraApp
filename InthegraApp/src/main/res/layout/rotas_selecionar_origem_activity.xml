@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,30 +10,46 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activities.Rotas.RotasSelecionarOrigemActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/menu_rotas_origem_btn"
-        android:id="@+id/selecionarOrigemLbl"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:name="com.google.android.gms.maps.MapFragment"
+    <com.google.android.gms.ads.AdView
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_origem_rotas"
+        android:id="@+id/adView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        >
+    </com.google.android.gms.ads.AdView>
+
+    <TextView
+        android:id="@+id/selecionarOrigemLbl"
+        android:layout_below="@+id/adView"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/menu_rotas_origem_btn"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
+
+    <fragment
         android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_above="@+id/confirmaBtn"
         android:layout_below="@+id/selecionarOrigemLbl"
-        android:layout_above="@+id/confirmaBtn" />
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:name="com.google.android.gms.maps.MapFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confirma"
         android:id="@+id/confirmaBtn"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="confirma"/>
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:onClick="confirma"
+        android:text="@string/confirma"
+        />
 
 </RelativeLayout>

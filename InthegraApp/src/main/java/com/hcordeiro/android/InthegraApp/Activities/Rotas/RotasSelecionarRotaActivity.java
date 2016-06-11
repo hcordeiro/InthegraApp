@@ -19,7 +19,6 @@ import com.hcordeiro.android.InthegraApp.InthegraAPI.AsyncTasks.InthegraRotasAsy
 import com.hcordeiro.android.InthegraApp.R;
 import com.hcordeiro.android.InthegraApp.Util.Util;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,7 +34,7 @@ import java.util.TreeSet;
  *
  * Created by hugo on 17/05/16.
  */
-public class RotasEscolherActivity extends AppCompatActivity implements InthegraRotasAsyncResponse {
+public class RotasSelecionarRotaActivity extends AppCompatActivity implements InthegraRotasAsyncResponse {
     private final String TAG = "GerarRota";
     private Set<Rota> rotas;
 
@@ -43,7 +42,7 @@ public class RotasEscolherActivity extends AppCompatActivity implements Inthegra
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rotas_gerar_activity);
+        setContentView(R.layout.rotas_selecionar_rota_activity);
         /* Recupera a origem e o destino setados no menu anterior */
         Bundle bundle = getIntent().getParcelableExtra("Bundle");
         LatLng origem = bundle.getParcelable("Origem");
@@ -59,7 +58,7 @@ public class RotasEscolherActivity extends AppCompatActivity implements Inthegra
      * é recebida a função processFinish é chamada */
     private void carregarRotas(LatLng origem, LatLng destino, Double distanciaMaxima) {
         Log.d(TAG, "carregarRotas Called");
-        InthegraRotasAsync asyncTask =  new InthegraRotasAsync(RotasEscolherActivity.this);
+        InthegraRotasAsync asyncTask =  new InthegraRotasAsync(RotasSelecionarRotaActivity.this);
         asyncTask.delegate = this;
         asyncTask.execute(origem, destino, distanciaMaxima);
     }
@@ -80,14 +79,14 @@ public class RotasEscolherActivity extends AppCompatActivity implements Inthegra
          * i.e. não há rotas diretas entre a origem e o destino,
          * um alerta é exibido e a activity é finalizada*/
         if (listaRotas.isEmpty()) {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotasEscolherActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RotasSelecionarRotaActivity.this);
             alertBuilder.setMessage("Não foram encontradas rotas para a origem e o destino selecionados...");
             alertBuilder.setCancelable(false);
             alertBuilder.setNeutralButton("Certo",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            Intent intent = new Intent(RotasEscolherActivity.this, MenuPrincipalActivity.class);
+                            Intent intent = new Intent(RotasSelecionarRotaActivity.this, MenuPrincipalActivity.class);
                             startActivity(intent);
                             finish();
                         }
@@ -156,7 +155,7 @@ public class RotasEscolherActivity extends AppCompatActivity implements Inthegra
                     Rota rota = (Rota) (listView.getItemAtPosition(position));
 
                      /* Inicia a atividade que exibe o mapa da rota */
-                    Intent myIntent = new Intent(RotasEscolherActivity.this, RotasMapaActivity.class);
+                    Intent myIntent = new Intent(RotasSelecionarRotaActivity.this, RotasMapaActivity.class);
                     myIntent.putExtra("Rota", rota);
                     startActivity(myIntent);
                 }

@@ -65,7 +65,7 @@ public class VeiculosMapaActivity extends FragmentActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.veiculos_detail_activity);
+        setContentView(R.layout.veiculos_mapa_activity);
 
         /* Se o usuário não possuir conexão com a internet, a activity é finalizada */
         if (!Util.isOnline(this)) {

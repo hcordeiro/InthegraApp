@@ -11,7 +11,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hcordeiro.android.InthegraApp.Activities.Linhas.LinhasDetailActivity"
-    android:nestedScrollingEnabled="false"
     android:onClick="displayLinhasMapaActivity">
 
     <com.google.android.gms.ads.AdView
@@ -73,6 +72,7 @@
         android:layout_alignRight="@+id/paradasListView"
         android:layout_below="@+id/codigoLinhaTxt"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/origemLinhaLbl"
         android:layout_toRightOf="@+id/origemLinhaLbl"
         android:layout_width="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -95,6 +95,7 @@
         android:layout_alignRight="@+id/paradasListView"
         android:layout_alignTop="@+id/retornoLinhaLbl"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/retornoLinhaLbl"
         android:layout_toRightOf="@+id/retornoLinhaLbl"
         android:layout_width="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -117,6 +118,7 @@
         android:layout_alignRight="@+id/paradasListView"
         android:layout_alignTop="@+id/isCircularLbl"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/isCircularLbl"
         android:layout_toRightOf="@+id/isCircularLbl"
         android:layout_width="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
@@ -149,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:onClick="displayLinhasMapaActivity"
-        android:text="Ver no mapa"
+        android:text="@string/detail_parada_verNoMapaBtn"
         />
 
 </RelativeLayout>

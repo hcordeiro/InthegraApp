@@ -66,7 +66,7 @@ public class RotasMapaActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "OnCreate Called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rotas_detail_activity);
+        setContentView(R.layout.rotas_mapa_activity);
         /* Solicita a localização atual do usuário
          * para exibi-la no mapa */
         Util.requestLocation(this, mLocationListener);

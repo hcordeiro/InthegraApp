@@ -36,7 +36,7 @@
     <string name="gerarRotas_escolharotaLbl">Escolha uma opção</string>
 
     <!-- Veículos -->
-    <string name="menu_veiculos_titulo">Escolha uma linha</string>
+    <string name="menu_veiculos_titulo">Cadê meu ônibus?</string>
     <string name="menu_veiculos_escolhaLinha">Escolha uma linha: </string>
     <string name="detail_veiculo_qtdParadasLbl">Quantidade de paradas: </string>
     <string name="detail_veiculo_qtdVeiculosLbl">Quantidade de veículos: </string>
@@ -73,6 +73,8 @@
     <string name="banner_destino_rotas">ca-app-pub-9555372692160507/9299125678</string>
     <string name="banner_selecionar_rotas">ca-app-pub-9555372692160507/1775858875</string>
     <string name="banner_mapa_rotas">ca-app-pub-9555372692160507/3252592074</string>
+    <string name="banner_menu_veiculos">ca-app-pub-9555372692160507/4537522079</string>
+    <string name="banner_mapa_veiculos">ca-app-pub-9555372692160507/6014255279</string>
 
 
 

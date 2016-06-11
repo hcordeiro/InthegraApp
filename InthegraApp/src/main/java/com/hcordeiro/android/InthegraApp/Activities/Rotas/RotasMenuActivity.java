@@ -108,7 +108,7 @@ public class RotasMenuActivity extends AppCompatActivity {
         bundle.putParcelable("Destino", destino);
 
          /* Inicia a atividade que exibe as rotas possíveis entre a origem e o destino */
-        Intent intent = new Intent(this, RotasEscolherActivity.class);
+        Intent intent = new Intent(this, RotasSelecionarRotaActivity.class);
         intent.putExtra("Bundle", bundle);
         startActivity(intent);
     }

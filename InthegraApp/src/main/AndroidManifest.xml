@@ -45,7 +45,7 @@
         <activity android:name=".Activities.Rotas.RotasMenuActivity" android:screenOrientation="nosensor"/>
         <activity android:name=".Activities.Rotas.RotasSelecionarOrigemActivity" android:screenOrientation="nosensor"/>
         <activity android:name=".Activities.Rotas.RotasSelecionarDestinoActivity" android:screenOrientation="nosensor"/>
-        <activity android:name=".Activities.Rotas.RotasEscolherActivity" android:screenOrientation="nosensor"/>
+        <activity android:name=".Activities.Rotas.RotasSelecionarRotaActivity" android:screenOrientation="nosensor"/>
         <activity android:name=".Activities.Rotas.RotasMapaActivity" android:screenOrientation="nosensor"/>
 
         <service
