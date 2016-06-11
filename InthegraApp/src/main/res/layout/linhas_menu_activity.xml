@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,31 +12,46 @@
     tools:context=".Activities.Linhas.LinhasMenuActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/menu_linhas_titulo"
         android:id="@+id/menuLinhasTxt"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/menu_linhas_titulo"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
 
     <SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/linhaSearchView"
-        android:layout_below="@+id/menuLinhasTxt"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:queryHint="@string/menu_linhas_hint"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/menuLinhasTxt"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:queryHint="@string/menu_linhas_hint"
+        />
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
         android:id="@+id/linhasListView"
+        android:layout_above="@+id/adView"
         android:layout_below="@+id/linhaSearchView"
         android:layout_centerHorizontal="true"
-        android:choiceMode="singleChoice" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        />
+
+    <com.google.android.gms.ads.AdView
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_menu_linhas"
+        android:id="@+id/adView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        >
+    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

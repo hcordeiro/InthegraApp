@@ -30,6 +30,7 @@ public class inicioActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.inicio_activity);
 
+
         /* Verifica as permissões de localização */
         Util.checarPermissoes(this);
 

@@ -52,7 +52,7 @@ public class RotasAdapter extends BaseAdapter {
         RotasViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = li.inflate(R.layout.rotas_list_layout, null);
+            v = li.inflate(R.layout.simple_list_layout, null);
             viewHolder = new RotasViewHolder(v);
             v.setTag(viewHolder);
         } else {
@@ -67,7 +67,7 @@ public class RotasAdapter extends BaseAdapter {
         textBuilder.append(", Distância até a parada: ");
         textBuilder.append(String.valueOf(df.format(primeiroTrecho.getDistancia())) + " m");
 
-        viewHolder.itemRota.setText(textBuilder.toString());
+        viewHolder.item.setText(textBuilder.toString());
         return v;
     }
 
@@ -83,9 +83,9 @@ public class RotasAdapter extends BaseAdapter {
     }
 
     private class RotasViewHolder {
-        public TextView itemRota;
+        public TextView item;
         public RotasViewHolder(View base) {
-            itemRota = (TextView) base.findViewById(R.id.itemRota);
+            item = (TextView) base.findViewById(R.id.item);
         }
     }
 

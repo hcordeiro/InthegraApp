@@ -59,4 +59,21 @@
     <string name="erro_carregar_veiculos">Não foi possível carregar os Veículos da Linha Informada</string>
 
 
+    <!-- Ads -->
+    <string name="admob_id">ca-app-pub-9555372692160507~5287728470</string>
+    <string name="banner_menu_principal">ca-app-pub-9555372692160507/2194661277</string>
+    <string name="banner_menu_linhas">ca-app-pub-9555372692160507/2055060473</string>
+    <string name="banner_detail_linhas">ca-app-pub-9555372692160507/6485260074</string>
+    <string name="banner_mapa_linhas">ca-app-pub-9555372692160507/7961993278</string>
+    <string name="banner_menu_paradas">ca-app-pub-9555372692160507/9438726470</string>
+    <string name="banner_detail_paradas">ca-app-pub-9555372692160507/1915459670</string>
+    <string name="banner_mapa_paradas">ca-app-pub-9555372692160507/4868926079</string>
+    <string name="banner_menu_rotas">ca-app-pub-9555372692160507/6345659278</string>
+    <string name="banner_origem_rotas">ca-app-pub-9555372692160507/7822392471</string>
+    <string name="banner_destino_rotas">ca-app-pub-9555372692160507/9299125678</string>
+    <string name="banner_selecionar_rotas">ca-app-pub-9555372692160507/1775858875</string>
+    <string name="banner_mapa_rotas">ca-app-pub-9555372692160507/3252592074</string>
+
+
+
 </resources>

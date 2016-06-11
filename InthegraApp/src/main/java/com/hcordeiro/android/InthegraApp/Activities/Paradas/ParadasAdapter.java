@@ -64,13 +64,13 @@ public class ParadasAdapter extends BaseAdapter {
         ParadasViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = li.inflate(R.layout.paradas_list_layout, null);
+            v = li.inflate(R.layout.simple_list_layout, null);
             viewHolder = new ParadasViewHolder(v);
             v.setTag(viewHolder);
         } else {
             viewHolder = (ParadasViewHolder) v.getTag();
         }
-        viewHolder.itemParada.setText(paradasTratadas.get(position).getEndereco());
+        viewHolder.item.setText(paradasTratadas.get(position).getEndereco());
         return v;
     }
 
@@ -86,9 +86,9 @@ public class ParadasAdapter extends BaseAdapter {
     }
 
     private class ParadasViewHolder {
-        public TextView itemParada;
+        public TextView item;
         public ParadasViewHolder(View base) {
-            itemParada = (TextView) base.findViewById(R.id.itemParada);
+            item = (TextView) base.findViewById(R.id.item);
         }
     }
 

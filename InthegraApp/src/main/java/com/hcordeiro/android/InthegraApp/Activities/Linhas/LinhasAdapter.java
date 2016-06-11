@@ -49,13 +49,13 @@ public class LinhasAdapter extends BaseAdapter {
         LinhasViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = li.inflate(R.layout.linhas_list_layout, null);
+            v = li.inflate(R.layout.simple_list_layout, null);
             viewHolder = new LinhasViewHolder(v);
             v.setTag(viewHolder);
         } else {
             viewHolder = (LinhasViewHolder) v.getTag();
         }
-        viewHolder.itemLinha.setText(linhasTratadas.get(position).toString());
+        viewHolder.item.setText(linhasTratadas.get(position).toString());
         return v;
     }
 
@@ -71,9 +71,9 @@ public class LinhasAdapter extends BaseAdapter {
     }
 
     private class LinhasViewHolder {
-        public TextView itemLinha;
+        public TextView item;
         public LinhasViewHolder(View base) {
-            itemLinha = (TextView) base.findViewById(R.id.itemLinha);
+            item = (TextView) base.findViewById(R.id.item);
         }
     }
 

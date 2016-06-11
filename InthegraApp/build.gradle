@@ -31,6 +31,7 @@ dependencies {
     compile 'com.google.maps.android:android-maps-utils:0.4.3'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.google.firebase:firebase-messaging:9.0.0'
+    compile 'com.google.firebase:firebase-ads:9.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
