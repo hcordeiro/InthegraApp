@@ -35,6 +35,3 @@ Os dados que o Strans disponibiliza já foram adicionado ao aok, i.e. não há m
  
 # Download do APK
 [Clique aqui para baixar!](https://drive.google.com/open?id=0Bz_yrXrPv1-MaWtNdGhUWmtyU2M)
-
-# Licensa de uso
-Esse projeto é distribuído sob a licença MIT, o que significa que você pode usar, modificar, distribuir e incluir os fontes ou a biblioteca compilada, inclusive em software de uso comercial, bastando manter uma cópia do arquivo de licença incluído nessa distribuição (license.txt).
